@@ -9,9 +9,9 @@ public interface UtilisateurDAO {
 
     List<Utilisateur> selectAll() throws DALException;
 
-    void update(Utilisateur user) throws DALException;
+    void update(Utilisateur utilisateur) throws DALException;
 
-    void insert(Utilisateur user) throws DALException;
+    void insert(Utilisateur utilisateur) throws DALException;
 
     void delete(Integer id) throws DALException;
 }
