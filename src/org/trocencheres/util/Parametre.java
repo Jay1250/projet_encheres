@@ -1,4 +1,4 @@
-package fr.eni.encheres.util;
+package org.trocencheres.util;
 
 import java.util.ResourceBundle;
 
