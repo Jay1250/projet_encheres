@@ -1,6 +1,5 @@
 -- Script de création de la base de données ENCHERES
 --   type :      SQL Server 2012
---
 
 CREATE TABLE CATEGORIES (
     no_categorie   INTEGER NOT NULL,
