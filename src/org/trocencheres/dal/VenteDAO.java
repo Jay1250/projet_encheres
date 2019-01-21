@@ -1,5 +1,4 @@
 package org.trocencheres.dal;
 
-public class Test {
-
+public interface VenteDAO {
 }
