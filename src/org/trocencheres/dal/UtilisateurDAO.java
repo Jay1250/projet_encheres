@@ -1,6 +1,6 @@
 package org.trocencheres.dal;
 
-import fr.eni.encheres.bean.Utilisateur;
+import org.trocencheres.beans.Utilisateur;
 
 import java.util.List;
 
