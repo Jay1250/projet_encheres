@@ -1,4 +1,4 @@
-package fr.eni.encheres.dal;
+package org.trocencheres.dal;
 
 import fr.eni.encheres.bean.Utilisateur;
 
