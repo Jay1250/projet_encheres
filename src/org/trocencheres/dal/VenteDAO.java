@@ -7,7 +7,7 @@ import java.util.List;
 public interface VenteDAO {
     Vente selectById(Integer id) throws DALException;
 
-    Lis<Vente> selectAll() throws DALException;
+    List<Vente> selectAll() throws DALException;
 
     void update(Vente vente) throws DALException;
 
