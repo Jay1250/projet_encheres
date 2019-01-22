@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
+import org.trocencheres.dal.UtilisateurDAOFactory;
 
 
 
@@ -23,24 +24,26 @@ import org.trocencheres.dal.UtilisateurDAO;
 @WebServlet("/ServletConnexion")
 public class ServletConnexion extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
+	private UtilisateurDAO daoUtilisateur;
+	
 
     /**
      * Default constructor. 
      */
     public ServletConnexion() {
-        // TODO Auto-generated constructor stub
+       this.daoUtilisateur=UtilisateurDAOFactory.getUtilisateurDao();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		 
 		String identifiant = request.getParameter("identifiant");
 		String mdp = request.getParameter("motdepasse");
 
 		try {
-			Utilisateur utilisateurTrouve = UtilisateurDAO.rechercher(identifiant, mdp);
+			Utilisateur utilisateurTrouve = daoUtilisateur.selectByLogin(identifiant, mdp); 
 
 			request.setAttribute("utilisateurConnecte", utilisateurTrouve);
 			request.setAttribute("identifiant", identifiant);
