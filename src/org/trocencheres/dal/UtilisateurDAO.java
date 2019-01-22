@@ -7,7 +7,7 @@ import java.util.List;
 public interface UtilisateurDAO {
     Utilisateur selectById(Integer id) throws DALException;
 
-    Utilisateur selectByPseudoAndPassword(String pseudo, String password) throws DALException;
+    Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException;
 
     List<Utilisateur> selectAll() throws DALException;
 

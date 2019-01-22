@@ -33,26 +33,37 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
     }
 
     @Override
-    public Utilisateur selectByPseudoAndPassword(String pseudo, String password) throws DALException {
+    public Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException {
         try (Connection connection = AccesBase.getConnection()) {
             Utilisateur utilisateur = new Utilisateur();
-            String sqlRequest = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
+            String sqlRequest = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
-            statement.setString(1, pseudo);
-            statement.setString(2, password);
+            statement.setString(1, pseudoOrEmail);
+            statement.setString(2, pseudoOrEmail);
+            statement.setString(3, password);
             ResultSet resultset = statement.executeQuery();
             if (resultset != null && resultset.next())
                 utilisateur = this.createUserFromResultSet(resultset);
             statement.close();
             return utilisateur;
         } catch (SQLException e) {
-            throw new DALException("User - Select by id", e);
+            throw new DALException("User - Select by pseudo and password", e);
         }
     }
 
     @Override
     public List<Utilisateur> selectAll() throws DALException {
-        return new ArrayList<>();
+        try(Connection connection = AccesBase.getConnection()) {
+            List<Utilisateur> allUtilisateurs = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM UTILISATEURS");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allUtilisateurs.add(this.createUserFromResultSet(resultSet));
+            }
+            return allUtilisateurs;
+        } catch (SQLException e) {
+            throw new DALException("User - Select all", e);
+        }
     }
 
     @Override
