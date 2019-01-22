@@ -12,12 +12,9 @@ public class Utilisateur {
 	public Utilisateur() {
 	}
 
-	// constructeur sans mdp
-	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
-			String telephone, String rue, String codePostal, String ville, boolean administrateur,
-			ArrayList<Vente> ventes) {
-		this.noUtilisateur = noUtilisateur;
-		this.credit = credit;
+	// constructeur sans noUtilisateur et motDePasse
+	private Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, int credit, boolean administrateur, ArrayList<Vente> ventes) {
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -26,34 +23,34 @@ public class Utilisateur {
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
+        this.credit = credit;
 		this.administrateur = administrateur;
 		this.ventes = ventes;
 	}
 
-	// constructeur sans noUtilisateur
-	public Utilisateur(int credit, String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, boolean administrateur, ArrayList<Vente> ventes) {
+    // constructeur sans motDePasse
+    public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email,
+                       String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur,
+                       ArrayList<Vente> ventes) {
+        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, ventes);
+        this.noUtilisateur = noUtilisateur;
+    }
 
-		this.credit = credit;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		this.administrateur = administrateur;
-		this.ventes = ventes;
-	}
+    // constructeur sans noUtilisateur
+    private Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+                        String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
+                        ArrayList<Vente> ventes) {
+        this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, ventes);
+        this.motDePasse = motDePasse;
+    }
 
-	// constructeur classique
+	// constructeur complet
 	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
 			String telephone, String rue, String codePostal, String ville, String motDePasse, boolean administrateur,
 			ArrayList<Vente> ventes) {
-		this(credit, pseudo,nom,prenom,email,telephone,rue, codePostal, ville,motDePasse,administrateur,ventes);
+		this(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, ventes);
 		this.noUtilisateur = noUtilisateur;
+		this.motDePasse = motDePasse;
 	}
 
 	public void setVentes(ArrayList<Vente> ventes) {
