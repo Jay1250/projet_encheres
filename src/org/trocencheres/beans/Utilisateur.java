@@ -7,17 +7,15 @@ public class Utilisateur {
 	private int noUtilisateur, credit;
 	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
 	private boolean administrateur;
-private ArrayList<Vente> ventes;
+	private ArrayList<Vente> ventes;
 
 	public Utilisateur() {
-		super();
 	}
-	
 
+	// constructeur sans mdp
 	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
 			String telephone, String rue, String codePostal, String ville, boolean administrateur,
 			ArrayList<Vente> ventes) {
-		super();
 		this.noUtilisateur = noUtilisateur;
 		this.credit = credit;
 		this.pseudo = pseudo;
@@ -32,14 +30,30 @@ private ArrayList<Vente> ventes;
 		this.ventes = ventes;
 	}
 
+	// constructeur sans noUtilisateur
+	public Utilisateur(int credit, String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String motDePasse, boolean administrateur, ArrayList<Vente> ventes) {
 
+		this.credit = credit;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.administrateur = administrateur;
+		this.ventes = ventes;
+	}
+
+	// constructeur classique
 	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
-			String telephone, String rue, String codePostal, String ville,  boolean administrateur,
-			ArrayList<Vente> ventes,String motDePasse) {
-		
-		this(noUtilisateur,credit,pseudo,nom,prenom,email,telephone,rue,codePostal,ville,administrateur, ventes);
-			this.motDePasse = motDePasse;
-		
+			String telephone, String rue, String codePostal, String ville, String motDePasse, boolean administrateur,
+			ArrayList<Vente> ventes) {
+		this(credit, pseudo,nom,prenom,email,telephone,rue, codePostal, ville,motDePasse,administrateur,ventes);
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	public void setVentes(ArrayList<Vente> ventes) {
