@@ -12,5 +12,7 @@
     <servlet-name>Accueil</servlet-name>
     <url-pattern>/Accueil</url-pattern>
   </servlet-mapping>
- 
+    <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
 </web-app>
