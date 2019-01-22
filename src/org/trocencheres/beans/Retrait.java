@@ -3,10 +3,18 @@ package org.trocencheres.beans;
 public class Retrait {
 
 	Vente vente;
-	String rue, codePostal,ville;
-	
+	String rue, codePostal, ville;
+
 	public Retrait() {
 		super();
+	}
+
+	public Retrait(Vente vente, String rue, String codePostal, String ville) {
+		super();
+		this.vente = vente;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
 	}
 
 	public Vente getVente() {
@@ -56,7 +64,4 @@ public class Retrait {
 		return builder.toString();
 	}
 
-	
-	
-	
 }
