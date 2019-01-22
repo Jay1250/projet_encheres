@@ -12,10 +12,9 @@ private ArrayList<Vente> ventes;
 	public Utilisateur() {
 		super();
 	}
-	
 
-	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
-			String telephone, String rue, String codePostal, String ville, boolean administrateur,
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email,
+					   String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur,
 			ArrayList<Vente> ventes) {
 		super();
 		this.noUtilisateur = noUtilisateur;
@@ -32,12 +31,11 @@ private ArrayList<Vente> ventes;
 		this.ventes = ventes;
 	}
 
-
-	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
-			String telephone, String rue, String codePostal, String ville,  boolean administrateur,
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email,
+			String telephone, String rue, String codePostal, String ville, int credit, boolean administrateur,
 			ArrayList<Vente> ventes,String motDePasse) {
 		
-		this(noUtilisateur,credit,pseudo,nom,prenom,email,telephone,rue,codePostal,ville,administrateur, ventes);
+		this(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, ventes);
 			this.motDePasse = motDePasse;
 		
 	}
