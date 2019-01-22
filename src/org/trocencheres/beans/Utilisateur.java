@@ -4,32 +4,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Utilisateur {
-	int noUtilisateur, credit;
-	String pseudo, nom, porenom, email, telephone, rue, codePostal, ville, motDePasse;
-	boolean administrateur;
-	ArrayList<Vente> ventes;
+	private int noUtilisateur, credit;
+	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
+	private boolean administrateur;
+private ArrayList<Vente> ventes;
 
 	public Utilisateur() {
 		super();
 	}
+	
 
-	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String porenom, String email,
-			String telephone, String rue, String codePostal, String ville, String motDePasse, boolean administrateur,
+	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
+			String telephone, String rue, String codePostal, String ville, boolean administrateur,
 			ArrayList<Vente> ventes) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.credit = credit;
 		this.pseudo = pseudo;
 		this.nom = nom;
-		this.porenom = porenom;
+		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
-		this.motDePasse = motDePasse;
 		this.administrateur = administrateur;
 		this.ventes = ventes;
+	}
+
+
+	public Utilisateur(int noUtilisateur, int credit, String pseudo, String nom, String prenom, String email,
+			String telephone, String rue, String codePostal, String ville,  boolean administrateur,
+			ArrayList<Vente> ventes,String motDePasse) {
+		
+		this(noUtilisateur,credit,pseudo,nom,prenom,email,telephone,rue,codePostal,ville,administrateur, ventes);
+			this.motDePasse = motDePasse;
+		
 	}
 
 	public void setVentes(ArrayList<Vente> ventes) {
@@ -68,12 +78,12 @@ public class Utilisateur {
 		this.nom = nom;
 	}
 
-	public String getPorenom() {
-		return porenom;
+	public String getprenom() {
+		return prenom;
 	}
 
-	public void setPorenom(String porenom) {
-		this.porenom = porenom;
+	public void setprenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	public String getEmail() {
@@ -143,8 +153,8 @@ public class Utilisateur {
 		builder.append(pseudo);
 		builder.append(", nom=");
 		builder.append(nom);
-		builder.append(", porenom=");
-		builder.append(porenom);
+		builder.append(", prenom=");
+		builder.append(prenom);
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", telephone=");

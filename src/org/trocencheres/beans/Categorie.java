@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class Categorie {
 
-	int noCategorie;
-	String libelle;
-	ArrayList<Vente> ventes;
+	private int noCategorie;
+	private String libelle;
+	private ArrayList<Vente> ventes;
 
 	public Categorie() {
 		super();

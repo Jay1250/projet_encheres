@@ -13,8 +13,8 @@ public class Vente {
 	private Categorie categorie;
 	private Retrait retrait;
 
-	public Retrait getRetrait() {
-		return retrait;
+	public Vente() {
+		super();
 	}
 
 	public Vente(int noVente, int prixInitial, int prixVente, String nomArticle, String description,
@@ -33,12 +33,12 @@ public class Vente {
 		this.retrait = retrait;
 	}
 
-	public void setRetrait(Retrait retrait) {
-		this.retrait = retrait;
+	public Retrait getRetrait() {
+		return retrait;
 	}
 
-	public Vente() {
-		super();
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
 	}
 
 	public int getNoVente() {

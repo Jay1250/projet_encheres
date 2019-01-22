@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Enchere {
 
-	Date dateEnchere;
-	Vente vente;
-	Utilisateur utilisateur;
+	private Date dateEnchere;
+	private Vente vente;
+	private Utilisateur utilisateur;
 
 	public Enchere() {
 		super();

@@ -2,8 +2,8 @@ package org.trocencheres.beans;
 
 public class Retrait {
 
-	Vente vente;
-	String rue, codePostal, ville;
+	private Vente vente;
+	private String rue, codePostal, ville;
 
 	public Retrait() {
 		super();
