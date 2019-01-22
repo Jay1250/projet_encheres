@@ -8,13 +8,16 @@ public class Categorie {
 	int noCategorie;
 	String libelle;
 	ArrayList<Vente> ventes;
-	
-	
-
-
 
 	public Categorie() {
 		super();
+	}
+
+	public Categorie(int noCategorie, String libelle, ArrayList<Vente> ventes) {
+		super();
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+		this.ventes = ventes;
 	}
 
 	public void setVentes(ArrayList<Vente> ventes) {
@@ -25,23 +28,17 @@ public class Categorie {
 		return noCategorie;
 	}
 
-
 	public void setNoCategorie(int noCategorie) {
 		this.noCategorie = noCategorie;
 	}
-
 
 	public String getLibelle() {
 		return libelle;
 	}
 
-
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-
-
-
 
 	@Override
 	public String toString() {
@@ -55,9 +52,5 @@ public class Categorie {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
-	
-	
+
 }
