@@ -2,7 +2,7 @@
 --   type :      SQL Server 2012
 
 CREATE TABLE CATEGORIES (
-    no_categorie   INTEGER NOT NULL,
+    no_categorie   INTEGER NOT NULL IDENTITY(1,1),
     libelle        VARCHAR(30) NOT NULL
 )
 
@@ -26,7 +26,7 @@ CREATE TABLE RETRAITS (
 ALTER TABLE RETRAITS ADD constraint retrait_pk PRIMARY KEY  (no_vente)
 
 CREATE TABLE UTILISATEURS (
-    no_utilisateur   INTEGER NOT NULL,
+    no_utilisateur   INTEGER NOT NULL IDENTITY(1,1),
     pseudo           VARCHAR(30) NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
@@ -44,7 +44,7 @@ ALTER TABLE UTILISATEURS ADD constraint utilisateur_pk PRIMARY KEY (no_utilisate
 
 
 CREATE TABLE VENTES (
-    no_vente                      INTEGER NOT NULL,
+    no_vente                      INTEGER NOT NULL IDENTITY(1,1),
     nomarticle                    VARCHAR(30) NOT NULL,
     description                   VARCHAR(300) NOT NULL,
     date_fin_encheres             DATE NOT NULL,
