@@ -86,29 +86,21 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
     }
 
     private PreparedStatement getStatementFromMode(String mode, Connection connection, Retrait retrait) throws SQLException {
-        return mode.equals("insert") ? this.getInsertStatement(connection, retrait)
-                : mode.equals("update") ? this.getUpdateStatement(connection, retrait) : null;
-    }
-
-    private PreparedStatement getInsertStatement(Connection connection, Retrait retrait) throws SQLException {
-        String sqlRequest = "INSERT INTO RETRAITS (rue, code_postal, ville, no_vente) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sqlRequest);
-        this.setStatementWithGenericInfosFromRetrait(statement, retrait);
-        return statement;
-    }
-
-    private PreparedStatement getUpdateStatement(Connection connection, Retrait retrait) throws SQLException {
-        String sqlRequest = "UPDATE RETRAITS SET rue = ?, code_postal = ?, ville = ? WHERE no_vente = ?";
-        PreparedStatement statement = connection.prepareStatement(sqlRequest);
-        this.setStatementWithGenericInfosFromRetrait(statement, retrait);
-        return statement;
-    }
-
-    private void setStatementWithGenericInfosFromRetrait(PreparedStatement statement, Retrait retrait) throws SQLException {
-        statement.setString(1, retrait.getRue());
-        statement.setString(1, retrait.getCodePostal());
-        statement.setString(1, retrait.getVille());
-        statement.setInt(4, retrait.getNoVente());
+        String sqlRequest = mode.equals("insert")
+                ? "INSERT INTO RETRAITS (rue, code_postal, ville, no_vente) VALUES (?, ?, ?, ?)"
+                : mode.equals("update")
+                    ? "UPDATE RETRAITS SET rue = ?, code_postal = ?, ville = ? WHERE no_vente = ?"
+                    : null;
+        if (sqlRequest == null)
+            return null;
+        else {
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setString(1, retrait.getRue());
+            statement.setString(1, retrait.getCodePostal());
+            statement.setString(1, retrait.getVille());
+            statement.setInt(4, retrait.getNoVente());
+            return statement;
+        }
     }
 
     private Retrait createWithdrawalFromResultSet(ResultSet resultSet) throws SQLException {

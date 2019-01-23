@@ -5,18 +5,14 @@ import java.util.Date;
 public class Enchere {
 
 	private Date dateEnchere;
-	private Vente vente;
-	private Utilisateur utilisateur;
+	private int noVente, noUtilisateur;
 
-	public Enchere() {
-		super();
-	}
+	public Enchere() {}
 
-	public Enchere(Date dateEnchere, Vente vente, Utilisateur utilisateur) {
-		super();
+	public Enchere(int noVente, int noUtilisateur, Date dateEnchere) {
 		this.dateEnchere = dateEnchere;
-		this.vente = vente;
-		this.utilisateur = utilisateur;
+		this.noVente = noVente;
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	public Date getDateEnchere() {
@@ -27,20 +23,20 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 	}
 
-	public Vente getVente() {
-		return vente;
+	public int getNoVente() {
+		return noVente;
 	}
 
-	public void setVente(Vente vente) {
-		this.vente = vente;
+	public void setNoVente(int noVente) {
+		this.noVente = noVente;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public int getNoUtilisateur() {
+		return noUtilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	@Override
@@ -48,10 +44,10 @@ public class Enchere {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Enchere [dateEnchere=");
 		builder.append(dateEnchere);
-		builder.append(", vente=");
-		builder.append(vente);
-		builder.append(", utilisateur=");
-		builder.append(utilisateur);
+		builder.append(", noVente=");
+		builder.append(noVente);
+		builder.append(", noUtilisateur=");
+		builder.append(noUtilisateur);
 		builder.append("]");
 		return builder.toString();
 	}
