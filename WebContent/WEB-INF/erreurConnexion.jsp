@@ -14,5 +14,7 @@
 <%=id%>
  saisis ne sont pas corrects.
 </p>
+<%request.getSession().invalidate();%>
+<a href="Accueil">Réessayez</a>
 </body>
 </html>

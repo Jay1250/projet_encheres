@@ -6,7 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<%String identifiant = (String)request.getSession().getAttribute("identifiant"); %>
 <body>
 Mon Profil
+<br><br>
+<p>Bonjour <%=identifiant %> !</p>
+<br><br>
+<a href="./VerifConnexion">Accueil</a>
 </body>
 </html>
