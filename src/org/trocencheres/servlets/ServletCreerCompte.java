@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.beans.Vente;
+import org.trocencheres.dal.DALException;
+import org.trocencheres.dal.UtilisateurDAO;
+import org.trocencheres.dal.UtilisateurDAOFactory;
 
 /**
  * Servlet implementation class ServletCreerCompte
@@ -18,12 +22,13 @@ import org.trocencheres.beans.Vente;
 @WebServlet("/ServletCreerCompte")
 public class ServletCreerCompte extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-       
+	private UtilisateurDAO daoUtilisateur;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ServletCreerCompte() {
         super();
+        this.daoUtilisateur=UtilisateurDAOFactory.getUtilisateurDao();
     }
 
 	/**
@@ -47,7 +52,25 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 		String codePostal=request.getParameter("codepostal"); 
 		String ville=request.getParameter("ville");
 		String motDePasse=request.getParameter("motdepasse");
+		String confirmationMotDePasse = request.getParameter("confirmation");
+		
+		ArrayList<Integer> ventes = new ArrayList<>();
 		boolean administrateur=false;
+		int credit=0;
+		int noUtilisateur=0;
+		
+		if (!motDePasse.equals(confirmationMotDePasse)) {
+					
+			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
+		}else {
+			try {
+				daoUtilisateur.insert(new Utilisateur());
+			}catch (DALException e) {
+				request.setAttribute("erreur", e);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+				
+			}
+		}
 		
 	}
 

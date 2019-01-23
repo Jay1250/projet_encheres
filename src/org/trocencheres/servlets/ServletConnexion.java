@@ -31,6 +31,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
      * Default constructor. 
      */
     public ServletConnexion() {
+    	super();
        this.daoUtilisateur=UtilisateurDAOFactory.getUtilisateurDao();
     }
 
