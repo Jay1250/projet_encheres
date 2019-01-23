@@ -34,7 +34,17 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public List<Vente> selectAll() throws DALException {
-        return new ArrayList<>();
+        try (Connection connection = AccesBase.getConnection()) {
+            List<Vente> allVentes = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allVentes.add(this.createSaleFromResultSet(resultSet));
+            }
+            return allVentes;
+        } catch (SQLException e) {
+            throw new DALException("Sale - Select all", e);
+        }
     }
 
     @Override

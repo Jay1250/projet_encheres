@@ -112,8 +112,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 	}
 
-	private PreparedStatement getStatementFromMode(String mode, Connection connection, Utilisateur utilisateur)
-			throws SQLException {
+	private PreparedStatement getStatementFromMode(String mode, Connection connection, Utilisateur utilisateur) throws SQLException {
 		return mode.equals("insert") ? this.getInsertStatement(connection, utilisateur)
 				: mode.equals("update") ? this.getUpdateStatement(connection, utilisateur) : null;
 	}
@@ -145,8 +144,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		return statement;
 	}
 
-	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur)
-			throws SQLException {
+	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur) throws SQLException {
 		statement.setString(1, utilisateur.getPseudo());
 		statement.setString(2, utilisateur.getNom());
 		statement.setString(3, utilisateur.getprenom());
