@@ -13,7 +13,7 @@
 
 	<div class="col-sm-12 col-xs-12">
 
-		<form action="/ProjetEncheres/ServletConnexion" method="post">
+		<form action="/ProjetEncheres/VerifConnexion" method="post">
 			<div class="col-sm-10 col-xs-10">
 
 					<div class="form-group">

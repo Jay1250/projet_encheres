@@ -42,13 +42,17 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 		String identifiant = request.getParameter("identifiant");
 		String mdp = request.getParameter("motdepasse");
 
+	
 		try {
-			Utilisateur utilisateurTrouve = daoUtilisateur.selectByLogin(identifiant, mdp); 
-
-			request.setAttribute("utilisateurConnecte", utilisateurTrouve);
-			request.setAttribute("identifiant", identifiant);
+			Utilisateur utilisateurTrouve = daoUtilisateur.selectByLogin(identifiant, mdp);
+			if (utilisateurTrouve.getNoUtilisateur() != 0) {
+				request.setAttribute("utilisateurConnecte", utilisateurTrouve);
+				request.setAttribute("identifiant", identifiant);
+			} else {
+				request.setAttribute("utilisateurConnecte", null);
+				request.setAttribute("identifiant", identifiant);
+			}
 			this.getServletContext().getRequestDispatcher("/ServletSession").forward(request, response);
-
 		} catch (
 
 		DALException e) {
