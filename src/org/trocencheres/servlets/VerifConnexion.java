@@ -38,7 +38,9 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 		
 		
 		if (request.getSession().getAttribute("utilisateurConnecte")==null) {
-			if(count>1) {			
+			if(count==null) {
+				this.getServletContext().getRequestDispatcher("/ServletConnexion").forward(request, response);
+			}else {
 				 this.getServletContext().getRequestDispatcher("/WEB-INF/erreurConnexion.jsp").forward(request, response);
 			}
 		}else {
