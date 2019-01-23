@@ -97,7 +97,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
     }
 
     private PreparedStatement getInsertStatement(Connection connection, Categorie categorie) throws SQLException {
-        String sqlRequest = "INSERT INTO CATEGORIES (no_categorie) VALUES (?)";
+        String sqlRequest = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
         PreparedStatement statement = connection.prepareStatement(sqlRequest, PreparedStatement.RETURN_GENERATED_KEYS);
         statement.setString(1, categorie.getLibelle());
         return statement;
