@@ -1,27 +1,15 @@
 package org.trocencheres.beans;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Categorie {
 
 	private int noCategorie;
 	private String libelle;
-	private ArrayList<Vente> ventes;
 
-	public Categorie() {
-		super();
-	}
+	public Categorie() {}
 
-	public Categorie(int noCategorie, String libelle, ArrayList<Vente> ventes) {
-		super();
+	public Categorie(int noCategorie, String libelle) {
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
-		this.ventes = ventes;
-	}
-
-	public void setVentes(ArrayList<Vente> ventes) {
-		this.ventes = ventes;
 	}
 
 	public int getNoCategorie() {
@@ -47,8 +35,6 @@ public class Categorie {
 		builder.append(noCategorie);
 		builder.append(", libelle=");
 		builder.append(libelle);
-		builder.append(", ventes=");
-		builder.append(ventes);
 		builder.append("]");
 		return builder.toString();
 	}

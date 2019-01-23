@@ -1,0 +1,154 @@
+package org.trocencheres.dal.jdbc;
+
+import org.trocencheres.beans.Enchere;
+import org.trocencheres.dal.DALException;
+import org.trocencheres.dal.EnchereDAO;
+import org.trocencheres.util.AccesBase;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class EnchereDAOJdbcImpl implements EnchereDAO {
+
+    @Override
+    public Enchere selectByIds(Integer noVente, Integer noUtilisateur) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            Enchere enchere = new Enchere();
+            String sqlRequest = "SELECT * FROM ENCHERES WHERE no_vente= ? AND no_utilisateur = ?";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noVente);
+            statement.setInt(2, noUtilisateur);
+            ResultSet resultset = statement.executeQuery();
+            if (resultset != null && resultset.next())
+                enchere = this.createAuctionFromResultSet(resultset);
+            statement.close();
+            return enchere;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select by id", e);
+        }
+    }
+
+    @Override
+    public List<Enchere> selectAll() throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            List<Enchere> allEncheres = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allEncheres.add(this.createAuctionFromResultSet(resultSet));
+            }
+            return allEncheres;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select all", e);
+        }
+    }
+
+    @Override
+    public List<Enchere> selectAllBySale(int noVente) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            List<Enchere> allEncheresBySale = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES WHERE no_vente = ?");
+            statement.setInt(1, noVente);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allEncheresBySale.add(this.createAuctionFromResultSet(resultSet));
+            }
+            return allEncheresBySale;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select all by sale", e);
+        }
+    }
+
+    @Override
+    public List<Enchere> selectAllByUser(int noUtilisateur) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            List<Enchere> allEncheresByUser = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES WHERE no_utilisateur = ?");
+            statement.setInt(1, noUtilisateur);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
+            }
+            return allEncheresByUser;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select all by user", e);
+        }
+    }
+
+    @Override
+    public void update(Enchere enchere) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            PreparedStatement statement = this.getStatementFromMode("update", connection, enchere);
+            if (statement != null) {
+                statement.executeUpdate();
+                statement.close();
+            }
+        } catch (SQLException e) {
+            throw new DALException("Auction - Update", e);
+        }
+    }
+
+    @Override
+    public void insert(Enchere enchere) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            PreparedStatement statement = this.getStatementFromMode("insert", connection, enchere);
+            if (statement != null) {
+                statement.executeUpdate();
+                statement.close();
+            }
+        } catch (SQLException e) {
+            throw new DALException("Auction - Insert", e);
+        }
+    }
+
+    @Override
+    public void delete(Integer noVente, Integer noUtilisateur) throws DALException {
+        try (Connection connection = AccesBase.getConnection()) {
+            String sqlRequest = "DELETE FROM ENCHERES WHERE no_vente = ? AND no_utilisateur = ?";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noVente);
+            statement.setInt(2, noUtilisateur);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            throw new DALException("Auction - Delete", e);
+        }
+    }
+
+    private PreparedStatement getStatementFromMode(String mode, Connection connection, Enchere enchere) throws SQLException {
+        String sqlRequest = mode.equals("insert")
+                ? "INSERT INTO ENCHERES (date_enchere, no_utilisateur, no_vente) VALUES (?, ?, ?)"
+                : mode.equals("update")
+                    ? "UPDATE ENCHERES SET date_enchere = ? WHERE no_utilisateur = ? AND no_vente = ?"
+                    : null;
+        if (sqlRequest == null)
+            return null;
+        else {
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setDate(1, this.convertJavaDataToSQLDate(enchere.getDateEnchere()));
+            statement.setInt(2, enchere.getNoUtilisateur());
+            statement.setInt(3, enchere.getNoVente());
+            return statement;
+        }
+    }
+
+    private java.sql.Date convertJavaDataToSQLDate(Date javaDate) {
+        return new java.sql.Date(javaDate.getTime());
+    }
+
+    private Date convertSQLDateToJavaDate(java.sql.Date SQLDate) {
+        return new Date(SQLDate.getTime());
+    }
+
+    private Enchere createAuctionFromResultSet(ResultSet resultSet) throws SQLException {
+        int noVente = resultSet.getInt("no_vente");
+        int noUtilisateur = resultSet.getInt("no_utilisateur");
+        Date dateEncheres = this.convertSQLDateToJavaDate(resultSet.getDate("date_enchere"));
+        return new Enchere(noVente, noUtilisateur, dateEncheres);
+    }
+}
