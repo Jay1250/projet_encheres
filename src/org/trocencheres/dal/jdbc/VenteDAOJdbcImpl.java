@@ -24,7 +24,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
             statement.setInt(1, noVente);
             ResultSet resultset = statement.executeQuery();
             if (resultset != null && resultset.next())
-                vente= this.createSaleFromResultSet(resultset);
+                vente = this.createSaleFromResultSet(resultset);
             statement.close();
             return vente;
         } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     private PreparedStatement getInsertStatement(Connection connection, Vente vente) throws SQLException {
         String sqlRequest = "INSERT INTO "
-                + "VENTES (nomarticle, description, date_fin_encheres, prix_initial, prix_vente, no_categorie, no_categorie) "
+                + "VENTES (nomarticle, description, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sqlRequest, PreparedStatement.RETURN_GENERATED_KEYS);
         this.setStatementWithGenericInfosFromVente(statement, vente);
@@ -112,8 +112,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
                 + "SET nomarticle = ?, description = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?"
                 + " WHERE no_vente = ?";
         PreparedStatement statement = connection.prepareStatement(sqlRequest);
-        statement.setInt(8, vente.getNoVente());
         this.setStatementWithGenericInfosFromVente(statement, vente);
+        statement.setInt(8, vente.getNoVente());
         return statement;
     }
 
@@ -135,15 +135,15 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         return new Date(SQLDate.getTime());
     }
 
-    private Vente createSaleFromResultSet(ResultSet resultset) throws SQLException {
-        int noVente = resultset.getInt("no_vente");
-        String nomArticle = resultset.getString("nomarticle");
-        String description = resultset.getString("description");
-        Date dateFinEncheres = this.convertSQLDateToJavaDate(resultset.getDate("date_fin_encheres"));
-        int prixInitial = resultset.getInt("prix_initial");
-        int prixVente = resultset.getInt("prix_vente");
-        int noUtilisateur= resultset.getInt("no_utilisateur");
-        int noCategorie= resultset.getInt("no_categorie");
+    private Vente createSaleFromResultSet(ResultSet resultSet) throws SQLException {
+        int noVente = resultSet.getInt("no_vente");
+        String nomArticle = resultSet.getString("nomarticle");
+        String description = resultSet.getString("description");
+        Date dateFinEncheres = this.convertSQLDateToJavaDate(resultSet.getDate("date_fin_encheres"));
+        int prixInitial = resultSet.getInt("prix_initial");
+        int prixVente = resultSet.getInt("prix_vente");
+        int noUtilisateur= resultSet.getInt("no_utilisateur");
+        int noCategorie= resultSet.getInt("no_categorie");
         ArrayList<Integer> encheres = new ArrayList<>();
         Retrait retrait = new Retrait();
         return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, noUtilisateur, noCategorie, retrait);

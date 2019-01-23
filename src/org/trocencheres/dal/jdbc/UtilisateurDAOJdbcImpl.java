@@ -134,13 +134,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				+ "SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, credit = ?, administrateur = ?"
 				+ passwordSQLField + " WHERE no_utilisateur = ?";
 		PreparedStatement statement = connection.prepareStatement(sqlRequest);
+        this.setStatementWithGenericInfosFromUtilisateur(statement, utilisateur);
 		if (updatePassword) {
 			statement.setString(11, utilisateur.getMotDePasse());
 			statement.setInt(12, utilisateur.getNoUtilisateur());
 		} else {
 			statement.setInt(11, utilisateur.getNoUtilisateur());
 		}
-		this.setStatementWithGenericInfosFromUtilisateur(statement, utilisateur);
 		return statement;
 	}
 
