@@ -16,12 +16,12 @@ import java.util.List;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
-	public Utilisateur selectById(Integer idUtilisateur) throws DALException {
+	public Utilisateur selectById(Integer noUtilisateur) throws DALException {
 		try (Connection connection = AccesBase.getConnection()) {
 			Utilisateur utilisateur = new Utilisateur();
 			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
-			statement.setInt(1, idUtilisateur);
+			statement.setInt(1, noUtilisateur);
 			ResultSet resultset = statement.executeQuery();
 			if (resultset != null && resultset.next())
 				utilisateur = this.createUserFromResultSet(resultset);
@@ -100,11 +100,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void delete(Integer idUtilisateur) throws DALException {
+	public void delete(Integer noUtilisateur) throws DALException {
 		try (Connection connection = AccesBase.getConnection()) {
 			String sqlRequest = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
-			statement.setInt(1, idUtilisateur);
+			statement.setInt(1, noUtilisateur);
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
