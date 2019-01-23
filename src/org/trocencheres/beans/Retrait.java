@@ -2,27 +2,24 @@ package org.trocencheres.beans;
 
 public class Retrait {
 
-	private Vente vente;
+	private int noVente;
 	private String rue, codePostal, ville;
 
-	public Retrait() {
-		super();
+	public Retrait() {}
+
+	public Retrait(int noVente , String rue, String codePostal, String ville) {
+		this.setNoVente(noVente);
+		this.setRue(rue);
+		this.setCodePostal(codePostal);
+		this.setVille(ville);
 	}
 
-	public Retrait(Vente vente, String rue, String codePostal, String ville) {
-		super();
-		this.vente = vente;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
+	public int getNoVente() {
+		return noVente;
 	}
 
-	public Vente getVente() {
-		return vente;
-	}
-
-	public void setVente(Vente vente) {
-		this.vente = vente;
+	public void setNoVente(int noVente ) {
+		this.noVente  = noVente ;
 	}
 
 	public String getRue() {
@@ -53,7 +50,7 @@ public class Retrait {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Retrait [vente=");
-		builder.append(vente);
+		builder.append(noVente);
 		builder.append(", rue=");
 		builder.append(rue);
 		builder.append(", codePostal=");

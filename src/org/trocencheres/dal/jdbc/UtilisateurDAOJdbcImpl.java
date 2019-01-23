@@ -16,12 +16,12 @@ import java.util.List;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
-	public Utilisateur selectById(Integer idUtilisateur) throws DALException {
+	public Utilisateur selectById(Integer noUtilisateur) throws DALException {
 		try (Connection connection = AccesBase.getConnection()) {
 			Utilisateur utilisateur = new Utilisateur();
 			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
-			statement.setInt(1, idUtilisateur);
+			statement.setInt(1, noUtilisateur);
 			ResultSet resultset = statement.executeQuery();
 			if (resultset != null && resultset.next())
 				utilisateur = this.createUserFromResultSet(resultset);
@@ -100,11 +100,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void delete(Integer idUtilisateur) throws DALException {
+	public void delete(Integer noUtilisateur) throws DALException {
 		try (Connection connection = AccesBase.getConnection()) {
 			String sqlRequest = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
-			statement.setInt(1, idUtilisateur);
+			statement.setInt(1, noUtilisateur);
 			statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
@@ -112,8 +112,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 	}
 
-	private PreparedStatement getStatementFromMode(String mode, Connection connection, Utilisateur utilisateur)
-			throws SQLException {
+	private PreparedStatement getStatementFromMode(String mode, Connection connection, Utilisateur utilisateur) throws SQLException {
 		return mode.equals("insert") ? this.getInsertStatement(connection, utilisateur)
 				: mode.equals("update") ? this.getUpdateStatement(connection, utilisateur) : null;
 	}
@@ -135,18 +134,17 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				+ "SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, credit = ?, administrateur = ?"
 				+ passwordSQLField + " WHERE no_utilisateur = ?";
 		PreparedStatement statement = connection.prepareStatement(sqlRequest);
+        this.setStatementWithGenericInfosFromUtilisateur(statement, utilisateur);
 		if (updatePassword) {
 			statement.setString(11, utilisateur.getMotDePasse());
 			statement.setInt(12, utilisateur.getNoUtilisateur());
 		} else {
 			statement.setInt(11, utilisateur.getNoUtilisateur());
 		}
-		this.setStatementWithGenericInfosFromUtilisateur(statement, utilisateur);
 		return statement;
 	}
 
-	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur)
-			throws SQLException {
+	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur) throws SQLException {
 		statement.setString(1, utilisateur.getPseudo());
 		statement.setString(2, utilisateur.getNom());
 		statement.setString(3, utilisateur.getprenom());
@@ -172,7 +170,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// String mot_de_passe = resultset.getString("mot_de_passe");
 		int credit = resultset.getInt("credit");
 		boolean administrateur = resultset.getByte("administrateur") != 0;
-		ArrayList<Vente> ventes = new ArrayList<>();
+		ArrayList<Integer> ventes = new ArrayList<>();
 		return new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit,
 				administrateur, ventes);
 	}

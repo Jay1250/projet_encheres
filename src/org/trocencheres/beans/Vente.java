@@ -1,36 +1,38 @@
 package org.trocencheres.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Vente {
-	private int noVente, prixInitial, prixVente;
+	private int noVente, prixInitial, prixVente, noUtilisateur, noCategorie;
 	private String nomArticle, description;
 	private Date dateFinEncheres;
-	private ArrayList<Enchere> encheres;
-	private Utilisateur utilisateur;
-	private Categorie categorie;
+	private List<Integer> idsEncheres;
 	private Retrait retrait;
 
-	public Vente() {
-		super();
+	public Vente() {}
+
+	public Vente(int noVente, String nomArticle, String description, Date dateFinEncheres,
+				 int prixInitial, int prixVente, ArrayList<Integer> idsEncheres, int noUtilisateur,
+				 int noCategorie) {
+		this.setNoVente(noVente);
+		this.setNomArticle(nomArticle);
+		this.setDescription(description);
+		this.setDateFinEncheres(dateFinEncheres);
+		this.setPrixInitial(prixInitial);
+		this.setPrixVente(prixVente);
+		this.setEncheresIds(idsEncheres);
+		this.setNoUtilisateur(noUtilisateur);
+		this.setNoCategorie(noCategorie);
+		this.setRetrait(new Retrait());
 	}
 
-	public Vente(int noVente, int prixInitial, int prixVente, String nomArticle, String description,
-			Date dateFinEncheres, ArrayList<Enchere> encheres, Utilisateur utilisateur, Categorie categorie,
-			Retrait retrait) {
-		super();
-		this.noVente = noVente;
-		this.prixInitial = prixInitial;
-		this.prixVente = prixVente;
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateFinEncheres = dateFinEncheres;
-		this.encheres = encheres;
-		this.utilisateur = utilisateur;
-		this.categorie = categorie;
-		this.retrait = retrait;
+	public Vente(int noVente, String nomArticle, String description, Date dateFinEncheres,
+				 int prixInitial, int prixVente, ArrayList<Integer> idsEncheres, int utilisateur,
+				 int noCategorie, Retrait retrait) {
+		this(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, idsEncheres, utilisateur, noCategorie);
+		this.setRetrait(retrait);
 	}
 
 	public Retrait getRetrait() {
@@ -45,8 +47,12 @@ public class Vente {
 		return noVente;
 	}
 
-	public void setEncheres(ArrayList<Enchere> encheres) {
-		this.encheres = encheres;
+	public void setEncheresIds(ArrayList<Integer> idsEncheres) {
+		this.idsEncheres = idsEncheres;
+	}
+
+	public List<Integer> getEncheresIds() {
+		return this.idsEncheres;
 	}
 
 	public void setNoVente(int noVente) {
@@ -93,20 +99,20 @@ public class Vente {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public int getNoUtilisateur() {
+		return noUtilisateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
 	}
 
-	public Categorie getCategorie() {
-		return categorie;
+	public int getNoCategorie() {
+		return noCategorie;
 	}
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
+	public void setNoCategorie(int noCategorie) {
+		this.noCategorie = noCategorie;
 	}
 
 	@Override
@@ -125,11 +131,11 @@ public class Vente {
 		builder.append(", dateFinEncheres=");
 		builder.append(dateFinEncheres);
 		builder.append(", encheres=");
-		builder.append(encheres);
+		builder.append(idsEncheres);
 		builder.append(", utilisateur=");
-		builder.append(utilisateur);
+		builder.append(noUtilisateur);
 		builder.append(", categorie=");
-		builder.append(categorie);
+		builder.append(noCategorie);
 		builder.append(", retrait=");
 		builder.append(retrait);
 		builder.append("]");

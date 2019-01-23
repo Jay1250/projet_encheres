@@ -1,12 +1,13 @@
 package org.trocencheres.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utilisateur {
 	private int noUtilisateur, credit;
 	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
 	private boolean administrateur;
-	private ArrayList<Vente> ventes;
+	private List<Integer> idsVentes;
 
 	public Utilisateur() {
 	}
@@ -14,7 +15,7 @@ public class Utilisateur {
 	// constructeur sans motDePasse
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email,
 						String telephone, String rue, String codePostal, String ville, int credit,
-						boolean administrateur, ArrayList<Vente> ventes) {
+						boolean administrateur, ArrayList<Integer> idsVentes) {
 		this.setNoUtilisateur(noUtilisateur);
 		this.setPseudo(pseudo);
 		this.setNom(nom);
@@ -26,19 +27,23 @@ public class Utilisateur {
 		this.setVille(ville);
         this.setCredit(credit);
 		this.setAdministrateur(administrateur);
-		this.setVentes(ventes);
+		this.setVentesIds(idsVentes);
 	}
 
 	// constructeur complet
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue,
 					   String codePostal, String ville, int credit, boolean administrateur,
-					   ArrayList<Vente> ventes, String motDePasse) {
-		this(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, ventes);
+					   ArrayList<Integer> idsVentes, String motDePasse) {
+		this(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, idsVentes);
 		this.motDePasse = motDePasse;
 	}
 
-	public void setVentes(ArrayList<Vente> ventes) {
-		this.ventes = ventes;
+	public List<Integer> getVentesIds() {
+		return this.idsVentes;
+	}
+
+	public void setVentesIds(ArrayList<Integer> idsVentes) {
+		this.idsVentes = idsVentes;
 	}
 
 	public int getNoUtilisateur() {
@@ -165,7 +170,7 @@ public class Utilisateur {
 		builder.append(", administrateur=");
 		builder.append(administrateur);
 		builder.append(", ventes=");
-		builder.append(ventes);
+		builder.append(idsVentes);
 		builder.append("]");
 		return builder.toString();
 	}
