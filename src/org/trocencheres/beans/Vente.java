@@ -1,36 +1,40 @@
 package org.trocencheres.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Vente {
 	private int noVente, prixInitial, prixVente;
 	private String nomArticle, description;
 	private Date dateFinEncheres;
-	private ArrayList<Enchere> encheres;
+	private List<Enchere> encheres;
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private Retrait retrait;
 
-	public Vente() {
-		super();
+	public Vente() {}
+
+	public Vente(int noVente, String nomArticle, String description, Date dateFinEncheres,
+				 int prixInitial, int prixVente, ArrayList<Enchere> encheres, Utilisateur utilisateur,
+				 Categorie categorie) {
+		this.setNoVente(noVente);
+		this.setNomArticle(nomArticle);
+		this.setDescription(description);
+		this.setDateFinEncheres(dateFinEncheres);
+		this.setPrixInitial(prixInitial);
+		this.setPrixVente(prixVente);
+		this.setEncheres(encheres);
+		this.setUtilisateur(utilisateur);
+		this.setCategorie(categorie);
+		this.setRetrait(new Retrait());
 	}
 
-	public Vente(int noVente, int prixInitial, int prixVente, String nomArticle, String description,
-			Date dateFinEncheres, ArrayList<Enchere> encheres, Utilisateur utilisateur, Categorie categorie,
-			Retrait retrait) {
-		super();
-		this.noVente = noVente;
-		this.prixInitial = prixInitial;
-		this.prixVente = prixVente;
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateFinEncheres = dateFinEncheres;
-		this.encheres = encheres;
-		this.utilisateur = utilisateur;
-		this.categorie = categorie;
-		this.retrait = retrait;
+	public Vente(int noVente, String nomArticle, String description, Date dateFinEncheres,
+				 int prixInitial, int prixVente, ArrayList<Enchere> encheres, Utilisateur utilisateur,
+				 Categorie categorie, Retrait retrait) {
+		this(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, utilisateur, categorie);
+		this.setRetrait(retrait);
 	}
 
 	public Retrait getRetrait() {

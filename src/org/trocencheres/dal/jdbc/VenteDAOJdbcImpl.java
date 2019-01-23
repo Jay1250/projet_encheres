@@ -1,6 +1,6 @@
 package org.trocencheres.dal.jdbc;
 
-import org.trocencheres.beans.Vente;
+import org.trocencheres.beans.*;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.VenteDAO;
 import org.trocencheres.util.AccesBase;
@@ -134,7 +134,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         int prixVente = resultset.getInt("prix_vente");
         int noUtilisateur= resultset.getInt("no_utilisateur");
         int noCategorie= resultset.getInt("no_categorie");
-        //return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, noUtilisateur, noCategorie);
-        return new Vente();
+        Utilisateur utilisateur = new Utilisateur();
+        ArrayList<Enchere> encheres = new ArrayList<>();
+        Categorie categorie = new Categorie();
+        Retrait retrait = new Retrait();
+        return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, utilisateur, categorie, retrait);
     }
 }
