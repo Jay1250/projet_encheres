@@ -5,7 +5,7 @@ import org.trocencheres.beans.Vente;
 import java.util.List;
 
 public interface VenteDAO {
-    Vente selectById(Integer id) throws DALException;
+    Vente selectById(Integer noVente) throws DALException;
 
     List<Vente> selectAll() throws DALException;
 
@@ -13,5 +13,5 @@ public interface VenteDAO {
 
     void insert(Vente vente) throws DALException;
 
-    void delete(Integer id) throws DALException;
+    void delete(Integer noVente) throws DALException;
 }

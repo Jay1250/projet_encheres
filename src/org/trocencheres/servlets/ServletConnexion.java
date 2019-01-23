@@ -13,11 +13,6 @@ import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
 import org.trocencheres.dal.UtilisateurDAOFactory;
 
-
-
-
-
-
 /**
  * Servlet implementation class ServletConnexion
  */
@@ -25,24 +20,34 @@ import org.trocencheres.dal.UtilisateurDAOFactory;
 public class ServletConnexion extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	private UtilisateurDAO daoUtilisateur;
-	
-
-    /**
-     * Default constructor. 
-     */
-    public ServletConnexion() {
-       this.daoUtilisateur=UtilisateurDAOFactory.getUtilisateurDao();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
+	public ServletConnexion() {
+		super();
+		this.daoUtilisateur = UtilisateurDAOFactory.getUtilisateurDao();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String identifiant = request.getParameter("identifiant");
 		String mdp = request.getParameter("motdepasse");
 
-	
 		try {
 			Utilisateur utilisateurTrouve = daoUtilisateur.selectByLogin(identifiant, mdp);
 			if (utilisateurTrouve.getNoUtilisateur() != 0) {
@@ -61,14 +66,6 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 
 		}
 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
