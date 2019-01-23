@@ -49,7 +49,7 @@ public class Retrait {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Retrait [vente=");
+		builder.append("Retrait [noVente=");
 		builder.append(noVente);
 		builder.append(", rue=");
 		builder.append(rue);
