@@ -9,6 +9,12 @@ public interface UtilisateurDAO {
 
     Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException;
 
+    boolean pseudoExists(String pseudo) throws DALException;
+
+    boolean emailExists(String email) throws DALException;
+
+    boolean telephoneExists(String telephone) throws DALException;
+
     List<Utilisateur> selectAll() throws DALException;
 
     void update(Utilisateur utilisateur) throws DALException;
