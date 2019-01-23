@@ -113,8 +113,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         statement.setDate(3, this.convertJavaDataToSQLDate(vente.getDateFinEncheres()));
         statement.setInt(4, vente.getPrixInitial());
         statement.setInt(5, vente.getPrixVente());
-        statement.setInt(6, vente.getUtilisateur().getNoUtilisateur());
-        statement.setInt(7, vente.getCategorie().getNoCategorie());
+        statement.setInt(6, vente.getNoUtilisateur());
+        statement.setInt(7, vente.getNoCategorie());
     }
 
     private java.sql.Date convertJavaDataToSQLDate(Date javaDate) {
@@ -134,10 +134,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         int prixVente = resultset.getInt("prix_vente");
         int noUtilisateur= resultset.getInt("no_utilisateur");
         int noCategorie= resultset.getInt("no_categorie");
-        Utilisateur utilisateur = new Utilisateur();
-        ArrayList<Enchere> encheres = new ArrayList<>();
-        Categorie categorie = new Categorie();
+        ArrayList<Integer> encheres = new ArrayList<>();
         Retrait retrait = new Retrait();
-        return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, utilisateur, categorie, retrait);
+        return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, noUtilisateur, noCategorie, retrait);
     }
 }

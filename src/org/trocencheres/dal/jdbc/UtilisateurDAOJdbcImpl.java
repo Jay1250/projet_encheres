@@ -172,7 +172,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		// String mot_de_passe = resultset.getString("mot_de_passe");
 		int credit = resultset.getInt("credit");
 		boolean administrateur = resultset.getByte("administrateur") != 0;
-		ArrayList<Vente> ventes = new ArrayList<>();
+		ArrayList<Integer> ventes = new ArrayList<>();
 		return new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit,
 				administrateur, ventes);
 	}
