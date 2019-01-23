@@ -48,7 +48,7 @@
 			<br> <br>
 
 			<div class="col-sm-10 col xs-10">
-				<form action="/ProjetEncheres/ServletCreerUnCompte" method="post">
+				<form action="./PageCreerCompte.html" method="post">
 					<div class="form-group">
 						<button type="submit" class="btn btn-default">Créer un
 							compte</button>
