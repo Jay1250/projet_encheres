@@ -1,6 +1,6 @@
-package org.trocencheres.dal.jdbc;
+package org.trocencheres.dal;
 
-import org.trocencheres.dal.EnchereDAO;
+import org.trocencheres.dal.jdbc.EnchereDAOJdbcImpl;
 
 public class EnchereDAOFactory {
     public static EnchereDAO getEnchereDAO() {

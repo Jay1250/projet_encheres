@@ -7,8 +7,12 @@ public class Retrait {
 
 	public Retrait() {}
 
-	public Retrait(int noVente , String rue, String codePostal, String ville) {
+	public Retrait(int noVente) {
 		this.setNoVente(noVente);
+	}
+
+	public Retrait(int noVente , String rue, String codePostal, String ville) {
+		this(noVente);
 		this.setRue(rue);
 		this.setCodePostal(codePostal);
 		this.setVille(ville);
