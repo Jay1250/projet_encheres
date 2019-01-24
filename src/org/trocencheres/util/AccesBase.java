@@ -6,9 +6,6 @@ import java.sql.SQLException;
 
 import org.trocencheres.dal.DALException;
 
-
-
-
 public class AccesBase {
 	public static Connection getConnection() throws DALException{
 		

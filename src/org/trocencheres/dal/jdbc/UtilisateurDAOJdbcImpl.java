@@ -1,7 +1,6 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Utilisateur;
-import org.trocencheres.beans.Vente;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
 import org.trocencheres.util.AccesBase;
@@ -47,8 +46,23 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			statement.close();
 			return utilisateur;
 		} catch (SQLException e) {
-			throw new DALException("User - Select by pseudo and password", e);
+			throw new DALException("User - Select by pseudo or email, and password", e);
 		}
+	}
+
+	@Override
+	public boolean pseudoExists(String pseudo) throws DALException {
+		return this.paramExists("pseudo", pseudo);
+	}
+
+	@Override
+	public boolean emailExists(String email) throws DALException {
+		return this.paramExists("email", email);
+	}
+
+	@Override
+	public boolean telephoneExists(String telephone) throws DALException {
+		return this.paramExists("telephone", telephone);
 	}
 
 	@Override
@@ -110,6 +124,23 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} catch (SQLException e) {
 			throw new DALException("User - Delete", e);
 		}
+	}
+
+	private boolean paramExists(String paramName, Object param) throws DALException {
+		try (Connection connection = AccesBase.getConnection()) {
+			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE ? = ?";
+			PreparedStatement statement = connection.prepareStatement(sqlRequest);
+			statement.setString(1, paramName);
+			statement.setString(2, (String) param);
+			ResultSet resultSet = statement.executeQuery();
+			return resultSet.getInt("existing") == 1;
+		} catch (SQLException e) {
+			throw new DALException("User - " + this.capitalize(paramName) + " exists", e);
+		}
+	}
+
+	private String capitalize(String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
 
 	private PreparedStatement getStatementFromMode(String mode, Connection connection, Utilisateur utilisateur) throws SQLException {
