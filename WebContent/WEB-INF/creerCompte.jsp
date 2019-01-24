@@ -36,6 +36,12 @@
 						}
 					%>
 
+<% 	if (request.getAttribute("pseudoExists")!=null&& request.getAttribute("pseudoExists").equals(true)){
+		%>
+
+	<p class="text-danger">Ce pseudo existe déjà. Veuillez saisir un nouveau pseudo</p>
+	<%} %>
+
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -50,6 +56,7 @@
 					<%
 						}
 					%>
+					
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -78,6 +85,9 @@
 					<%
 						}
 					%>
+					<% if (request.getAttribute("emailExists")!=null&& request.getAttribute("emailExists").equals(true)){%>
+	<p class="text-danger">Cet email existe déjà. Veuillez saisir un nouvel email</p>
+	<%} %>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -93,6 +103,9 @@
 					<%
 						}
 					%>
+					<% if (request.getAttribute("telephoneExists")!=null&& request.getAttribute("telephoneExists").equals(true)){%>
+	<p class="text-danger">Ce numéro de téléphone existe déjà. Veuillez en saisir un nouveau téléphone</p>
+	<%} %>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -139,8 +152,7 @@
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
-				<%
-					if (request.getParameter("motdepasse") != null) {
+				<% if(request.getAttribute("confirmationKo")!=null && request.getAttribute("confirmationKo").equals(true) ){
 				%>
 				<p class="text-danger">Les mots de passe saisis ne sont pas
 					identiques</p>
