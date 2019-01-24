@@ -71,57 +71,45 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 		// select by email pseudo et tel pour éviter double enregistrement pour une mm
 		// personne
 
-		if (pseudo == null) {
-			System.out.println(pseudo);
+		if (pseudo == null)
 			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
-		} else {
-			System.out.println(pseudo);
-
-			System.out.println(pem);
-			System.out.println(pem.pseudoExists(pseudo));
-			if (pem.pseudoExists(pseudo)) {
+		else {
+			if (pem.pseudoExists(pseudo))
 				request.setAttribute("pseudoExists", true);
-				System.out.println(request.getAttribute("pseudoExists"));
-			} else {
+			else
 				request.setAttribute("pseudoExists", false);
-				System.out.println(request.getAttribute("pseudoExists"));
-			}
 
-			if (pem.emailExists(email)) {
+			if (pem.emailExists(email))
 				request.setAttribute("emailExists", true);
-			} else {
+			else
 				request.setAttribute("emailExists", false);
-			}
 
-			if (pem.telephoneExists(telephone)) {
+			if (pem.telephoneExists(telephone))
 				request.setAttribute("telephoneExists", true);
-			} else {
+			else
 				request.setAttribute("telephoneExists", false);
-			}
 
-			if (!motDePasse.equals(confirmationMotDePasse)) {
+			if (!motDePasse.equals(confirmationMotDePasse))
 				request.setAttribute("confirmationKo", true);
-			} else {
-				request.setAttribute("telephoneExists", false);
-			}
+			else
+				request.setAttribute("confirmationKo", false);
 
 			Boolean pseudoExists = (Boolean) request.getAttribute("pseudoExists");
 			Boolean emailExists = (Boolean) request.getAttribute("emailExists");
 			Boolean telephoneExists = (Boolean) request.getAttribute("telephoneExists");
 			Boolean confirmationKo = (Boolean) request.getAttribute("confirmationKo");
 
-			System.out.println("coucou3");
 			System.out.println(request.getAttribute("pseudoExists"));
 			System.out.println(request.getAttribute("emailExists"));
 			System.out.println(request.getAttribute("telephoneExists"));
 			System.out.println(request.getAttribute("confirmationKo"));
-			if (!pseudoExists || !emailExists || !telephoneExists || !confirmationKo) {
-				System.out.println("coucou4");
+			if (!pseudoExists && !emailExists && !telephoneExists && !confirmationKo) {
 				try {
-					System.out.println("coucou5");
+					System.out.println(newUtilisateur.toString());
 					pem.addUser(newUtilisateur);
-					System.out.println(newUtilisateur);
-					request.getSession().setAttribute("identifiant", newUtilisateur.getPseudo());
+					
+					
+					request.getSession().setAttribute("utilisateurConnecte", newUtilisateur);
 					this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
 
 				} catch (BLLException e) {
