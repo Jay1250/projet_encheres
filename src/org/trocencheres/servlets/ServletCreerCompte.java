@@ -11,12 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.trocencheres.beans.Utilisateur;
-import org.trocencheres.beans.Vente;
-import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.UtilisateurDAO;
-import org.trocencheres.dal.UtilisateurDAOFactory;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+import org.trocencheres.bll.BLLException;
+import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
  * Servlet implementation class ServletCreerCompte
@@ -24,14 +21,16 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 @WebServlet("/ServletCreerCompte")
 public class ServletCreerCompte extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurDAO daoUtilisateur;
+	private ProjetEnchereManager pem;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ServletCreerCompte() {
 		super();
-		this.daoUtilisateur = UtilisateurDAOFactory.getUtilisateurDao();
+
+		this.pem = ProjetEnchereManager.getInstance();
+
 	}
 
 	/**
@@ -77,38 +76,33 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
 		} else {
 			System.out.println(pseudo);
-			try {
-				System.out.println(daoUtilisateur);
-				System.out.println(daoUtilisateur.pseudoExists(pseudo));
-				if (daoUtilisateur.pseudoExists(pseudo)) {
-					request.setAttribute("pseudoExists", true);
-					System.out.println(request.getAttribute("pseudoExists"));
-				} else {
-					request.setAttribute("pseudoExists", false);
-					System.out.println(request.getAttribute("pseudoExists"));
-				}
 
-				if (daoUtilisateur.emailExists(email)) {
-					request.setAttribute("emailExists", true);
-				} else {
-					request.setAttribute("emailExists", false);
-				}
+			System.out.println(pem);
+			System.out.println(pem.pseudoExists(pseudo));
+			if (pem.pseudoExists(pseudo)) {
+				request.setAttribute("pseudoExists", true);
+				System.out.println(request.getAttribute("pseudoExists"));
+			} else {
+				request.setAttribute("pseudoExists", false);
+				System.out.println(request.getAttribute("pseudoExists"));
+			}
 
-				if (daoUtilisateur.telephoneExists(telephone)) {
-					request.setAttribute("telephoneExists", true);
-				} else {
-					request.setAttribute("telephoneExists", false);
-				}
+			if (pem.emailExists(email)) {
+				request.setAttribute("emailExists", true);
+			} else {
+				request.setAttribute("emailExists", false);
+			}
 
-				if (!motDePasse.equals(confirmationMotDePasse)) {
-					request.setAttribute("confirmationKo", true);
-				} else {
-					request.setAttribute("telephoneExists", false);
-				}
+			if (pem.telephoneExists(telephone)) {
+				request.setAttribute("telephoneExists", true);
+			} else {
+				request.setAttribute("telephoneExists", false);
+			}
 
-			} catch (DALException e) {
-				request.setAttribute("erreur", e);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+			if (!motDePasse.equals(confirmationMotDePasse)) {
+				request.setAttribute("confirmationKo", true);
+			} else {
+				request.setAttribute("telephoneExists", false);
 			}
 
 			Boolean pseudoExists = (Boolean) request.getAttribute("pseudoExists");
@@ -125,12 +119,12 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 				System.out.println("coucou4");
 				try {
 					System.out.println("coucou5");
-					daoUtilisateur.insert(newUtilisateur);
+					pem.addUser(newUtilisateur);
 					System.out.println(newUtilisateur);
 					request.getSession().setAttribute("identifiant", newUtilisateur.getPseudo());
 					this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
 
-				} catch (DALException e) {
+				} catch (BLLException e) {
 					request.setAttribute("erreur", e);
 					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 				}
