@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class CategorieDAOJdbcImpl implements CategorieDAO {
     @Override
     public Categorie selectById(Integer noCategorie) throws DALException {

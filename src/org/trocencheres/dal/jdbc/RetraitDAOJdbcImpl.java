@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override

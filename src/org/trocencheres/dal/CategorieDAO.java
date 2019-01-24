@@ -4,6 +4,9 @@ import org.trocencheres.beans.Categorie;
 
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public interface CategorieDAO {
     Categorie selectById(Integer noCategorie) throws DALException;
 

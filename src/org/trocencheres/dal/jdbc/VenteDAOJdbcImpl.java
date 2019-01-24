@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override

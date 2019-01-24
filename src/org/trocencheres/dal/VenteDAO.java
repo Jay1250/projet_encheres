@@ -4,6 +4,9 @@ import org.trocencheres.beans.Vente;
 
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public interface VenteDAO {
     Vente selectById(Integer noVente) throws DALException;
 

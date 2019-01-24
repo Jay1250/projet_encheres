@@ -1,5 +1,8 @@
 package org.trocencheres.bll;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class BLLException extends Exception {
     public BLLException() {
         super();

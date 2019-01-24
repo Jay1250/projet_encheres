@@ -4,6 +4,9 @@ import org.trocencheres.beans.Retrait;
 
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public interface RetraitDAO {
         Retrait selectByIdVente(Integer noVente) throws DALException;
 

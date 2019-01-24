@@ -6,6 +6,9 @@ import org.trocencheres.dal.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class ProjetEnchereManager {
     private static ProjetEnchereManager instance;
 

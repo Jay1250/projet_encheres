@@ -1,5 +1,8 @@
 package org.trocencheres.dal;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public class DALException extends Exception {
     public DALException() {
         super();

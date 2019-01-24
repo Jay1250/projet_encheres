@@ -4,6 +4,9 @@ import org.trocencheres.beans.Utilisateur;
 
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public interface UtilisateurDAO {
     Utilisateur selectById(Integer id) throws DALException;
 

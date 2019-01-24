@@ -4,6 +4,9 @@ import org.trocencheres.beans.Enchere;
 
 import java.util.List;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public interface EnchereDAO {
     Enchere selectByIds(Integer noVente, Integer noUtilisateur) throws DALException;
 
