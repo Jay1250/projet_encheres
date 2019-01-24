@@ -16,6 +16,8 @@ import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
 import org.trocencheres.dal.UtilisateurDAOFactory;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 /**
  * Servlet implementation class ServletCreerCompte
  */
@@ -63,28 +65,81 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 		boolean administrateur = false;
 		int credit = 0;
 		int noUtilisateur = 0;
-		
-		Utilisateur utilisateurCree=new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue,
+
+		Utilisateur newUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue,
 				codePostal, ville, credit, administrateur, ventes, motDePasse);
 
-		if (!motDePasse.equals(confirmationMotDePasse)) {
+		// select by email pseudo et tel pour éviter double enregistrement pour une mm
+		// personne
 
-			this.getServletContext().getRequestDispatcher("/creerCompte.jsp").forward(request, response);
+		if (pseudo == null) {
+			System.out.println(pseudo);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
 		} else {
+			System.out.println(pseudo);
 			try {
-				//select by email pseudo et tel pour éviter double enregistrement pour une mm personne
-				daoUtilisateur.insert(utilisateurCree);
-				if(utilisateurCree.getNoUtilisateur()!=0) {
-					request.getSession().setAttribute("identifiant",utilisateurCree.getPseudo());
-					this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
+				System.out.println(daoUtilisateur);
+				System.out.println(daoUtilisateur.pseudoExists(pseudo));
+				if (daoUtilisateur.pseudoExists(pseudo)) {
+					request.setAttribute("pseudoExists", true);
+					System.out.println(request.getAttribute("pseudoExists"));
+				} else {
+					request.setAttribute("pseudoExists", false);
+					System.out.println(request.getAttribute("pseudoExists"));
 				}
+
+				if (daoUtilisateur.emailExists(email)) {
+					request.setAttribute("emailExists", true);
+				} else {
+					request.setAttribute("emailExists", false);
+				}
+
+				if (daoUtilisateur.telephoneExists(telephone)) {
+					request.setAttribute("telephoneExists", true);
+				} else {
+					request.setAttribute("telephoneExists", false);
+				}
+
+				if (!motDePasse.equals(confirmationMotDePasse)) {
+					request.setAttribute("confirmationKo", true);
+				} else {
+					request.setAttribute("telephoneExists", false);
+				}
+
 			} catch (DALException e) {
 				request.setAttribute("erreur", e);
 				this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
-
 			}
-		}
 
+			Boolean pseudoExists = (Boolean) request.getAttribute("pseudoExists");
+			Boolean emailExists = (Boolean) request.getAttribute("emailExists");
+			Boolean telephoneExists = (Boolean) request.getAttribute("telephoneExists");
+			Boolean confirmationKo = (Boolean) request.getAttribute("confirmationKo");
+
+			System.out.println("coucou3");
+			System.out.println(request.getAttribute("pseudoExists"));
+			System.out.println(request.getAttribute("emailExists"));
+			System.out.println(request.getAttribute("telephoneExists"));
+			System.out.println(request.getAttribute("confirmationKo"));
+			if (!pseudoExists || !emailExists || !telephoneExists || !confirmationKo) {
+				System.out.println("coucou4");
+				try {
+					System.out.println("coucou5");
+					daoUtilisateur.insert(newUtilisateur);
+					System.out.println(newUtilisateur);
+					request.getSession().setAttribute("identifiant", newUtilisateur.getPseudo());
+					this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
+
+				} catch (DALException e) {
+					request.setAttribute("erreur", e);
+					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+				}
+
+			} else {
+				this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
+			}
+
+		}
 	}
 
 }

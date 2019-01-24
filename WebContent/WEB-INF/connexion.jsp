@@ -50,7 +50,7 @@
 			<div class="col-sm-10 col xs-10">
 				
 					<div class="form-group">
-						<a href="/ProjetEncheres/creerCompte.jsp">Créer un
+						<a href="/ProjetEncheres/ServletCreerCompte">Créer un
 							compte</a>
 					</div>
 				
