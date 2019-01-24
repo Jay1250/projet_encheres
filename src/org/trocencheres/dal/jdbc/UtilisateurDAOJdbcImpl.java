@@ -128,12 +128,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private boolean paramExists(String paramName, Object param) throws DALException {
 		try (Connection connection = AccesBase.getConnection()) {
-			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE ? = ?";
+			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE " + paramName +" = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
-			statement.setString(1, paramName);
-			statement.setString(2, (String) param);
+			statement.setString(1, (String) param);
 			ResultSet resultSet = statement.executeQuery();
-			return resultSet.getInt("existing") == 1;
+			boolean existing = false;
+			if (resultSet != null && resultSet.next())
+				existing = resultSet.getInt("existing") == 1;
+			return existing;
 		} catch (SQLException e) {
 			throw new DALException("User - " + this.capitalize(paramName) + " exists", e);
 		}
