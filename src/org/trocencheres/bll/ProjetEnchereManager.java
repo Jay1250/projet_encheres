@@ -31,6 +31,8 @@ public class ProjetEnchereManager {
         this.categoriesIndex = new HashMap<>();
 
         this.retraitDAO = RetraitDAOFactory.getRetraitDAO();
+
+        this.enchereDAO = EnchereDAOFactory.getEnchereDAO();
     }
 
     public static ProjetEnchereManager getInstance() {
