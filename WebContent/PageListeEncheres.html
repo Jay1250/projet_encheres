@@ -8,18 +8,21 @@
 	</head>
 	
 	<body>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-6">
-					<h1>TrocEncheres.org</h1>
-				</div>
-				<div class="col-md-6">
-					<div class="col-md-offset-2 col-lg-offset-4 col-md-4 col-lg-3" style="margin-top: 15px;"><h5><a href="">vendre un article</a></h5></div>
-					<div class="col-md-3 col-lg-2" style="margin-top: 15px;"><h5><a href="">Mon profil</a></h5></div>
-					<div class="col-md-3 col-lg-2" style="margin-top: 15px;"><h5><a href="">Déconnexion</a></h5></div>
-				</div>
-			</div>
-		</div>
+		<nav class="navbar navbar-inverse">
+	  		<div class="container-fluid">
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="/ProjetEncheres/PageProfil.html">TrocEncheres.org</a>
+			    </div>
+			    <ul class="nav navbar-nav">
+			      <li><a href="/ProjetEncheres/PageProfil.html">Mon profil</a></li>
+			      <li class="active"><a href="/ProjetEncheres/PageListeEncheres.html">Les enchères</a></li>
+			      <li><a href="#">Vendre un article</a></li>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			    </ul>
+	  		</div>
+		</nav>
 		<div class="container">
 			<form class="row ">
 				<h3 class="text-center">Filtres : </h3>
@@ -56,52 +59,167 @@
 			  		<button type="submit" class="btn btn-primary marge">Rechercher</button>
 			  	</div>
 			</form>
+			<!--  mes ventes -->
+			<h2 class="text-center">Mes ventes</h2><hr />
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 22rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
 					<div class="card-body">
-						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a> <a href="#">etape2</a></h4>
+						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 						<h5 class="card-text">Prix : 210 points</h5>
 						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
 						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
 						<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
-						<h5 class="card-title text-right"><a href="#">CasMeilleurOffre</a></h5>
+						<h5 class="card-title text-left"><a href="#">CasMeilleurOffre</a></h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					</div>
 				</div>
 	    	</div>
 			<div class="col-md-3">
-				<div class="card col-md-12 " style="height: 22rem; border: 1px solid black; padding:10px; margin:10px;">
+				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
 					<div class="card-body">
-					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a> <a href="#">etape2</a></h4>
+					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
 					    <h5 class="card-text">Prix : 185 points</h5>
 					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 09/10/2018</h6>
 						<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des Pinsons 44000 Nantes</h6>
 					    <p>Vendeur : <a href="#" class="card-link">NinaJea</a></p>
+					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					</div>
 				</div>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 22rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
 					<div class="card-body">
-					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a> <a href="#">etape2</a></h4>
+					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 					    <h5 class="card-text">Prix : 210 points</h5>
 					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
 					    <h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
 					    <p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
-						<h5 class="card-title text-right"><a href="#">CasAnnulationEnchere</a></h5>
+						<h5 class="card-title text-left">Statut : </h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					 </div>
 				</div>
 	    	</div>
 		    <div class="col-md-3">
-    			<div class="card col-md-12 " style="height: 22rem; border: 1px solid black; padding:10px; margin:10px;">
+    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
 				 	<div class="card-body">
-				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a> <a href="#">etape2</a></h4>
+				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 				    	<h5 class="card-text">Prix : 210 points</h5>
 				      	<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
 				      	<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
-				    	<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>		
+				    	<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+				    	<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>		
 				  	</div>
 				</div>
     		</div>
+    		<!-- fin mes ventes -->
+    		
+			<!--  mes ventes -->
+			<h2 class="text-center" style="margin-top: 10px;">Mes enchères en cours</h2><hr />
+	    	<div class="col-md-3">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+						<h5 class="card-text">Prix : 210 points</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+						<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+						<h5 class="card-title text-left"><a href="#">CasMeilleurOffre</a></h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					</div>
+				</div>
+	    	</div>
+			<div class="col-md-3">
+				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
+					    <h5 class="card-text">Prix : 185 points</h5>
+					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 09/10/2018</h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des Pinsons 44000 Nantes</h6>
+					    <p>Vendeur : <a href="#" class="card-link">NinaJea</a></p>
+					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					</div>
+				</div>
+	    	</div>
+	    	<div class="col-md-3">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+					    <h5 class="card-text">Prix : 210 points</h5>
+					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+					    <h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+					    <p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+						<h5 class="card-title text-left">Statut : </h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					 </div>
+				</div>
+	    	</div>
+		    <div class="col-md-3">
+    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				 	<div class="card-body">
+				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+				    	<h5 class="card-text">Prix : 210 points</h5>
+				      	<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+				      	<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+				    	<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+				    	<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>		
+				  	</div>
+				</div>
+    		</div>
+    		<!-- fin mes ventes -->
+    		
+			<!--  mes ventes -->
+			<h2 class="text-center">Mes acquisitions</h2><hr />
+	    	<div class="col-md-3">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+						<h5 class="card-text">Prix : 210 points</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+						<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+						<h5 class="card-title text-left"><a href="#">CasMeilleurOffre</a></h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					</div>
+				</div>
+	    	</div>
+			<div class="col-md-3">
+				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
+					    <h5 class="card-text">Prix : 185 points</h5>
+					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 09/10/2018</h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des Pinsons 44000 Nantes</h6>
+					    <p>Vendeur : <a href="#" class="card-link">NinaJea</a></p>
+					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					</div>
+				</div>
+	    	</div>
+	    	<div class="col-md-3">
+	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+					<div class="card-body">
+					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+					    <h5 class="card-text">Prix : 210 points</h5>
+					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+					    <h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+					    <p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+						<h5 class="card-title text-left">Statut : </h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					 </div>
+				</div>
+	    	</div>
+		    <div class="col-md-3">
+    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				 	<div class="card-body">
+				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
+				    	<h5 class="card-text">Prix : 210 points</h5>
+				      	<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
+				      	<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+				    	<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
+				    	<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>		
+				  	</div>
+				</div>
+    		</div>
+    		<!-- fin mes ventes -->
 		</div>
 	</body>
 </html>
