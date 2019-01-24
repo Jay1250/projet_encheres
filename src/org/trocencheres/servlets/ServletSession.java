@@ -21,7 +21,6 @@ public class ServletSession extends HttpServlet implements Servlet {
 	 */
 	public ServletSession() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

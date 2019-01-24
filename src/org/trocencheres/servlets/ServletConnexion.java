@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.trocencheres.beans.Utilisateur;
+import org.trocencheres.bll.BLLException;
+import org.trocencheres.bll.ProjetEnchereManager;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
 import org.trocencheres.dal.UtilisateurDAOFactory;
@@ -19,14 +21,14 @@ import org.trocencheres.dal.UtilisateurDAOFactory;
 @WebServlet("/ServletConnexion")
 public class ServletConnexion extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurDAO daoUtilisateur;
+	private ProjetEnchereManager pem;
 
 	/**
 	 * Default constructor.
 	 */
 	public ServletConnexion() {
 		super();
-		this.daoUtilisateur = UtilisateurDAOFactory.getUtilisateurDao();
+		this.pem = ProjetEnchereManager.getInstance();
 	}
 
 	/**
@@ -49,7 +51,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 		String mdp = request.getParameter("motdepasse");
 
 		try {
-			Utilisateur utilisateurTrouve = daoUtilisateur.selectByLogin(identifiant, mdp);
+			Utilisateur utilisateurTrouve = pem.getUserByLogin(identifiant, mdp);
 			if (utilisateurTrouve.getNoUtilisateur() != 0) {
 				request.setAttribute("utilisateurConnecte", utilisateurTrouve);
 				request.setAttribute("identifiant", identifiant);
@@ -60,7 +62,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 			this.getServletContext().getRequestDispatcher("/ServletSession").forward(request, response);
 		} catch (
 
-		DALException e) {
+		BLLException e) {
 			request.setAttribute("erreur", e);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 

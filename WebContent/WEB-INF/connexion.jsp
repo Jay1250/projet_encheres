@@ -1,66 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Page Connexion</title>
-</head>
-<body>
-	<div class="jumbotron text-center">
-		<h1>Bienvenue sur TrocEnchere.org</h1>
-	</div>
-
-	<div class="col-sm-12 col-xs-12">
-
-		<form action="/ProjetEncheres/VerifConnexion" method="post">
-			<div class="col-sm-10 col-xs-10">
-
+<html lang="fr">
+	<head>
+	  <title>Connexion</title>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+	  <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse">
+		  	<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/ProjetEncheres/PageConnexion.html">TrocEncheres.org</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/ProjetEncheres/VerifConnexion"><span class="glyphicon glyphicon-user"></span> Connexion</a></li>
+					<li><a href="/ProjetEncheres/ServletCreerCompte"><span class="glyphicon glyphicon glyphicon-pencil"></span> Créer un compte</a></li>
+				</ul>
+		  	</div>
+		</nav>
+		<div class="container">
+			<div class="row top-buffer">
+				<h2 class="text-center">Connexion</h2><br>
+			</div>
+			<form action="/ProjetEncheres/VerifConnexion" method="post">
+				<div class="col-md-4 col-md-offset-4">
 					<div class="form-group">
-						<label for="identifiant">Identifiant :</label> <input type="text"
-							class="form-control" id="identifiant" name="identifiant">
-					</div>
-
-			</div>
-			<br> <br>
-			<div class="col-sm-10 col-xs-10">
-				<div class="form-group">
-					<label for="motdepasse">Mot de passe :</label> <input
-						type="password" class="form-control" id="motdepasse"
-						name="motdepasse">
+						<label for="exampleInputEmail1">Identifiant : </label>
+					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)">
+					 </div>
+					 <div class="form-group">
+					    <label for="exampleInputPassword1">Mot de passe : </label>
+					    <input type="password" class="form-control" placeholder="Saisir votre mot de passe">
+					 </div>
+					 <div class="form-check">
+					    <input type="checkbox" class="form-check-input">
+					    <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
+					 </div>
+					 <div class="form-group">
+					    <a>Mot de passe oublié ?</a>
+					    
+					 </div>
+					 <div class="text-center">
+					 	<button type="submit" class="btn btn-primary">Connexion</button>
+					 </div>
+					 
 				</div>
-			</div>
-			<br> <br>
-			<div class="col-sm-10 col-xs-10">
-				<div class="col-sm-4 col-xs-4">
-					<button type="submit" class="btn btn-default">Connexion</button>
-				</div>
-			</div>
-				<div class="col-sm-5 col-xs-5">
-					<button type="checkbox" class="btn btn-default">Se souvenir
-					de moi</button>
-				</div>
-				<div class="col-sm-5 col-xs-5">
-				<a href="pageMdpOublie">Mot de passe oublié</a>
-			</div>
-		</form>
-
-			<br> <br>
-
-			<div class="col-sm-10 col xs-10">
-				
-					<div class="form-group">
-						<a href="/ProjetEncheres/ServletCreerCompte">Créer un
-							compte</a>
-					</div>
-				
-			</div>
+			</form>
 		</div>
-
-		<div class="row">
-			<div class="footer col-sm-12 col xs-12">
-				<p>Copyright (c) TrocEncheres.org</p>
-			</div>
-		</div>
-</body>
+	</body>
 </html>
