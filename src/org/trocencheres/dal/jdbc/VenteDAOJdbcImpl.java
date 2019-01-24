@@ -145,7 +145,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         int noUtilisateur= resultSet.getInt("no_utilisateur");
         int noCategorie= resultSet.getInt("no_categorie");
         ArrayList<Integer> encheres = new ArrayList<>();
-        Retrait retrait = new Retrait();
+        Retrait retrait = new Retrait(noVente);
         return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, noUtilisateur, noCategorie, retrait);
     }
 }

@@ -81,26 +81,15 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
     }
 
     @Override
-    public void update(Enchere enchere) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
-            PreparedStatement statement = this.getStatementFromMode("update", connection, enchere);
-            if (statement != null) {
-                statement.executeUpdate();
-                statement.close();
-            }
-        } catch (SQLException e) {
-            throw new DALException("Auction - Update", e);
-        }
-    }
-
-    @Override
     public void insert(Enchere enchere) throws DALException {
         try (Connection connection = AccesBase.getConnection()) {
-            PreparedStatement statement = this.getStatementFromMode("insert", connection, enchere);
-            if (statement != null) {
-                statement.executeUpdate();
-                statement.close();
-            }
+            String sqlRequest = "INSERT INTO ENCHERES (date_enchere, no_utilisateur, no_vente) VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setDate(1, this.convertJavaDataToSQLDate(enchere.getDateEnchere()));
+            statement.setInt(2, enchere.getNoUtilisateur());
+            statement.setInt(3, enchere.getNoVente());
+            statement.executeUpdate();
+            statement.close();
         } catch (SQLException e) {
             throw new DALException("Auction - Insert", e);
         }
@@ -117,23 +106,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
             statement.close();
         } catch (SQLException e) {
             throw new DALException("Auction - Delete", e);
-        }
-    }
-
-    private PreparedStatement getStatementFromMode(String mode, Connection connection, Enchere enchere) throws SQLException {
-        String sqlRequest = mode.equals("insert")
-                ? "INSERT INTO ENCHERES (date_enchere, no_utilisateur, no_vente) VALUES (?, ?, ?)"
-                : mode.equals("update")
-                    ? "UPDATE ENCHERES SET date_enchere = ? WHERE no_utilisateur = ? AND no_vente = ?"
-                    : null;
-        if (sqlRequest == null)
-            return null;
-        else {
-            PreparedStatement statement = connection.prepareStatement(sqlRequest);
-            statement.setDate(1, this.convertJavaDataToSQLDate(enchere.getDateEnchere()));
-            statement.setInt(2, enchere.getNoUtilisateur());
-            statement.setInt(3, enchere.getNoVente());
-            return statement;
         }
     }
 
