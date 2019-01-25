@@ -139,7 +139,6 @@ public class ProjetEnchereManager {
                 || utilisateur.getRue() == null
                 || utilisateur.getCodePostal() == null
                 || utilisateur.getVille() == null
-                || utilisateur.getMotDePasse() == null
                 || utilisateur.getCredit() < 0) {
             throw new BLLException("Invalid user");
         }

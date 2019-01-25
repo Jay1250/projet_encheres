@@ -8,8 +8,10 @@
 	  <meta charset="ISO-8859-1">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+	  <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
+	  <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
 	</head>
-	<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
+		<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 String identifiant = utilisateurConnecte.getPseudo(); %>
 	<body>
 		<nav class="navbar navbar-inverse">
@@ -20,16 +22,22 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			    <ul class="nav navbar-nav">
 			      <li><a href="/ProjetEncheres/PageProfil.html">Mon profil</a></li>
 			      <li class="active"><a href="/ProjetEncheres/PageListeEncheres.html">Les enchères</a></li>
-			      <li><a href="#">Vendre un article</a></li>
+			      <li><a href="/ProjetEncheres/PageVendreUnArticle.html">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="/ProjetEncheres/PageConnexion.html"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
+		<div class="container-fluid">
+			<div class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
+    			<strong>Bonjour <%=identifiant %> !</strong>
+    			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+		</div>
+		
 		<div class="container">
 			<form class="row ">
-			<h1>Bonjour <%=identifiant %> !</h1>
 				<h3 class="text-center">Filtres : </h3>
 				<div class="form-group col-md-5 col-md-offset-2">
 					<div class="form-check">
@@ -72,7 +80,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			<!--  mes ventes en cours -->
 			<h2 class="text-center">Mes ventes en cours</h2><hr />
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 						<h5 class="card-text">Prix : 210 points</h5>
@@ -84,7 +92,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 			<div class="col-md-3">
-				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
 					    <h5 class="card-text">Prix : 185 points</h5>
@@ -96,7 +104,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 					    <h5 class="card-text">Prix : 210 points</h5>
@@ -108,7 +116,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 		    <div class="col-md-3">
-    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+    			<div class="card col-md-12 block-info-vente">
 				 	<div class="card-body">
 				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 				    	<h5 class="card-text">Prix : 210 points</h5>
@@ -124,7 +132,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			<!--  mes ventes terminées -->
 			<h2 class="text-center">Mes ventes terminées</h2><hr />
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 						<h5 class="card-text">Prix : 210 points</h5>
@@ -136,7 +144,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 			<div class="col-md-3">
-				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
 					    <h5 class="card-text">Prix : 185 points</h5>
@@ -148,7 +156,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 					    <h5 class="card-text">Prix : 210 points</h5>
@@ -160,7 +168,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 		    <div class="col-md-3">
-    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+    			<div class="card col-md-12 block-info-vente">
 				 	<div class="card-body">
 				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 				    	<h5 class="card-text">Prix : 210 points</h5>
@@ -174,9 +182,9 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
     		<!-- fin mes ventes terminées -->	
     		
 			<!--  mes enchères en cours -->
-			<h2 class="text-center" style="margin-top: 10px;">Mes enchères en cours</h2><hr />
+			<h2 class="text-center test">Mes enchères en cours</h2><hr />
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 						<h5 class="card-text">Prix : 210 points</h5>
@@ -189,7 +197,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 			<div class="col-md-3">
-				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
 					    <h5 class="card-text">Prix : 185 points</h5>
@@ -202,7 +210,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 					    <h5 class="card-text">Prix : 210 points</h5>
@@ -215,7 +223,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 		    <div class="col-md-3">
-    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+    			<div class="card col-md-12 block-info-vente">
 				 	<div class="card-body">
 				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 				    	<h5 class="card-text">Prix : 210 points</h5>
@@ -232,7 +240,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			<!--  mes acquisitions -->
 			<h2 class="text-center">Mes acquisitions</h2><hr />
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 						<h5 class="card-text">Prix : 210 points</h5>
@@ -245,7 +253,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 			<div class="col-md-3">
-				<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+				<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
 					    <h5 class="card-text">Prix : 185 points</h5>
@@ -258,7 +266,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 	    	<div class="col-md-3">
-	    		<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 					    <h5 class="card-text">Prix : 210 points</h5>
@@ -271,7 +279,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 				</div>
 	    	</div>
 		    <div class="col-md-3">
-    			<div class="card col-md-12 " style="height: 23rem; border: 1px solid black; padding:10px; margin:10px;">
+    			<div class="card col-md-12 block-info-vente">
 				 	<div class="card-body">
 				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
 				    	<h5 class="card-text">Prix : 210 points</h5>
