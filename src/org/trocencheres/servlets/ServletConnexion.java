@@ -47,18 +47,21 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String identifiant = request.getParameter("identifiant");
-		String mdp = request.getParameter("motdepasse");
+		String identifiant = request.getParameter("identifiant").trim();
+		String mdp = request.getParameter("motdepasse").trim();
 
 		try {
 			Utilisateur utilisateurTrouve = pem.getUserByLogin(identifiant, mdp);
 			if (utilisateurTrouve.getNoUtilisateur()!=0) {
+				System.out.println("utilisateur trouve ac succès");
 				request.setAttribute("utilisateurConnecte", utilisateurTrouve);
 				request.setAttribute("identifiant", identifiant);
 			} else {
+				System.out.println("utilisateur non trouve");
 				request.setAttribute("utilisateurConnecte", null);
 				request.setAttribute("identifiant", identifiant);
 			}
+			System.out.println("va dans servlet session");
 			this.getServletContext().getRequestDispatcher("/ServletSession").forward(request, response);
 		} catch (
 

@@ -17,7 +17,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres/PageProfil.html">TrocEncheres.org</a>
+			      <a class="navbar-brand" href="/ProjetEncheres/VerifConnexion">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
 			      <li><a href="/ProjetEncheres/PageProfil.html">Mon profil</a></li>

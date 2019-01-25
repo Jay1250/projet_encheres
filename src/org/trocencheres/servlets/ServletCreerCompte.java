@@ -54,26 +54,25 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
-		// select by email pseudo et tel pour éviter double enregistrement pour une mm
-		// personne
+		// lors du premier appel a cette servlet par la jsp connexion via son lien "se connecter", aller à la page jsp Créer un compte:
 
 		if (count == null) {
 			count = 1;
 			System.out.println(count);
 			request.getSession().setAttribute("compteur", count);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
-					
+			//lors du 2e appel appel on considere que le formulaire a été rempli : 		
 		} else {
-			String pseudo = (String)request.getParameter("pseudo").trim();
-			String nom = (String)request.getParameter("nom").trim();
-			String prenom = (String)request.getParameter("prenom").trim();
-			String email = (String)request.getParameter("email").trim();
-			String telephone = (String)request.getParameter("telephone").trim();
-			String rue = (String)request.getParameter("rue").trim();
-			String codePostal = (String)request.getParameter("codepostal").trim();
-			String ville = (String)request.getParameter("ville").trim();
-			String motDePasse = (String)request.getParameter("motdepasse").trim();
-			String confirmationMotDePasse = (String)request.getParameter("confirmation").trim();
+			String pseudo = request.getParameter("pseudo").trim();
+			String nom = request.getParameter("nom").trim();
+			String prenom = request.getParameter("prenom").trim();
+			String email = request.getParameter("email").trim().toLowerCase();
+			String telephone = request.getParameter("telephone").trim();
+			String rue = request.getParameter("rue").trim();
+			String codePostal = request.getParameter("codepostal").trim();
+			String ville = request.getParameter("ville").trim();
+			String motDePasse = request.getParameter("motdepasse");
+			String confirmationMotDePasse = request.getParameter("confirmation");
 
 			ArrayList<Integer> ventes = new ArrayList<>();
 			boolean administrateur = false;
@@ -133,7 +132,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 						pem.addUser(newUtilisateur);
 
 						request.getSession().setAttribute("utilisateurConnecte", newUtilisateur);
-						this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request,
+						this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request,
 								response);
 
 					} catch (BLLException e) {

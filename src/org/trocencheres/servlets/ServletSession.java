@@ -40,7 +40,8 @@ public class ServletSession extends HttpServlet implements Servlet {
 			throws ServletException, IOException {
 
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getAttribute("utilisateurConnecte");
-		String identifiant = (String) request.getAttribute("identifiant");
+	System.out.println(utilisateurConnecte);
+		String identifiant = ((String) request.getAttribute("identifiant")).trim();
 
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 

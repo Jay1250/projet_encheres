@@ -39,23 +39,30 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
-		String identifiant = request.getParameter("identifiant");
-		String mdp = request.getParameter("motdepasse");
+		
 
 		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
+			System.out.println(count);
 			if (count ==null) {
-				if (identifiant == null && mdp == null) {
+				String identifiant = (String)request.getParameter("identifiant").trim();
+				System.out.println(identifiant);
+				String mdp = (String)request.getParameter("motdepasse").trim();
+				System.out.println(mdp);
+				if (identifiant == "" && mdp == "") {
+					System.out.println("va dans connexion.jsp");
 					this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 				} else {
+					System.out.println("va ds servlet connexion");
 					this.getServletContext().getRequestDispatcher("/ServletConnexion").forward(request, response);
 
 				}
 			} else {
-
+				System.out.println("va ds erreurconnexion.jsp");
 				this.getServletContext().getRequestDispatcher("/WEB-INF/erreurConnexion.jsp").forward(request,
 						response);
 			}
 		} else {
+			System.out.println("va ds listeEncheres.jsp");
 			this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		}
 
