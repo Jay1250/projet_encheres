@@ -19,6 +19,12 @@
 			<h1>TrocEncheres.org</h1>
 		</div>
 		<div class="row top-buffer">
+			<% 	if (request.getAttribute("champsNonRemplis")!=null&& request.getAttribute("champsNonRemplis").equals(true)){
+		%>
+
+			<p class="text-danger">Tous les champs (excepté le téléphone)
+				doivent être remplis</p>
+			<%} %>
 			<h2 class="text-center">Créer un compte</h2>
 			<br>
 		</div>
@@ -36,11 +42,12 @@
 						}
 					%>
 
-<% 	if (request.getAttribute("pseudoExists")!=null&& request.getAttribute("pseudoExists").equals(true)){
+					<% 	if (request.getAttribute("pseudoExists")!=null&& request.getAttribute("pseudoExists").equals(true)){
 		%>
 
-	<p class="text-danger">Ce pseudo existe déjà. Veuillez saisir un nouveau pseudo</p>
-	<%} %>
+					<p class="text-danger">Ce pseudo existe déjà. Veuillez saisir
+						un nouveau pseudo</p>
+					<%} %>
 
 				</div>
 			</div>
@@ -56,7 +63,7 @@
 					<%
 						}
 					%>
-					
+
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -86,8 +93,9 @@
 						}
 					%>
 					<% if (request.getAttribute("emailExists")!=null&& request.getAttribute("emailExists").equals(true)){%>
-	<p class="text-danger">Cet email existe déjà. Veuillez saisir un nouvel email</p>
-	<%} %>
+					<p class="text-danger">Cet email existe déjà. Veuillez saisir
+						un nouvel email</p>
+					<%} %>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -104,8 +112,9 @@
 						}
 					%>
 					<% if (request.getAttribute("telephoneExists")!=null&& request.getAttribute("telephoneExists").equals(true)){%>
-	<p class="text-danger">Ce numéro de téléphone existe déjà. Veuillez en saisir un nouveau téléphone</p>
-	<%} %>
+					<p class="text-danger">Ce numéro de téléphone existe déjà.
+						Veuillez en saisir un nouveau téléphone</p>
+					<%} %>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -115,10 +124,10 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="rue" name="rue"
 						<%if(request.getParameter("rue")!=null){
-						%> 
+						%>
 						value="<%=request.getParameter("rue")%>
 						">
-						<%
+					<%
 						} %>
 				</div>
 			</div>
@@ -128,12 +137,12 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="codepostal"
-						name="codepostal" 
+						name="codepostal"
 						<%if(request.getParameter("codepostal")!=null){
-						%> 
+						%>
 						value="<%=request.getParameter("codepostal")%>
 						">
-						<%
+					<%
 						} %>
 				</div>
 			</div>
@@ -143,11 +152,11 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="ville" name="ville"
-					<%if(request.getParameter("ville")!=null){
-						%> 
+						<%if(request.getParameter("ville")!=null){
+						%>
 						value="<%=request.getParameter("ville")%>
 						">
-						<%
+					<%
 						} %>
 				</div>
 			</div>
@@ -156,6 +165,7 @@
 				%>
 				<p class="text-danger">Les mots de passe saisis ne sont pas
 					identiques</p>
+
 				<%
 					}
 				%>
@@ -164,7 +174,13 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="motdepasse"
-						name="motdepasse">
+						name="motdepasse"
+						<%
+					if(request.getAttribute("confirmationKo")!=null && request.getAttribute("confirmationKo").equals(false)){
+				%>
+						value="<%=request.getParameter("motdepasse")%>
+						">
+					<%} %>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -173,7 +189,13 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="confirmation"
-						name="confirmation">
+						name="confirmation"
+						<%
+						if(request.getAttribute("confirmationKo")!=null && request.getAttribute("confirmationKo").equals(false)){
+				%>
+						value="<%=request.getParameter("confirmation")%>
+						">
+					<%} %>
 				</div>
 			</div>
 			<div class="text-center">

@@ -43,8 +43,8 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 		String mdp = request.getParameter("motdepasse");
 
 		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
-			if (count == null) {
-				if (identifiant == null || mdp == null) {
+			if (count ==null) {
+				if (identifiant == null && mdp == null) {
 					this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 				} else {
 					this.getServletContext().getRequestDispatcher("/ServletConnexion").forward(request, response);
@@ -56,7 +56,7 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 						response);
 			}
 		} else {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		}
 
 	}

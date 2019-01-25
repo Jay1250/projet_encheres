@@ -52,7 +52,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 
 		try {
 			Utilisateur utilisateurTrouve = pem.getUserByLogin(identifiant, mdp);
-			if (utilisateurTrouve.getNoUtilisateur() != 0) {
+			if (utilisateurTrouve.getNoUtilisateur()!=0) {
 				request.setAttribute("utilisateurConnecte", utilisateurTrouve);
 				request.setAttribute("identifiant", identifiant);
 			} else {

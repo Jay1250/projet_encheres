@@ -30,11 +30,11 @@
 				<div class="col-md-4 col-md-offset-4">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Identifiant : </label>
-					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)">
+					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)" name="identifiant">
 					 </div>
 					 <div class="form-group">
 					    <label for="exampleInputPassword1">Mot de passe : </label>
-					    <input type="password" class="form-control" placeholder="Saisir votre mot de passe">
+					    <input type="password" class="form-control" placeholder="Saisir votre mot de passe" name="motdepasse">
 					 </div>
 					 <div class="form-check">
 					    <input type="checkbox" class="form-check-input">
