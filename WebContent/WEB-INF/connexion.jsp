@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,10 +30,20 @@
 				<div class="col-md-4 col-md-offset-4">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Identifiant : </label>
+						<% 	if (request.getAttribute("identifiantNonRenseigne")!=null && request.getAttribute("identifiantNonRenseigne").equals(true)){
+		%>
+
+			<p class="text-danger">Veuillez saisir votre identifiant</p>
+			<%} %>
 					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)" name="identifiant">
 					 </div>
 					 <div class="form-group">
 					    <label for="exampleInputPassword1">Mot de passe : </label>
+					    		<% 	if (request.getAttribute("mdpNonRenseigne")!=null && request.getAttribute("mdpNonRenseigne").equals(true)){
+		%>
+
+			<p class="text-danger">Veuillez saisir votre mot de passe</p>
+			<%} %>
 					    <input type="password" class="form-control" placeholder="Saisir votre mot de passe" name="motdepasse">
 					 </div>
 					 <div class="form-check">

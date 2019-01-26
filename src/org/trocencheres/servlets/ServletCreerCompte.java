@@ -58,7 +58,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 
 		if (count == null) {
 			count = 1;
-			System.out.println(count);
+			System.out.println("count= "+count);
 			request.getSession().setAttribute("compteur", count);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
 			//lors du 2e appel appel on considere que le formulaire a été rempli : 		
