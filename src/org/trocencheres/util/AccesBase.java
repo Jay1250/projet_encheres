@@ -9,9 +9,9 @@ import org.trocencheres.dal.DALException;
 public class AccesBase {
 	public static Connection getConnection() throws DALException{
 		
-		String uri = Parametre.lire("dbUrl");
-		String user = Parametre.lire("dbUser");
-		String password = Parametre.lire("dbPassword");
+		String uri = Parametre.lireJulie("dbUrl");
+		String user = Parametre.lireJulie("dbUser");
+		String password = Parametre.lireJulie("dbPassword");
 		Connection connexion = null;
 		try {
 
