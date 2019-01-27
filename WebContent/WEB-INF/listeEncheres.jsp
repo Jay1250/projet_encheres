@@ -5,7 +5,7 @@
 <html lang="fr">
 	<head>
 	  <title>Troc Encheres</title>
-	  <meta charset="ISO-8859-1">
+	  <meta charset="UTF-8">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	  <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
@@ -20,9 +20,9 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			      <a class="navbar-brand" href="/ProjetEncheres/VerifConnexion">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/PageProfil.html">Mon profil</a></li>
-			      <li class="active"><a href="/ProjetEncheres/PageListeEncheres.html">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/PageVendreUnArticle.html">Vendre un article</a></li>
+			      <li><a href="/ProjetEncheres/ServletMonProfil">Mon profil</a></li>
+			      <li class="active"><a href="/ProjetEncheres/VerifConnexion">Les enchères</a></li>
+			      <li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>

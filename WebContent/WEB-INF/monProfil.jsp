@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@page import="org.trocencheres.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="org.trocencheres.beans.Utilisateur"%>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
 	  <title>Troc Encheres</title>
-	  <meta charset="ISO-8859-1">
+	  <meta charset="UTF-8">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	  <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
@@ -24,7 +22,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			    <ul class="nav navbar-nav">
 			      <li><a href="/ProjetEncheres/monProfil.jsp">Mon profil</a></li>
 			      <li class="active"><a href="/ProjetEncheres/VerifConnexion">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/PageVendreUnArticle.html">Vendre un article</a></li>
+			      <li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="/ProjetEncheres/ServletDeconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
