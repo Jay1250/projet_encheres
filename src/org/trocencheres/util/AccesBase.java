@@ -9,9 +9,9 @@ import org.trocencheres.dal.DALException;
 public class AccesBase {
 	public static Connection getConnection() throws DALException{
 		
-		String uri = Parametre.lireJulie("dbUrl");
-		String user = Parametre.lireJulie("dbUser");
-		String password = Parametre.lireJulie("dbPassword");
+		String uri = Parametre.lireBddJulie("dbUrl");
+		String user = Parametre.lireBddJulie("dbUser");
+		String password = Parametre.lireBddJulie("dbPassword");
 		Connection connexion = null;
 		try {
 
@@ -21,8 +21,10 @@ public class AccesBase {
 		} catch (ClassNotFoundException e) {
 			throw new DALException("Probleme chargement driver "+e.getMessage());
 		} catch (SQLException e1){
+		
 			throw new DALException("Probleme connexion "+e1.getMessage());
 		}
+		
 		return connexion;		
 	}
 }

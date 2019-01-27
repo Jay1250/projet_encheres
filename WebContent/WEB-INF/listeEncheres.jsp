@@ -25,7 +25,7 @@ String identifiant = utilisateurConnecte.getPseudo(); %>
 			      <li><a href="/ProjetEncheres/PageVendreUnArticle.html">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/PageConnexion.html"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
