@@ -4,6 +4,7 @@ import org.trocencheres.beans.*;
 import org.trocencheres.dal.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,7 +24,7 @@ public class ProjetEnchereManager {
     private Map<Integer, Categorie> categoriesIndex;
 
 
-    private ProjetEnchereManager() {
+    private ProjetEnchereManager() throws BLLException {
         this.utilisateurDAO = UtilisateurDAOFactory.getUtilisateurDao();
         this.utilisateursIndex = new HashMap<>();
 
@@ -31,14 +32,26 @@ public class ProjetEnchereManager {
         this.ventesIndex = new HashMap<>();
 
         this.categorieDAO = CategorieDAOFactory.getCategorieDAO();
-        this.categoriesIndex = new HashMap<>();
+        Map<Integer, Categorie> categories = new HashMap<>();
+        try {
+            List<Categorie> categoriesList = categorieDAO.selectAll();
+            for(Categorie c : categoriesList) {
+                this.validateCategory(c);
+                categories.put(c.getNoCategorie(), c);
+            }
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+
+        this.categoriesIndex = categories;
+
 
         this.retraitDAO = RetraitDAOFactory.getRetraitDAO();
 
         this.enchereDAO = EnchereDAOFactory.getEnchereDAO();
     }
 
-    public static ProjetEnchereManager getInstance() {
+    public static ProjetEnchereManager getInstance() throws BLLException {
         if(instance == null) instance = new ProjetEnchereManager();
         return instance;
     }
@@ -258,6 +271,10 @@ public class ProjetEnchereManager {
             e.printStackTrace();
         }
         return categorie;
+    }
+
+    public Map<Integer, Categorie> getCategories() {
+        return this.categoriesIndex;
     }
 
     public void addCategory(Categorie categorie) throws BLLException {
