@@ -175,10 +175,11 @@ public class ProjetEnchereManager {
 
     public void addSale(Vente vente, Retrait retrait) throws BLLException {
         try {
-            this.validateWithdrawal(retrait);
-            vente.setRetrait(retrait);
             this.validateSale(vente);
             this.venteDAO.insert(vente);
+            retrait.setNoVente(vente.getNoVente());
+            this.validateWithdrawal(retrait);
+            vente.setRetrait(retrait);
             this.retraitDAO.insert(retrait);
             this.ventesIndex.put(vente.getNoVente(), vente);
         } catch (DALException e) {
