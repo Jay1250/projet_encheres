@@ -31,8 +31,7 @@
 				<div class="col-md-4 col-md-offset-4">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Identifiant : </label>
-						<% 	if (request.getAttribute("identifiantNonRenseigne")!=null && request.getAttribute("identifiantNonRenseigne").equals(true)){
-		%>
+						<% 	if (request.getAttribute("identifiantNonRenseigne")!=null && request.getAttribute("identifiantNonRenseigne").equals(true)){%>
 
 			<p class="text-danger">Veuillez saisir votre identifiant</p>
 			<%} %>

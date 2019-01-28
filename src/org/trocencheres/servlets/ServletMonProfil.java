@@ -21,7 +21,6 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
      */
     public ServletMonProfil() {
         super();
-
     }
 
 	/**
@@ -36,12 +35,9 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-// si la session a expiré:
+		// si la session a expiré:
 		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
-
-				this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
-		
-			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 		} else {
 			// si la session utilisateur est toujours active
 			System.out.println("va ds monProfil.jsp");

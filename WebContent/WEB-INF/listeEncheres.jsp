@@ -11,8 +11,8 @@
 	  <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
 	  <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
 	</head>
-		<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
-String identifiant = utilisateurConnecte.getPseudo(); %>
+		<% Utilisateur utilisateurConnecte = (Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
+			String identifiant = utilisateurConnecte.getPseudo(); %>
 	<body>
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">

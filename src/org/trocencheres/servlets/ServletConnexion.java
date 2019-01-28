@@ -35,7 +35,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("GET	 !!!!!!!!!!!");
 		doPost(request, response);
 	}
 
@@ -46,10 +46,11 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("POST	 !!!!!!!!!!!");
 		System.out.println("dans doPost de servlet connexion");
-		String identifiant = (String)request.getParameter("identifiant").trim();
+		String identifiant = request.getParameter("identifiant").trim();
 		System.out.println("identifiant ds servlet connexion : "+identifiant );
-		String mdp = (String)request.getParameter("motdepasse").trim();
+		String mdp = request.getParameter("motdepasse").trim();
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
 		try {
