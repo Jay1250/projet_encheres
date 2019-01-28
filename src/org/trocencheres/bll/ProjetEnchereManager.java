@@ -134,11 +134,21 @@ public class ProjetEnchereManager {
 
     private void validateUser(Utilisateur utilisateur) throws BLLException {
         if(utilisateur.getPseudo() == null
+                || utilisateur.getPseudo().length() > 30
                 || utilisateur.getNom() == null
-                || utilisateur.getprenom() == null
+                || utilisateur.getNom().length() > 30
+                || utilisateur.getPrenom() == null
+                || utilisateur.getPrenom().length() > 30
+                || utilisateur.getEmail() == null
+                || utilisateur.getEmail().length() > 20
+                || (utilisateur.getMotDePasse() != null && utilisateur.getMotDePasse().length() > 30)
+                || (utilisateur.getTelephone() != null && utilisateur.getTelephone().length() > 15)
                 || utilisateur.getRue() == null
+                || utilisateur.getRue().length() > 30
                 || utilisateur.getCodePostal() == null
+                || utilisateur.getCodePostal().length() > 10
                 || utilisateur.getVille() == null
+                || utilisateur.getVille().length() > 30
                 || utilisateur.getCredit() < 0) {
             throw new BLLException("Invalid user");
         }

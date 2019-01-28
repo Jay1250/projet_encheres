@@ -183,7 +183,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur) throws SQLException {
 		statement.setString(1, utilisateur.getPseudo());
 		statement.setString(2, utilisateur.getNom());
-		statement.setString(3, utilisateur.getprenom());
+		statement.setString(3, utilisateur.getPrenom());
 		statement.setString(4, utilisateur.getEmail());
 		statement.setString(5, utilisateur.getTelephone());
 		statement.setString(6, utilisateur.getRue());
