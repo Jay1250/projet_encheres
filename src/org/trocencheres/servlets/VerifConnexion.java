@@ -57,6 +57,7 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 		// infructueuses si count >)
 		// cette variable est nulle lors du premier envoi du formulaire du client sur la
 		// page connexion
+		request.setCharacterEncoding("UTF-8");
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 		String identifiant = (String) request.getParameter("identifiant");
 		System.out.println("identifiant = "+identifiant);

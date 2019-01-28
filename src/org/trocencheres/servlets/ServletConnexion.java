@@ -45,6 +45,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		System.out.println("dans doPost de servlet connexion");
 		String identifiant = (String)request.getParameter("identifiant").trim();
 		System.out.println("identifiant ds servlet connexion : "+identifiant );
