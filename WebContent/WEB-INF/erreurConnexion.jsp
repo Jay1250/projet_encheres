@@ -14,6 +14,6 @@
 <%=id%>
  saisis ne sont pas corrects.
 </p>
-<a href="Accueil">Réessayez</a>
+<a href="/ProjetEncheres/WEB-INF/connexion.jsp">Réessayez</a>
 </body>
 </html>
