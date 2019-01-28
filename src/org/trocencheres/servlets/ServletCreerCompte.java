@@ -25,9 +25,10 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 	private ProjetEnchereManager pem;
 
 	/**
+	 * @throws BLLException 
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletCreerCompte() {
+	public ServletCreerCompte() throws BLLException {
 		super();
 
 		this.pem = ProjetEnchereManager.getInstance();

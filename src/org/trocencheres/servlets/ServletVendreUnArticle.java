@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.trocencheres.beans.Retrait;
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.beans.Vente;
+import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
@@ -29,9 +30,10 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
     /**
      * servlet accessible via le lien VendreUnArticle dans la navbar 
      * cette servlet permet de vérifier la connexion avant de ridiriger vers la page VendreUnArticle.jsp
+     * @throws BLLException 
      * @see HttpServlet#HttpServlet()
      */
-    public ServletVendreUnArticle() {
+    public ServletVendreUnArticle() throws BLLException {
         super();
         this.pem = ProjetEnchereManager.getInstance();
       

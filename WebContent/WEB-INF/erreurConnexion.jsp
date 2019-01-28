@@ -8,13 +8,12 @@
 <title>Erreur</title>
 </head>
 <body>
-<% String id=(String)request.getSession().getAttribute("identifiant");%>
+<% String id=(String)request.getParameter("identifiant");%>
 <h2>ERREUR</h2>
 <p>erreur détectée : Le mot de passe ou l'identifiant
 <%=id%>
  saisis ne sont pas corrects.
 </p>
-<%request.getSession().invalidate();%>
 <a href="Accueil">Réessayez</a>
 </body>
 </html>

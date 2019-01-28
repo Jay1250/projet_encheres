@@ -50,7 +50,7 @@
 			  </div>
 			  <div class="form-group col-md-12 col-xs-12 text-left">
 				<div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label>Téléphone :</label></div>
-				<div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getEmail() %></label></div>
+				<div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getTelephone() %></label></div>
 			  </div>
 			  <div class="form-group col-md-12 col-xs-12 text-left">
 			    <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label>Rue :</label></div>

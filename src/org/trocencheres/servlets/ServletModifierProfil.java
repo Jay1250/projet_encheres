@@ -23,9 +23,10 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 	private ProjetEnchereManager pem;
 
 	/**
+	 * @throws BLLException 
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletModifierProfil() {
+	public ServletModifierProfil() throws BLLException {
 		super();
 		this.pem = ProjetEnchereManager.getInstance();
 	}
@@ -70,7 +71,7 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 		
 		Utilisateur newUtilisateur = new Utilisateur();
 
-		if (!motDePasse.equals("")&& !confirmationMotDePasse.equals("")) {
+		if (!motDePasse.equals("")|| !confirmationMotDePasse.equals("")) {
 						
 			if (!motDePasse.equals(confirmationMotDePasse)) {
 				request.setAttribute("confirmationKo", true);
@@ -93,17 +94,17 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 		else
 			request.setAttribute("champsNonRemplis", false);
 
-		if (pem.pseudoExists(pseudo))
+		if (!pseudo.equals(utilisateurConnecte.getPseudo()) && pem.pseudoExists(pseudo))
 			request.setAttribute("pseudoExists", true);
 		else
 			request.setAttribute("pseudoExists", false);
 
-		if (pem.emailExists(email))
+		if (!email.equals(utilisateurConnecte.getEmail()) && pem.emailExists(email))
 			request.setAttribute("emailExists", true);
 		else
 			request.setAttribute("emailExists", false);
 
-		if (!telephone.equals("") && pem.telephoneExists(telephone))
+		if (!telephone.equals(utilisateurConnecte.getTelephone()) && !telephone.equals("") && pem.telephoneExists(telephone))
 			request.setAttribute("telephoneExists", true);
 		else
 			request.setAttribute("telephoneExists", false);

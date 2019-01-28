@@ -87,10 +87,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="nom" name="nom"
-						<%if (request.getParameter("nom") != null) {%>
+						<%
+						if (request.getParameter("nom") != null) {
+						%>
 						value="<%=request.getParameter("nom")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getNom()%>"
+									 
+						<%
+						} 
+						%>
+			>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -99,10 +109,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="prenom" name="prenom"
-						<%if (request.getParameter("prenom") != null) {%>
+						<%
+						if (request.getParameter("prenom") != null) {
+						%>
 						value="<%=request.getParameter("prenom")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getPrenom()%>"
+									 
+						<%
+						} 
+						%>
+			>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -111,10 +131,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="email" class="form-control" id="email" name="email"
-						<%if (request.getParameter("email") != null) {%>
+						<%
+						if (request.getParameter("email") != null) {
+						%>
 						value="<%=request.getParameter("email")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getEmail()%>"
+									 
+						<%
+						} 
+						%>
+			>
 					<%
 						if (request.getAttribute("emailExists") != null && request.getAttribute("emailExists").equals(true)) {
 					%>
@@ -132,10 +162,20 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="telephone"
 						name="telephone"
-						<%if (request.getParameter("telephone") != null) {%>
+						<%
+						if (request.getParameter("telephone") != null) {
+						%>
 						value="<%=request.getParameter("telephone")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getTelephone()%>"
+									 
+						<%
+						} 
+						%>
+			>
 					<%
 						if (request.getAttribute("telephoneExists") != null
 								&& request.getAttribute("telephoneExists").equals(true)) {
@@ -153,10 +193,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="rue" name="rue"
-						<%if (request.getParameter("rue") != null) {%>
+						<%
+						if (request.getParameter("rue") != null) {
+						%>
 						value="<%=request.getParameter("rue")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getRue()%>"
+									 
+						<%
+						} 
+						%>
+			>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -166,10 +216,20 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="codepostal"
 						name="codepostal"
-						<%if (request.getParameter("codepostal") != null) {%>
+					<%
+						if (request.getParameter("codepostal") != null) {
+						%>
 						value="<%=request.getParameter("codepostal")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getCodePostal()%>"
+									 
+						<%
+						} 
+						%>
+			>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -178,10 +238,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="ville" name="ville"
-						<%if (request.getParameter("ville") != null) {%>
+						<%
+						if (request.getParameter("ville") != null) {
+						%>
 						value="<%=request.getParameter("ville")%>
-						"
-						<%}%>>
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getVille()%>"
+									 
+						<%
+						} 
+						%>
+			>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">

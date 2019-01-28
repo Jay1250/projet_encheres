@@ -24,7 +24,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	private ProjetEnchereManager pem;
 
 	
-	public ServletConnexion() {
+	public ServletConnexion() throws BLLException {
 		super();
 		this.pem = ProjetEnchereManager.getInstance();
 	}
