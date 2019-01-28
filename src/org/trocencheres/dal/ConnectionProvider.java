@@ -7,6 +7,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 public abstract class ConnectionProvider {
     private static DataSource dataSource;
 
