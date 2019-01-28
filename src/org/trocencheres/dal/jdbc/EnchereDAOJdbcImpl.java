@@ -1,9 +1,9 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Enchere;
+import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.EnchereDAO;
-import org.trocencheres.util.AccesBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public Enchere selectByIds(Integer noVente, Integer noUtilisateur) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             Enchere enchere = new Enchere();
             String sqlRequest = "SELECT * FROM ENCHERES WHERE no_vente= ? AND no_utilisateur = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -38,7 +38,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public List<Enchere> selectAll() throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Enchere> allEncheres = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES");
             ResultSet resultSet = statement.executeQuery();
@@ -53,7 +53,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public List<Enchere> selectAllBySale(int noVente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Enchere> allEncheresBySale = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES WHERE no_vente = ?");
             statement.setInt(1, noVente);
@@ -69,7 +69,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public List<Enchere> selectAllByUser(int noUtilisateur) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Enchere> allEncheresByUser = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES WHERE no_utilisateur = ?");
             statement.setInt(1, noUtilisateur);
@@ -85,7 +85,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public void insert(Enchere enchere) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "INSERT INTO ENCHERES (date_enchere, no_utilisateur, no_vente) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setDate(1, this.convertJavaDataToSQLDate(enchere.getDateEnchere()));
@@ -100,7 +100,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
     @Override
     public void delete(Integer noVente, Integer noUtilisateur) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "DELETE FROM ENCHERES WHERE no_vente = ? AND no_utilisateur = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
