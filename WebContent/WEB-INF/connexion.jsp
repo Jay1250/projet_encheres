@@ -36,7 +36,14 @@
 
 			<p class="text-danger">Veuillez saisir votre identifiant</p>
 			<%} %>
-					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)" name="identifiant">
+		
+					    <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)" name="identifiant"
+					    	<%if (request.getParameter("identifiant") != null) {%>
+						value="<%=request.getParameter("identifiant")%>
+						">
+					<%
+						}
+					%>
 					 </div>
 					 <div class="form-group">
 					    <label for="exampleInputPassword1">Mot de passe : </label>

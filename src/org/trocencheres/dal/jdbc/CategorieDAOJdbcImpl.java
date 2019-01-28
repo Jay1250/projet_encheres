@@ -2,8 +2,8 @@ package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Categorie;
 import org.trocencheres.dal.CategorieDAO;
+import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
-import org.trocencheres.util.AccesBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import java.util.List;
 public class CategorieDAOJdbcImpl implements CategorieDAO {
     @Override
     public Categorie selectById(Integer noCategorie) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             Categorie categorie = new Categorie();
             String sqlRequest = "SELECT * FROM CATEGORIES WHERE no_categorie = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -35,7 +35,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
     @Override
     public List<Categorie> selectAll() throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Categorie> allCategories = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM CATEGORIES");
             ResultSet resultSet = statement.executeQuery();
@@ -50,7 +50,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
     @Override
     public void update(Categorie categorie) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("update", connection, categorie);
             if (statement != null) {
                 statement.executeUpdate();
@@ -63,7 +63,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
     @Override
     public void insert(Categorie categorie) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("insert", connection, categorie);
             if (statement != null) {
                 int nbRows = statement.executeUpdate();
@@ -83,7 +83,7 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 
     @Override
     public void delete(Integer noCategorie) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noCategorie);

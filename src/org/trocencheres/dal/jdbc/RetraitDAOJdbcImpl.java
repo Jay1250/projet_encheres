@@ -1,9 +1,9 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Retrait;
+import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.RetraitDAO;
-import org.trocencheres.util.AccesBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public Retrait selectByIdVente(Integer noVente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             Retrait retrait = new Retrait();
             String sqlRequest = "SELECT * FROM CATEGORIES WHERE no_categorie = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -36,7 +36,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public List<Retrait> selectAll() throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Retrait> allCategories = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM RETRAITS");
             ResultSet resultSet = statement.executeQuery();
@@ -51,7 +51,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public void update(Retrait retrait) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("update", connection, retrait);
             if (statement != null) {
                 statement.executeUpdate();
@@ -64,7 +64,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public void insert(Retrait retrait) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("insert", connection, retrait);
             if (statement != null) {
                 statement.executeUpdate();
@@ -77,7 +77,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
     @Override
     public void delete(Integer noVente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "DELETE FROM RETRAITS WHERE no_vente = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
