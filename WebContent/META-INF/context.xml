@@ -1,0 +1,15 @@
+<?xml veresion="1.0" encoding="UTF-8" ?>
+<Context>
+    <Resource name="jdbc/pool_connection"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              type="javax.sql.DataSource"
+
+              url="jdbc:sqlserver://10.43.101.23:1433;databasename=BDD_Encheres"
+              username="sa"
+              password="Pa$$w0rd"
+
+              maxTotal="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+    />
+</Context>
