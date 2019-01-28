@@ -7,7 +7,7 @@ public class Utilisateur {
 	private int noUtilisateur, credit;
 	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
 	private boolean administrateur;
-	private List<Integer> idsVentes;
+	private ArrayList<Integer> idsVentes;
 
 	public Utilisateur() {
 	}
@@ -19,7 +19,7 @@ public class Utilisateur {
 		this.setNoUtilisateur(noUtilisateur);
 		this.setPseudo(pseudo);
 		this.setNom(nom);
-		this.setprenom(prenom);
+		this.setPrenom(prenom);
 		this.setEmail(email);
 		this.setTelephone(telephone);
 		this.setRue(rue);
@@ -38,7 +38,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public List<Integer> getVentesIds() {
+	public ArrayList<Integer> getVentesIds() {
 		return this.idsVentes;
 	}
 
@@ -78,11 +78,11 @@ public class Utilisateur {
 		this.nom = nom;
 	}
 
-	public String getprenom() {
+	public String getPrenom() {
 		return prenom;
 	}
 
-	public void setprenom(String prenom) {
+	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 

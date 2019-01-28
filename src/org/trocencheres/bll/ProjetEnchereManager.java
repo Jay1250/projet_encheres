@@ -135,7 +135,7 @@ public class ProjetEnchereManager {
     private void validateUser(Utilisateur utilisateur) throws BLLException {
         if(utilisateur.getPseudo() == null
                 || utilisateur.getNom() == null
-                || utilisateur.getprenom() == null
+                || utilisateur.getPrenom() == null
                 || utilisateur.getRue() == null
                 || utilisateur.getCodePostal() == null
                 || utilisateur.getVille() == null

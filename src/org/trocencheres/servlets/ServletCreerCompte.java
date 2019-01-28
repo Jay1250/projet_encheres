@@ -49,7 +49,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+request.getSession().setAttribute("utilisateurConnecte", null);
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
 		// lors du premier appel a cette servlet par la jsp connexion via son lien "se
@@ -87,8 +87,8 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 			System.out.println("prenom avec espaces en trim " + prenom);
 			request.getSession().setAttribute("compteur", count);
 
-			if (pseudo == "" || nom == "" || prenom == "" || email == "" || rue == "" || codePostal == "" || ville == ""
-					|| motDePasse == "" || confirmationMotDePasse == "") {
+			if (pseudo.equals("") || nom.equals("") || prenom.equals("")|| email.equals("")|| rue.equals("") || codePostal.equals("")|| ville.equals("")
+					|| motDePasse.equals("") || confirmationMotDePasse.equals("")) {
 				request.setAttribute("champsNonRemplis", true);
 			}else {
 				request.setAttribute("champsNonRemplis", false);
@@ -103,7 +103,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 			else
 				request.setAttribute("emailExists", false);
 
-			if (telephone != "" && pem.telephoneExists(telephone))
+			if (!telephone.equals("") && pem.telephoneExists(telephone))
 				request.setAttribute("telephoneExists", true);
 			else
 				request.setAttribute("telephoneExists", false);

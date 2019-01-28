@@ -18,7 +18,7 @@ import org.trocencheres.dal.UtilisateurDAOFactory;
 /**
  * author JY
  * Servlet implementation class ServletConnexion
- * Servlet permettant de faire la vérification de l'identifiant et du mot de passe saisis
+ * Servlet permettant de faire la vï¿½rification de l'identifiant et du mot de passe saisis
  * La servlet VerifConnexion envoie ici quand les deux champs identifiant +mdp  sont bien remplis
  */
 @WebServlet("/ServletConnexion")
@@ -48,21 +48,22 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("dans doPost de servlet connexion");
+
 		String identifiant = (String)request.getParameter("identifiant").trim();
-		System.out.println("identifiant ds servlet connexion : "+identifiant );
 		String mdp = (String)request.getParameter("motdepasse").trim();
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
-		try {
+	
+			try {
+		
 			
-			Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette méthode construit un utilisateur vide puis set les attributs avec le résultat de la requete sql
+			Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette mï¿½thode construit un utilisateur vide puis set les attributs avec le rï¿½sultat de la requete sql
 			System.out.println("utilisateur : "+ utilisateurRecupere.toString());
-			if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'être égal à zero, tandis que le constructeur par défaut initialise à zero le no_util qui est de type int
-				System.out.println("utilisateur trouve ac succès");
+			if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'ï¿½tre ï¿½gal ï¿½ zero, tandis que le constructeur par dï¿½faut initialise ï¿½ zero le no_util qui est de type int
+				System.out.println("utilisateur trouve ac succÃ¨s");
 				request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
 
-			} else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
+			} else { // si no_util=0 ca veut dire aucune ligne trouvï¿½e dans le resultat de la requete
 				System.out.println("utilisateur non trouve");
 				request.getSession().setAttribute("utilisateurConnecte", null);
 
@@ -75,16 +76,16 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 			request.getSession().setAttribute("compteur", count);
 			request.getSession().setAttribute("identifiant", utilisateurRecupere.getPseudo());
 			System.out.println("va dans servlet Connexion");
-			//on renvoie à la servlet connexion qui va dispatcher selon que l'utilisateur récupéré est nul ou pas
+			//on renvoie ï¿½ la servlet connexion qui va dispatcher selon que l'utilisateur rï¿½cupï¿½rï¿½ est nul ou pas
 			this.getServletContext().getRequestDispatcher("/VerifConnexion").forward(request, response);
 
 		} catch (BLLException e) {
-			//redirection à une page d'erreur si pb avec la méthode utilisant : pem.getUserByLogin(identifiant, mdp) ou la conexion sql
+			//redirection ï¿½ une page d'erreur si pb avec la mï¿½thode utilisant : pem.getUserByLogin(identifiant, mdp) ou la conexion sql
 			request.setAttribute("erreur", e);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 
 		}
 
+	
 	}
-
 }

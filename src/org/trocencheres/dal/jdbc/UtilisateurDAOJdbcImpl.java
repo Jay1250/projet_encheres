@@ -164,7 +164,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	private PreparedStatement getUpdateStatement(Connection connection, Utilisateur utilisateur) throws SQLException {
-		boolean updatePassword = utilisateur.getMotDePasse() != null;
+		boolean updatePassword = utilisateur.getMotDePasse() != null && !utilisateur.getMotDePasse().equals("");
 		String passwordSQLField = updatePassword ? ", mot_de_passe = ?" : "";
 		String sqlRequest = "UPDATE UTILISATEURS "
 				+ "SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, credit = ?, administrateur = ?"
@@ -183,7 +183,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private void setStatementWithGenericInfosFromUtilisateur(PreparedStatement statement, Utilisateur utilisateur) throws SQLException {
 		statement.setString(1, utilisateur.getPseudo());
 		statement.setString(2, utilisateur.getNom());
-		statement.setString(3, utilisateur.getprenom());
+		statement.setString(3, utilisateur.getPrenom());
 		statement.setString(4, utilisateur.getEmail());
 		statement.setString(5, utilisateur.getTelephone());
 		statement.setString(6, utilisateur.getRue());
