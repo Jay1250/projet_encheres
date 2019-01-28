@@ -59,9 +59,9 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 		// page connexion
 		request.setCharacterEncoding("UTF-8");
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
-		String identifiant = request.getParameter("identifiant");
+		String identifiant = (String) request.getParameter("identifiant");
 		System.out.println("identifiant = "+identifiant);
-		String mdp = request.getParameter("motdepasse");
+		String mdp = (String) request.getParameter("motdepasse");
 		System.out.println("mdp= "+mdp);
 
 // si aucun utilisateur "valide" a �t� mont� en session (cas 1 : premiere connexion cas 2 : au moins une tentative infructuseuse (soit mdp incorrect soit champs non remplis) cas 3 : session expir�e)
@@ -75,8 +75,8 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 			// si 1ere tentative, ou suivantes si les pr�c�dentes n'ont pas abouti faute de
 			// remplir tous les champs
 			else if (count == null) {
-				identifiant.trim();
-				mdp.trim();
+				identifiant=identifiant.trim();
+				mdp=mdp.trim();
 				// si les deux champs ne sont pas remplis: renvoie � la m�me page connexion avec
 				// un message d'alerte
 				if (identifiant.equals("")|| mdp.equals("")) {

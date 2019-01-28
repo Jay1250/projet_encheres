@@ -56,13 +56,20 @@
 				</div>
 				<div class="col-md-8 col-xs-8 mt-3">
 					<input type="text" class="form-control" id="pseudo" name="pseudo"
-						<%if (request.getParameter("pseudo") != null) {%>
+						<%
+						if (request.getParameter("pseudo") != null) {
+						%>
 						value="<%=request.getParameter("pseudo")%>
-						"
-					<%
-						}
-					%>
->
+						" 
+						<%
+						}else{
+						%>
+							value="<%=utilisateurConnecte.getPseudo()%>"
+									 
+						<%
+						} 
+						%>
+			>
 					<%
 						if (request.getAttribute("pseudoExists") != null && request.getAttribute("pseudoExists").equals(true)) {
 					%>
@@ -83,10 +90,7 @@
 						<%if (request.getParameter("nom") != null) {%>
 						value="<%=request.getParameter("nom")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -98,10 +102,7 @@
 						<%if (request.getParameter("prenom") != null) {%>
 						value="<%=request.getParameter("prenom")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -113,10 +114,7 @@
 						<%if (request.getParameter("email") != null) {%>
 						value="<%=request.getParameter("email")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 					<%
 						if (request.getAttribute("emailExists") != null && request.getAttribute("emailExists").equals(true)) {
 					%>
@@ -137,10 +135,7 @@
 						<%if (request.getParameter("telephone") != null) {%>
 						value="<%=request.getParameter("telephone")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 					<%
 						if (request.getAttribute("telephoneExists") != null
 								&& request.getAttribute("telephoneExists").equals(true)) {
@@ -161,10 +156,7 @@
 						<%if (request.getParameter("rue") != null) {%>
 						value="<%=request.getParameter("rue")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -177,9 +169,7 @@
 						<%if (request.getParameter("codepostal") != null) {%>
 						value="<%=request.getParameter("codepostal")%>
 						"
-					<%
-						}
-					%>>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -191,9 +181,7 @@
 						<%if (request.getParameter("ville") != null) {%>
 						value="<%=request.getParameter("ville")%>
 						"
-					<%
-						}
-					%>>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -215,10 +203,7 @@
 						<%if (request.getParameter("motdepasse") != null) {%>
 						value="<%=request.getParameter("motdepasse")%>
 						"
-					<%
-						}
-					%>
-					>
+						<%}%>>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -229,8 +214,7 @@
 					<input type="password" class="form-control" id="confirmation"
 						name="confirmation"
 						<%if (request.getParameter("confirmation") != null) {%>
-						value="<%=request.getParameter("confirmation")%>"
-						<%}%>>
+						value="<%=request.getParameter("confirmation")%>" <%}%>>
 
 				</div>
 			</div>

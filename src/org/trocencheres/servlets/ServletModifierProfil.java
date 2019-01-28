@@ -46,7 +46,11 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+		if(utilisateurConnecte==null)
+			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+		else {
 
 		String pseudo = (String) request.getParameter("pseudo").trim();
 		String nom = (String) request.getParameter("nom").trim();
@@ -136,5 +140,5 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 		}
 
 	}
-
+	}
 }
