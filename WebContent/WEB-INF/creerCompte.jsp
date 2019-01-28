@@ -19,7 +19,7 @@
 			<h1>TrocEncheres.org</h1>
 		</div>
 		<div class="row top-buffer">
-			<% 	if (request.getAttribute("champsNonRemplis")!=null&& request.getAttribute("champsNonRemplis").equals(true)){
+			<% 	if (request.getAttribute("champsNonRemplis")!=null && request.getAttribute("champsNonRemplis").equals(true)){
 		%>
 
 			<p class="text-danger">Tous les champs (excepté le téléphone)
@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="nom" name="nom"
-						<%if (request.getParameter("nom") != null) {%>
+						<%if (request.getParameter("nom") != null  ) {%>
 						value="<%=request.getParameter("nom")%>
 						">
 					<%
@@ -111,7 +111,7 @@
 					<%
 						}
 					%>
-					<% if (request.getAttribute("telephoneExists")!=null&& request.getAttribute("telephoneExists").equals(true)){%>
+					<% if (request.getAttribute("telephoneExists")!=null && request.getAttribute("telephoneExists").equals(true)){%>
 					<p class="text-danger">Ce numéro de téléphone existe déjà.
 						Veuillez en saisir un nouveau téléphone</p>
 					<%} %>
