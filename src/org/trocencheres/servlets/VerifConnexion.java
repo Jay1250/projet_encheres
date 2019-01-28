@@ -57,6 +57,7 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 		// infructueuses si count >)
 		// cette variable est nulle lors du premier envoi du formulaire du client sur la
 		// page connexion
+		request.setCharacterEncoding("UTF-8");
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 		String identifiant = (String) request.getParameter("identifiant");
 		System.out.println("identifiant = "+identifiant);
@@ -101,8 +102,8 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 						response);
 			}
 		} else {
-			// si un utilisateur valide a �t� trouve et/ou que une session utilisateur est
-			// d�j� active
+			// si un utilisateur valide a été trouvé et/ou que une session utilisateur est
+			// déjà active
 			System.out.println("va ds listeEncheres.jsp");
 			this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		}

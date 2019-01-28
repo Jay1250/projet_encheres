@@ -1,9 +1,9 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.*;
+import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.VenteDAO;
-import org.trocencheres.util.AccesBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public Vente selectById(Integer noVente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             Vente vente = new Vente();
             String sqlRequest = "SELECT * FROM VENTES WHERE no_vente = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -37,7 +37,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public List<Vente> selectAll() throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             List<Vente> allVentes = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES");
             ResultSet resultSet = statement.executeQuery();
@@ -52,7 +52,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public void update(Vente vente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("update", connection, vente);
             if (statement != null) {
                 statement.executeUpdate();
@@ -65,7 +65,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public void insert(Vente vente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("insert", connection, vente);
             if (statement != null) {
                 int nbRows = statement.executeUpdate();
@@ -85,7 +85,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
     @Override
     public void delete(Integer noVente) throws DALException {
-        try (Connection connection = AccesBase.getConnection()) {
+        try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "DELETE FROM VENTES WHERE no_vente = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);

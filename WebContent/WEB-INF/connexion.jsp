@@ -24,6 +24,7 @@
 		</nav>
 		<div class="container">
 			<div class="row top-buffer">
+				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 				<h2 class="text-center">Connexion</h2><br>
 			</div>
 			<form action="/ProjetEncheres/VerifConnexion" method="post">

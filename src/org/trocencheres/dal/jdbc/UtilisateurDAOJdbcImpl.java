@@ -1,9 +1,9 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Utilisateur;
+import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.UtilisateurDAO;
-import org.trocencheres.util.AccesBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public Utilisateur selectById(Integer noUtilisateur) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			Utilisateur utilisateur = new Utilisateur();
 			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -36,7 +36,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			Utilisateur utilisateur = new Utilisateur();
 			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
@@ -70,7 +70,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public List<Utilisateur> selectAll() throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			List<Utilisateur> allUtilisateurs = new ArrayList<>();
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM UTILISATEURS");
 			ResultSet resultSet = statement.executeQuery();
@@ -85,7 +85,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public void update(Utilisateur utilisateur) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement statement = this.getStatementFromMode("update", connection, utilisateur);
 			if (statement != null) {
 				statement.executeUpdate();
@@ -98,7 +98,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public void insert(Utilisateur utilisateur) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement statement = this.getStatementFromMode("insert", connection, utilisateur);
 			if (statement != null) {
 				int nbRows = statement.executeUpdate();
@@ -118,7 +118,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Integer noUtilisateur) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			String sqlRequest = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
 			statement.setInt(1, noUtilisateur);
@@ -130,7 +130,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	private boolean paramExists(String paramName, Object param) throws DALException {
-		try (Connection connection = AccesBase.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE " + paramName +" = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
 			statement.setString(1, (String) param);

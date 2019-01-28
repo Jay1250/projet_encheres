@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
-import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.UtilisateurDAO;
-import org.trocencheres.dal.UtilisateurDAOFactory;
 
 /**
  * author JY
@@ -48,7 +45,8 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
+		System.out.println("dans doPost de servlet connexion");
 		String identifiant = (String)request.getParameter("identifiant").trim();
 		String mdp = (String)request.getParameter("motdepasse").trim();
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
@@ -71,7 +69,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
 			if (count == null) { // variable permettant de savoir cb de tentatives de connexions  il y a eu 
 				count = 1;
 			} else {
-				count = count.intValue() + 1;
+				count += 1;
 			}
 			request.getSession().setAttribute("compteur", count);
 			request.getSession().setAttribute("identifiant", utilisateurRecupere.getPseudo());

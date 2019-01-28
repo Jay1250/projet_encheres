@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--author Kévin Le Devéhat-->
 <Context>
     <Resource name="jdbc/pool_connection"
+              global="jdbc/mydb"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
               type="javax.sql.DataSource"
 

@@ -50,6 +50,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 request.getSession().setAttribute("utilisateurConnecte", null);
+		request.setCharacterEncoding("UTF-8");
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
 		// lors du premier appel a cette servlet par la jsp connexion via son lien "se
