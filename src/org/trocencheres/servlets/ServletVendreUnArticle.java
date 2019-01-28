@@ -17,7 +17,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
        
     /**
      * servlet accessible via le lien VendreUnArticle dans la navbar 
-     * cette servlet permet de vérifier la connexion avant de ridiriger vers la page VendreUnArticle.jsp
+     * cette servlet permet de vÃ©rifier la connexion avant de ridiriger vers la page VendreUnArticle.jsp
      * @see HttpServlet#HttpServlet()
      */
     public ServletVendreUnArticle() {
@@ -36,7 +36,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// si la session a expiré:
+		// si la session a expirÃ©:
 				if (request.getSession().getAttribute("utilisateurConnecte") == null) {
 
 						this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);

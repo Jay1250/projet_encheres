@@ -16,7 +16,7 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
        
     /** accessible via le lien url dans la navbar "Mon Profil"
-     * cette servlet permet de vérifier si la session utilisateur est toujours active avanyt de rediriger vers la page monProfil.jsp
+     * cette servlet permet de vÃ©rifier si la session utilisateur est toujours active avanyt de rediriger vers la page monProfil.jsp
      * @see HttpServlet#HttpServlet()
      */
     public ServletMonProfil() {
@@ -36,7 +36,7 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-// si la session a expiré:
+// si la session a expirÃ©:
 		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
 
 				this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);

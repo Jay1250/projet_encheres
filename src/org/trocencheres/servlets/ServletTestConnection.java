@@ -24,12 +24,12 @@ public class ServletTestConnection extends javax.servlet.http.HttpServlet implem
             Context context = new InitialContext();
             DataSource dataSource = (DataSource) context.lookup("java:/comp/env/jdbc/pool_connection");
             Connection connection = dataSource.getConnection();
-            out.print("Connection " + (connection.isClosed() ? "closed" : "openned") + ".");
+            out.print("Connection " + (connection.isClosed() ? "closed" : "opened") + ".");
             connection.close();
         } catch (NamingException | SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.println("Error in test connetion" + e.getMessage());
+            out.println("Error in test connection" + e.getMessage());
         }
     }
 }
