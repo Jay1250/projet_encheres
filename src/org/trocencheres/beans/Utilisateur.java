@@ -7,7 +7,7 @@ public class Utilisateur {
 	private int noUtilisateur, credit;
 	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
 	private boolean administrateur;
-	private List<Integer> idsVentes;
+	private ArrayList<Integer> idsVentes;
 
 	public Utilisateur() {
 	}
@@ -38,7 +38,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public List<Integer> getVentesIds() {
+	public ArrayList<Integer> getVentesIds() {
 		return this.idsVentes;
 	}
 

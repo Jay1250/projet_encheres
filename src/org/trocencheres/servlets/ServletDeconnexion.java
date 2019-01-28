@@ -34,7 +34,7 @@ public class ServletDeconnexion extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().invalidate();
+		request.getSession().setAttribute("utilisateurConnecte", null);
 		this.getServletContext().getRequestDispatcher("/Accueil").forward(request, response);
 	}
 

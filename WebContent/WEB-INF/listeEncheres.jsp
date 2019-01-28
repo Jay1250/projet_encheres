@@ -25,13 +25,17 @@
 			      <li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/ServletDeconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
 		<div class="container-fluid">
 			<div class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
+			<% if (request.getAttribute("changerProfil")!=null && request.getAttribute("changerProfil").equals(true)){ %>
+			<strong>Votre profil a bien été changé <%=identifiant %>  ! </strong>
+			<%}else{ %>
     			<strong>Bonjour <%=identifiant %> !</strong>
+    			<%} %>
     			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			</div>
 		</div>
