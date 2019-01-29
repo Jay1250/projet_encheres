@@ -224,7 +224,7 @@
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary marge ">Créer</button>
-				<a href="/ProjetEncheres/VerifConnexion" class="btn btn-primary marge">Annuler</a>
+				<a href="/ProjetEncheres/Connexion" class="btn btn-primary marge">Annuler</a>
 				
 			</div>
 		</form>
