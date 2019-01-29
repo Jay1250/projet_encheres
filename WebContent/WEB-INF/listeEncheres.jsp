@@ -83,6 +83,8 @@
 			  		<button type="submit" class="btn btn-primary marge">Rechercher</button>
 			  	</div>
 			</form>
+			
+			<h2 class="text-center">Mes ventes en cours</h2><hr />
 			<%
 			if (request.getSession().getAttribute("ventes")==null){
 				%>
@@ -90,12 +92,12 @@
 			<%
 			}else {
 				ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
-				int nbVentes= 4;
-				for(int i=1; i<nbVentes;i++ ){
+				int nbVentes= 1;
+				for(int i=0; i<nbVentes;i++ ){
 				%>
 			
 			<!--  mes ventes en cours -->
-			<h2 class="text-center">Mes ventes en cours</h2><hr />
+			
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">

@@ -1,6 +1,8 @@
 package org.trocencheres.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.trocencheres.beans.Utilisateur;
+import org.trocencheres.beans.Vente;
 import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
@@ -51,11 +54,11 @@ public class ServletConnexion extends HttpServlet implements Servlet {
         String identifiant = request.getParameter("identifiant");
         String mdp = request.getParameter("motdepasse");
 
-        if (identifiant != null && !identifiant.trim().equals(""))
+        if (identifiant != null && !identifiant.equals(""))
             identifiant = identifiant.trim();
         else request.setAttribute("identifiantNonRenseigne", true);
 
-        if (mdp != null && !mdp.trim().equals(""))
+        if (mdp != null && !mdp.equals(""))
             mdp = mdp.trim();
         else request.setAttribute("mdpNonRenseigne", true);
 
@@ -65,13 +68,14 @@ public class ServletConnexion extends HttpServlet implements Servlet {
             try {
                 Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette méthode construit un utilisateur vide puis set les attributs avec le résultat de la requete sql
                 if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'être égal à zero, tandis que le constructeur par défaut initialise à zero le no_util qui est de type int
-                    request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
+                    ArrayList <Vente> ventes = pem.selectAllByUser(utilisateurRecupere.getNoUtilisateur() );
+                	request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
+                    request.getSession().setAttribute("ventes", ventes);
                     this.getServletContext().getRequestDispatcher("/ListEncheres").forward(request, response);
                 }
                 else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
                     request.getSession().setAttribute("utilisateurConnecte", null);
                     request.getSession().invalidate();
-                    request.setAttribute("identifiantOuMdpIncorrects", true);
                     this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
                 }
 
