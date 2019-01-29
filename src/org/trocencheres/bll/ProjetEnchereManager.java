@@ -3,6 +3,7 @@ package org.trocencheres.bll;
 import org.trocencheres.beans.*;
 import org.trocencheres.dal.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,11 @@ import java.util.Map;
 public class ProjetEnchereManager {
     private static ProjetEnchereManager instance;
 
-    private IUtilisateurDAO IUtilisateurDAO;
-    private IVenteDAO IVenteDAO;
-    private ICategorieDAO ICategorieDAO;
-    private IRetraitDAO IRetraitDAO;
-    private IEnchereDAO IEnchereDAO;
+    private IUtilisateurDAO utilisateurDAO;
+    private IVenteDAO venteDAO;
+    private ICategorieDAO categorieDAO;
+    private IRetraitDAO retraitDAO;
+    private IEnchereDAO enchereDAO;
 
     private Map<Integer, Utilisateur> utilisateursIndex;
     private Map<Integer, Vente> ventesIndex;
@@ -25,16 +26,16 @@ public class ProjetEnchereManager {
 
 
     private ProjetEnchereManager() throws BLLException {
-        this.IUtilisateurDAO = UtilisateurDAOFactory.getUtilisateurDao();
+        this.utilisateurDAO = UtilisateurDAOFactory.getUtilisateurDao();
         this.utilisateursIndex = new HashMap<>();
 
-        this.IVenteDAO = VenteDAOFactory.getVenteDAO();
+        this.venteDAO = VenteDAOFactory.getVenteDAO();
         this.ventesIndex = new HashMap<>();
 
-        this.ICategorieDAO = CategorieDAOFactory.getCategorieDAO();
+        this.categorieDAO = CategorieDAOFactory.getCategorieDAO();
         Map<Integer, Categorie> categories = new HashMap<>();
         try {
-            List<Categorie> categoriesList = ICategorieDAO.selectAll();
+            List<Categorie> categoriesList = categorieDAO.selectAll();
             for(Categorie c : categoriesList) {
                 this.validateCategory(c);
                 categories.put(c.getNoCategorie(), c);
@@ -46,9 +47,9 @@ public class ProjetEnchereManager {
         this.categoriesIndex = categories;
 
 
-        this.IRetraitDAO = RetraitDAOFactory.getRetraitDAO();
+        this.retraitDAO = RetraitDAOFactory.getRetraitDAO();
 
-        this.IEnchereDAO = EnchereDAOFactory.getEnchereDAO();
+        this.enchereDAO = EnchereDAOFactory.getEnchereDAO();
     }
 
     public static ProjetEnchereManager getInstance() throws BLLException {
@@ -62,7 +63,7 @@ public class ProjetEnchereManager {
         Utilisateur utilisateur = this.utilisateursIndex.get(noUtilisateur);
         try {
             if (utilisateur == null) {
-                utilisateur = this.IUtilisateurDAO.selectById(noUtilisateur);
+                utilisateur = this.utilisateurDAO.selectById(noUtilisateur);
                 this.validateUser(utilisateur);
                 this.utilisateursIndex.put(utilisateur.getNoUtilisateur(), utilisateur);
             }
@@ -75,7 +76,7 @@ public class ProjetEnchereManager {
     public Utilisateur getUserByLogin(String pdeusoOrEmail, String password) throws BLLException {
         Utilisateur utilisateur = null;
         try {
-            utilisateur = this.IUtilisateurDAO.selectByLogin(pdeusoOrEmail, password);
+            utilisateur = this.utilisateurDAO.selectByLogin(pdeusoOrEmail, password);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -89,7 +90,7 @@ public class ProjetEnchereManager {
     public void addUser(Utilisateur utilisateur) throws BLLException {
         try {
             this.validateUser(utilisateur);
-            this.IUtilisateurDAO.insert(utilisateur);
+            this.utilisateurDAO.insert(utilisateur);
             this.utilisateursIndex.put(utilisateur.getNoUtilisateur(), utilisateur);
         } catch (DALException e) {
             e.printStackTrace();
@@ -99,7 +100,7 @@ public class ProjetEnchereManager {
     public void updateUser(Utilisateur utilisateur) throws BLLException  {
         try {
             this.validateUser(utilisateur);
-            this.IUtilisateurDAO.update(utilisateur);
+            this.utilisateurDAO.update(utilisateur);
             this.utilisateursIndex.put(utilisateur.getNoUtilisateur(), utilisateur);
         } catch (DALException e) {
             e.printStackTrace();
@@ -108,7 +109,7 @@ public class ProjetEnchereManager {
 
     public void removeUser(int noUtilisateur) {
         try {
-            this.IUtilisateurDAO.delete(noUtilisateur);
+            this.utilisateurDAO.delete(noUtilisateur);
             this.utilisateursIndex.remove(noUtilisateur);
         } catch (DALException e) {
             e.printStackTrace();
@@ -118,7 +119,7 @@ public class ProjetEnchereManager {
     public boolean pseudoExists(String pseudo) {
         boolean exists = false;
         try {
-            exists = this.IUtilisateurDAO.pseudoExists(pseudo);
+            exists = this.utilisateurDAO.pseudoExists(pseudo);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -128,7 +129,7 @@ public class ProjetEnchereManager {
     public boolean emailExists(String pseudo) {
         boolean exists = false;
         try {
-            exists = this.IUtilisateurDAO.emailExists(pseudo);
+            exists = this.utilisateurDAO.emailExists(pseudo);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -138,7 +139,7 @@ public class ProjetEnchereManager {
     public boolean telephoneExists(String pseudo) {
         boolean exists = false;
         try {
-            exists = this.IUtilisateurDAO.telephoneExists(pseudo);
+            exists = this.utilisateurDAO.telephoneExists(pseudo);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -173,8 +174,8 @@ public class ProjetEnchereManager {
         Vente vente = this.ventesIndex.get(noVente);
         try {
             if (vente == null) {
-                vente = this.IVenteDAO.selectById(noVente);
-                Retrait retrait = this.IRetraitDAO.selectByIdVente(noVente);
+                vente = this.venteDAO.selectById(noVente);
+                Retrait retrait = this.retraitDAO.selectByIdVente(noVente);
                 this.validateWithdrawal(retrait);
                 vente.setRetrait(retrait);
                 this.validateSale(vente);
@@ -186,14 +187,24 @@ public class ProjetEnchereManager {
         return vente;
     }
 
+    public ArrayList<Vente> selectAllByUser(int noUtilisateur) throws BLLException {
+        ArrayList<Vente> ventesList = new ArrayList<>();
+        try {
+            ventesList = venteDAO.selectAllByUser(noUtilisateur);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return ventesList;
+    }
+
     public void addSale(Vente vente, Retrait retrait) throws BLLException {
         try {
             this.validateSale(vente);
-            this.IVenteDAO.insert(vente);
+            this.venteDAO.insert(vente);
             retrait.setNoVente(vente.getNoVente());
             this.validateWithdrawal(retrait);
             vente.setRetrait(retrait);
-            this.IRetraitDAO.insert(retrait);
+            this.retraitDAO.insert(retrait);
             this.ventesIndex.put(vente.getNoVente(), vente);
         } catch (DALException e) {
             e.printStackTrace();
@@ -205,8 +216,8 @@ public class ProjetEnchereManager {
             this.validateSale(vente);
             Retrait retrait = vente.getRetrait();
             this.validateWithdrawal(retrait);
-            this.IVenteDAO.update(vente);
-            this.IRetraitDAO.update(retrait);
+            this.venteDAO.update(vente);
+            this.retraitDAO.update(retrait);
             this.ventesIndex.put(vente.getNoVente(), vente);
         } catch (DALException e) {
             e.printStackTrace();
@@ -215,8 +226,8 @@ public class ProjetEnchereManager {
 
     public void removeSale(int noVente) {
         try {
-            this.IRetraitDAO.delete(noVente);
-            this.IVenteDAO.delete(noVente);
+            this.retraitDAO.delete(noVente);
+            this.venteDAO.delete(noVente);
             this.ventesIndex.remove(noVente);
         } catch (DALException e) {
             e.printStackTrace();
@@ -242,7 +253,7 @@ public class ProjetEnchereManager {
             Vente vente = this.getSaleById(retrait.getNoVente());
             vente.setRetrait(retrait);
             this.validateSale(vente);
-            this.IRetraitDAO.update(retrait);
+            this.retraitDAO.update(retrait);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -263,7 +274,7 @@ public class ProjetEnchereManager {
         Categorie categorie = this.categoriesIndex.get(noCategorie);
         try {
             if (categorie == null) {
-                categorie = this.ICategorieDAO.selectById(noCategorie);
+                categorie = this.categorieDAO.selectById(noCategorie);
                 this.validateCategory(categorie);
                 this.categoriesIndex.put(categorie.getNoCategorie(), categorie);
             }
@@ -280,7 +291,7 @@ public class ProjetEnchereManager {
     public void addCategory(Categorie categorie) throws BLLException {
         try {
             this.validateCategory(categorie);
-            this.ICategorieDAO.insert(categorie);
+            this.categorieDAO.insert(categorie);
             this.categoriesIndex.put(categorie.getNoCategorie(), categorie);
         } catch (DALException e) {
             e.printStackTrace();
@@ -290,7 +301,7 @@ public class ProjetEnchereManager {
     public void updateCategory(Categorie categorie) throws BLLException {
         try {
             this.validateCategory(categorie);
-            this.ICategorieDAO.update(categorie);
+            this.categorieDAO.update(categorie);
             this.categoriesIndex.put(categorie.getNoCategorie(), categorie);
         } catch (DALException e) {
             e.printStackTrace();
@@ -299,7 +310,7 @@ public class ProjetEnchereManager {
 
     public void removeCategory(int noCategorie) {
         try {
-            this.ICategorieDAO.delete(noCategorie);
+            this.categorieDAO.delete(noCategorie);
             this.categoriesIndex.remove(noCategorie);
         } catch (DALException e) {
             e.printStackTrace();
@@ -316,7 +327,7 @@ public class ProjetEnchereManager {
     public Enchere getAuctionByIds(Integer noVente, Integer noUtilisateur) throws BLLException {
         Enchere enchere = new Enchere();
         try {
-            enchere = this.IEnchereDAO.selectByIds(noVente, noUtilisateur);
+            enchere = this.enchereDAO.selectByIds(noVente, noUtilisateur);
             this.validateAuction(enchere);
         } catch (DALException e) {
             e.printStackTrace();
@@ -327,7 +338,7 @@ public class ProjetEnchereManager {
     public void addAuction(Enchere enchere) throws BLLException {
         try {
             this.validateAuction(enchere);
-            this.IEnchereDAO.insert(enchere);
+            this.enchereDAO.insert(enchere);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -335,7 +346,7 @@ public class ProjetEnchereManager {
 
     public void removeAuction(int noVente, int noUtilisateur) throws BLLException {
         try {
-            this.IEnchereDAO.delete(noVente, noUtilisateur);
+            this.enchereDAO.delete(noVente, noUtilisateur);
         } catch (DALException e){
             e.printStackTrace();
         }
