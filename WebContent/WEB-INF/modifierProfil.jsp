@@ -46,6 +46,7 @@
 			<%
 				}
 			%>
+			<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 			<h2 class="text-center">Mon profil</h2>
 			<br>
 		</div>

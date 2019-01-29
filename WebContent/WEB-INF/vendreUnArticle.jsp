@@ -22,11 +22,11 @@
 			    </div>
 			    <ul class="nav navbar-nav">
 			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+			      <li><a href="/ProjetEncheres/ListEncheres">Les enchÃ¨res</a></li>
 			      <li class="active"><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Dï¿½connexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
@@ -53,11 +53,11 @@
 					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220" name="prixinitial"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
-					<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="date" class="form-control" name="finenchere"></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchï¿½re :</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="datetime-local" class="form-control" name="finenchere"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Catégories</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Catï¿½gories</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1">   				
 						<select class="form-control" name="categorie">
         					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>					<option>...</option>
