@@ -13,7 +13,7 @@
 	<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 %>	
 	<body>
-<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
 			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
@@ -30,6 +30,7 @@
 		</nav>
 		<div class="container">
 			<div class="row top-buffer">
+				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 				<h3 class="text-center"><%=utilisateurConnecte.getPseudo() %></h3><br>
 			</div>
 			<form class="row ">

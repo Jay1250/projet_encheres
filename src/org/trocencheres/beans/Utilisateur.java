@@ -1,8 +1,11 @@
 package org.trocencheres.beans;
 
 import java.util.ArrayList;
-import java.util.List;
 
+
+/**
+ * @author JY
+ */
 public class Utilisateur {
 	private int noUtilisateur, credit;
 	private String pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse;
@@ -35,7 +38,7 @@ public class Utilisateur {
 					   String codePostal, String ville, int credit, boolean administrateur,
 					   ArrayList<Integer> idsVentes, String motDePasse) {
 		this(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, credit, administrateur, idsVentes);
-		this.motDePasse = motDePasse;
+		this.setMotDePasse(motDePasse);
 	}
 
 	public ArrayList<Integer> getVentesIds() {

@@ -99,8 +99,8 @@ public class IRetraitDAOJdbcImpl implements IRetraitDAO {
         else {
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setString(1, retrait.getRue());
-            statement.setString(1, retrait.getCodePostal());
-            statement.setString(1, retrait.getVille());
+            statement.setString(2, retrait.getCodePostal());
+            statement.setString(3, retrait.getVille());
             statement.setInt(4, retrait.getNoVente());
             return statement;
         }

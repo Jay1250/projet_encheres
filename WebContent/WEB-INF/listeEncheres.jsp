@@ -17,20 +17,20 @@
 		<% Utilisateur utilisateurConnecte = (Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 			String identifiant = utilisateurConnecte.getPseudo(); %>
 	<body>
-<nav class="navbar navbar-inverse">
-	  		<div class="container-fluid">
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
-			    </div>
-			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
-			    </ul>
-	  		</div>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
+					<li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+					<li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+				</ul>
+			</div>
 		</nav>
 		<div class="container-fluid">
 			<div class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
@@ -45,6 +45,7 @@
 		
 		<div class="container">
 			<form class="row " action="/ProjetEncheres/ListEncheres" method="post">
+				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 				<h3 class="text-center">Filtres : </h3>
 				<div class="form-group col-md-5 col-md-offset-2">
 					<div class="form-check">
@@ -99,7 +100,7 @@
 				ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
 				 for(Vente v : ventes) {
 				%>
-			
+
 			<!--  mes ventes en cours -->
 			
 	    	<div class="col-md-3">
@@ -107,9 +108,9 @@
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">
 							<%=v.getNomArticle()%>
-						
+
 							</a></h4>
-						
+
 						<h5 class="card-text">Prix : <%=v.getPrixInitial()%></h5>
 						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: <%=v.getDateFinEncheres()%></h6>
 						<h6 class="card-subtitle mb-2 text-muted">Retrait: <%=utilisateurConnecte.getRue()+ " " + utilisateurConnecte.getCodePostal() + " " + utilisateurConnecte.getVille()%></h6>
@@ -197,7 +198,7 @@
 				  	</div>
 				</div>
     		</div>
-    		<!-- fin mes ventes terminées -->	
+    		<!-- fin mes ventes terminées -->
     		
     		
     			<%  }

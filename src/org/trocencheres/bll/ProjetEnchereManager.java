@@ -324,10 +324,21 @@ public class ProjetEnchereManager {
 
 
 
-    public Enchere getAuctionByIds(Integer noVente, Integer noUtilisateur) throws BLLException {
+    public Enchere getLastAuctionByIds(Integer noVente, Integer noUtilisateur) throws BLLException {
         Enchere enchere = new Enchere();
         try {
-            enchere = this.enchereDAO.selectByIds(noVente, noUtilisateur);
+            enchere = this.enchereDAO.selectLastByIds(noVente, noUtilisateur);
+            this.validateAuction(enchere);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return enchere;
+    }
+
+    public Enchere getLastAuctionBySale(Integer noVente) throws BLLException {
+        Enchere enchere = new Enchere();
+        try {
+            enchere = this.enchereDAO.selectLastBySale(noVente);
             this.validateAuction(enchere);
         } catch (DALException e) {
             e.printStackTrace();

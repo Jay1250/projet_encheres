@@ -71,7 +71,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
                     
                 	request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
                   
-                    this.getServletContext().getRequestDispatcher("/ListEncheres").forward(request, response);
+                    response.sendRedirect("/ProjetEncheres/ListEncheres");
                 }
                 else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
                     request.getSession().setAttribute("utilisateurConnecte", null);
