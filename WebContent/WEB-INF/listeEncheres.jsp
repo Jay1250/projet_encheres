@@ -17,15 +17,15 @@
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres/VerifConnexion">TrocEncheres.org</a>
+			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/ServletMonProfil">Mon profil</a></li>
-			      <li class="active"><a href="/ProjetEncheres/VerifConnexion">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre un article</a></li>
+			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
+			      <li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/ServletDeconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>

@@ -15,15 +15,15 @@
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres/VerifConnexion">TrocEncheres.org</a>
+			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="/ProjetEncheres/ServletMonProfil">Mon profil</a></li>
-			      <li><a href="/ProjetEncheres/VerifConnexion">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre un article</a></li>
+			      <li class="active"><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
+			      <li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/ServletDeconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
@@ -65,8 +65,8 @@
 			    <div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getVille() %></label></div>
 			  </div>
 			  <div class="text-center">
-			  	<a href="/ProjetEncheres/VerifConnexion" class="btn btn-primary marge" >Retour</a>
-			  	<a href="/ProjetEncheres/ServletMonProfil?modifierProfil=true" class="btn btn-primary marge">Modifier</a>
+			  	<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge" >Retour</a>
+			  	<a href="/ProjetEncheres/MonProfil?modifierProfil=true" class="btn btn-primary marge">Modifier</a>
 			  </div>
 			</form>
 		</div>

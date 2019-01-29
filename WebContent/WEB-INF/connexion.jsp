@@ -14,12 +14,12 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/ProjetEncheres/VerifConnexion">TrocEncheres.org</a>
+            <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/ProjetEncheres/VerifConnexion"><span class="glyphicon glyphicon-user"></span> Connexion</a>
+            <li><a href="/ProjetEncheres/Connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a>
             </li>
-            <li><a href="/ProjetEncheres/ServletCreerCompte"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+            <li><a href="/ProjetEncheres/CreerCompte"><span class="glyphicon glyphicon glyphicon-pencil"></span>
                 Créer un compte</a></li>
         </ul>
     </div>
