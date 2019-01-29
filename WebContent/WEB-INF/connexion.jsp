@@ -27,38 +27,42 @@
 </nav>
 <div class="container">
     <div class="row top-buffer">
-        <div class="text-center"><img style="max-width:300px;" src="/ProjetEncheres/logoProjet.png" alt="Logo Troc Enchères - Les objets sont nos amis"></div>
+        <div class="text-center"><img style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"
+                                      alt="Logo Troc Enchères - Les objets sont nos amis"></div>
         <h2 class="text-center">Connexion</h2><br>
     </div>
     <form action="/ProjetEncheres/Connexion" method="post">
         <div class="col-md-4 col-md-offset-4">
+            <% if (request.getAttribute("identifiantOuMdpIncorrects") != null && request.getAttribute("identifiantOuMdpIncorrects").equals(true)) {%>
+                <p class="text-danger">Identifiant ou mot de passe incorrect</p>
+            <%}%>
             <div class="form-group">
                 <label for="exampleInputEmail1">Identifiant : </label>
                 <% if (request.getAttribute("identifiantNonRenseigne") != null && request.getAttribute("identifiantNonRenseigne").equals(true)) {%>
-
                 <p class="text-danger">Veuillez saisir votre identifiant</p>
                 <%} %>
-
-                <input type="text" class="form-control" placeholder="Saisir votre identifiant (email ou username)"
+                <input type="text"
+                       class="form-control"
+                       placeholder="Saisir votre identifiant (email ou username)"
                        name="identifiant"
-                    <%
-					    	if (request.getParameter("identifiant") != null) {
-					    	%>
-                       value="<%=request.getParameter("identifiant")%>
-						"
-                    <%
-						}
-					%>
+                    <% if (request.getParameter("identifiant") != null && !request.getParameter("identifiant").trim().equals("")) { %>
+                       value="<%=request.getParameter("identifiant")%>"
+                    <%}%>
                 >
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Mot de passe : </label>
-                <% if (request.getAttribute("mdpNonRenseigne") != null && request.getAttribute("mdpNonRenseigne").equals(true)) {
-                %>
-
+                <% if (request.getAttribute("mdpNonRenseigne") != null && request.getAttribute("mdpNonRenseigne").equals(true)) {%>
                 <p class="text-danger">Veuillez saisir votre mot de passe</p>
                 <%} %>
-                <input type="password" class="form-control" placeholder="Saisir votre mot de passe" name="motdepasse">
+                <input type="password"
+                       class="form-control"
+                       placeholder="Saisir votre mot de passe"
+                       name="motdepasse"
+                    <% if (request.getParameter("motdepasse") != null && !request.getParameter("motdepasse").trim().equals("")) { %>
+                       value="<%=request.getParameter("motdepasse")%>"
+                    <%}%>
+                >
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input">
