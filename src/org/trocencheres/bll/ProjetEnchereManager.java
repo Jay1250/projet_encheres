@@ -33,7 +33,7 @@ public class ProjetEnchereManager {
 
         this.categorieDAO = CategorieDAOFactory.getCategorieDAO();
         Map<Integer, Categorie> categories = new HashMap<>();
-        try {
+        /*try {
             List<Categorie> categoriesList = categorieDAO.selectAll();
             for(Categorie c : categoriesList) {
                 this.validateCategory(c);
@@ -41,7 +41,7 @@ public class ProjetEnchereManager {
             }
         } catch (DALException e) {
             e.printStackTrace();
-        }
+        }*/
 
         this.categoriesIndex = categories;
 

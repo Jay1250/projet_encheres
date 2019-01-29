@@ -22,7 +22,7 @@ import org.trocencheres.bll.ProjetEnchereManager;
 /**
  * Servlet implementation class ServletVendreUnArticle
  */
-@WebServlet("/ServletVendreUnArticle")
+@WebServlet(name="ServletVendreUnArticle", urlPatterns = "/ServletVendreUnArticle")
 public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	private ProjetEnchereManager pem;

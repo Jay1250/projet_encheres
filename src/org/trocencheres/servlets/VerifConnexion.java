@@ -96,7 +96,7 @@ public class VerifConnexion extends HttpServlet implements Servlet {
 				} else { // si tous les champs sont bien renseign�s
 					if (count == null) {
 						System.out.println("va ds servlet connexion pour verif identifiant et mdp");
-						this.getServletContext().getRequestDispatcher("/ServletConnexion").forward(request, response);
+						this.getServletContext().getRequestDispatcher("/Connexion").forward(request, response);
 					} else {
 						System.out.println("va ds erreurconnexion.jsp");
 						this.getServletContext().getRequestDispatcher("/WEB-INF/erreurConnexion.jsp").forward(request,
