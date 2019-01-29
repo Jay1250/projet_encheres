@@ -30,7 +30,7 @@
 				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 				<h3 class="text-center">Nouvelle vente</h3><br>
 			</div>
-			<form class="row" action = "/ProjetEncheres/ServletVendreUnArticle" method="POST">
+			<form class="row" action = "/ProjetEncheres/VendreUnArticle" method="POST">
 			 	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Articles :</label></div>
 				  	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="article"></div>

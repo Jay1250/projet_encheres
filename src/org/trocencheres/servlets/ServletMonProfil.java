@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletMonProfil
  */
-@WebServlet("/ServletMonProfil")
+@WebServlet(name = "ServletMonProfil", urlPatterns = "/MonProfil")
 public class ServletMonProfil extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
        

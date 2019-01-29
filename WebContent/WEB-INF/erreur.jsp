@@ -11,6 +11,6 @@
     <body>
         <h2>ERREUR</h2>
         <p>erreur détectée : (<%=exception%>)<%=exception.getMessage()%></p>
-        <a href="<%=request.getContextPath()%>/Connexion">Retour</a>
+        <a href="<%=request.getContextPath()%>/ListEncheres">Retour</a>
     </body>
 </html>

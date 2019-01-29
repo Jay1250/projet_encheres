@@ -18,17 +18,17 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/ProjetEncheres/Connexion">TrocEncheres.org</a>
+				<a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/ProjetEncheres/ServletMonProfil">Mon
+				<li class="active"><a href="/ProjetEncheres/MonProfil">Mon
 						profil</a></li>
-				<li><a href="/ProjetEncheres/ServletConnexion">Les enchères</a></li>
-				<li><a href="/ProjetEncheres/ServletVendreUnArticle">Vendre
+				<li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+				<li><a href="/ProjetEncheres/VendreUnArticle">Vendre
 						un article</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/ProjetEncheres/ServletDeconnexion"><span
+				<li><a href="/ProjetEncheres/Deconnexion"><span
 						class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			</ul>
 		</div>
@@ -49,7 +49,7 @@
 			<br>
 		</div>
 		<form class="row" method="post"
-			action="/ProjetEncheres/ServletModifierProfil">
+			action="/ProjetEncheres/ModifierProfil">
 			<div class="form-group col-md-6 col-xs-12">
 				<div class="col-md-4 col-xs-4">
 					<label for="pseudo">Pseudo :</label>
@@ -300,7 +300,7 @@
 				<button type="submit" class="btn btn-primary marge ">Enregistrer</button>
 				<button type="button" class="btn btn-primary marge ">Supprimer
 					mon compte</button>
-				<a href="/ProjetEncheres/ServletMonProfil" class="btn btn-primary marge" >Retour</a>
+				<a href="/ProjetEncheres/MonProfil" class="btn btn-primary marge" >Retour</a>
 			</div>
 		</form>
 	</div>

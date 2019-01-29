@@ -6,7 +6,7 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>Accueil</servlet-name>
-    <jsp-file>/WEB-INF/connexion.jsp</jsp-file>
+    <servlet-class>org.trocencheres.servlets.ServletConnexion</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Accueil</servlet-name>

@@ -18,7 +18,7 @@ import org.trocencheres.bll.ProjetEnchereManager;
 /**
  * Servlet implementation class ServletCreerCompte
  */
-@WebServlet("/ServletCreerCompte")
+@WebServlet(name = "ServletCreerCompte", urlPatterns = "/CreerCompte")
 public class ServletCreerCompte extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 1L;
@@ -50,7 +50,6 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-request.getSession().setAttribute("utilisateurConnecte", null);
 		request.setCharacterEncoding("UTF-8");
 		Integer count = (Integer) request.getSession().getAttribute("compteur");
 

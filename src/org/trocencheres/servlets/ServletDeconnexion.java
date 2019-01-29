@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/ServletDeconnexion")
+@WebServlet(name = "ServletDeconnexion", urlPatterns = "/Deconnexion")
 public class ServletDeconnexion extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +35,8 @@ public class ServletDeconnexion extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().setAttribute("utilisateurConnecte", null);
-		this.getServletContext().getRequestDispatcher("/Accueil").forward(request, response);
+		request.getSession().invalidate();
+		response.sendRedirect("/ProjetEncheres/Connexion");
 	}
 
 }
