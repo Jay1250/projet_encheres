@@ -85,3 +85,6 @@ ALTER TABLE VENTES
 ON DELETE NO ACTION 
     ON UPDATE no action 
 
+ALTER TABLE Utilisateurs ADD CONSTRAINT U_pseudo UNIQUE (pseudo);
+ALTER TABLE Utilisateurs ADD CONSTRAINT U_email UNIQUE (email);
+ALTER TABLE Utilisateurs ADD CONSTRAINT U_telephone UNIQUE (telephone);
