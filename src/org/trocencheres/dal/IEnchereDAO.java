@@ -8,7 +8,9 @@ import java.util.List;
  * @author Kévin Le Devéhat
  */
 public interface IEnchereDAO {
-    Enchere selectByIds(Integer noVente, Integer noUtilisateur) throws DALException;
+    Enchere selectLastByIds(Integer noVente, Integer noUtilisateur) throws DALException;
+
+    Enchere selectLastBySale(Integer noVente) throws DALException;
 
     List<Enchere> selectAll() throws DALException;
 
