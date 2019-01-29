@@ -140,7 +140,8 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     private Enchere createAuctionFromResultSet(ResultSet resultSet) throws SQLException {
         int noVente = resultSet.getInt("no_vente");
         int noUtilisateur = resultSet.getInt("no_utilisateur");
+        int montantEnchere=resultSet.getInt("montant_enchere");
         Date dateEncheres = this.convertSQLDateToJavaDate(resultSet.getDate("date_enchere"));
-        return new Enchere(noVente, noUtilisateur, dateEncheres);
+        return new Enchere(noVente, noUtilisateur, dateEncheres,montantEnchere );
     }
 }

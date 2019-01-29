@@ -38,17 +38,32 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 		if (session.getAttribute("utilisateurConnecte") != null) {
 
 			Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
-			ArrayList<Vente> ventes=null;
-			Enchere enchere=null;
+			ArrayList<Vente> ventes = null;
+
+			ArrayList<Enchere> encheres = null;
+			ArrayList<Utilisateur> utilisateurs=null;
 			try {
 				ventes = pem.selectAllByUser(utilisateurConnecte.getNoUtilisateur());
-				
+				encheres=new ArrayList<Enchere>();
+				utilisateurs= new ArrayList<Utilisateur>();
+				for (Vente v : ventes) {
+					
+					encheres.add(pem.getLastAuctionBySale(v.getNoVente()));
+				}
+				for (Enchere e :encheres) {
+					utilisateurs.add(pem.getUserById(e.getNoUtilisateur()));
+				}
+
 			} catch (BLLException e) {
 				e.printStackTrace();
 				request.setAttribute("erreur", e);
 				this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 			}
 			request.getSession().setAttribute("ventes", ventes);
+			request.getSession().setAttribute("encheres", encheres);
+			request.getSession().setAttribute("utilisateurs", utilisateurs);
+
+
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		} else {
 			session.invalidate();
