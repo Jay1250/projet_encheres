@@ -88,3 +88,5 @@ ON DELETE NO ACTION
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_pseudo UNIQUE (pseudo);
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_email UNIQUE (email);
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_telephone UNIQUE (telephone);
+
+ALTER TABLE Encheres ADD montant_enchere INTEGER NOT NULL
