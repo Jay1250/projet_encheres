@@ -1,3 +1,4 @@
+<!-- author JY -->
 <%@page import="org.trocencheres.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,21 +15,7 @@
 		<% Utilisateur utilisateurConnecte = (Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 			String identifiant = utilisateurConnecte.getPseudo(); %>
 	<body>
-		<nav class="navbar navbar-inverse">
-	  		<div class="container-fluid">
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
-			    </div>
-			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
-			    </ul>
-	  		</div>
-		</nav>
+		<%@include file="navbar.jspf" %>
 		<div class="container-fluid">
 			<div class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
 			<% if (request.getAttribute("changerProfil")!=null && request.getAttribute("changerProfil").equals(true)){ %>

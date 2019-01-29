@@ -1,3 +1,4 @@
+<!-- author JY + JI -->
 <%@page import="org.trocencheres.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,7 +13,7 @@
 	<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 %>	
 	<body>
-		<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
 			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>

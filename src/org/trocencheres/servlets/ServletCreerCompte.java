@@ -16,6 +16,7 @@ import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
+ * author JY
  * Servlet implementation class ServletCreerCompte
  */
 @WebServlet(name = "ServletCreerCompte", urlPatterns = "/CreerCompte")

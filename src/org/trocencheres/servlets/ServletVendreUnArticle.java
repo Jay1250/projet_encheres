@@ -20,6 +20,7 @@ import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
+ * author JY
  * Servlet implementation class ServletVendreUnArticle
  */
 @WebServlet(name="ServletVendreUnArticle", urlPatterns = "/VendreUnArticle")
