@@ -68,9 +68,9 @@ public class ServletConnexion extends HttpServlet implements Servlet {
             try {
                 Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette méthode construit un utilisateur vide puis set les attributs avec le résultat de la requete sql
                 if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'être égal à zero, tandis que le constructeur par défaut initialise à zero le no_util qui est de type int
-                    ArrayList <Vente> ventes = pem.selectAllByUser(utilisateurRecupere.getNoUtilisateur() );
+                    
                 	request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
-                    request.getSession().setAttribute("ventes", ventes);
+                  
                     this.getServletContext().getRequestDispatcher("/ListEncheres").forward(request, response);
                 }
                 else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
