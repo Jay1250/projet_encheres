@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 @WebServlet(name = "ServletEncherir", urlPatterns = "/Encherir")
 public class ServletEncherir extends HttpServlet implements Servlet {
     private ProjetEnchereManager pem;
@@ -29,9 +32,9 @@ public class ServletEncherir extends HttpServlet implements Servlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("utilisateurConnecte") != null) {
             try {
-                String saleParamater = request.getParameter("saleId");
-                if (saleParamater != null) {
-                    int saleId = Integer.parseInt(saleParamater);
+                String saleParameter = request.getParameter("saleId");
+                if (saleParameter != null) {
+                    int saleId = Integer.parseInt(saleParameter);
                     Vente vente = pem.getSaleById(saleId);
                     request.setAttribute("vente", vente);
                 }

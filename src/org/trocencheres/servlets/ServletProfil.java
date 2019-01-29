@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * @author Kévin Le Devéhat
+ */
 @WebServlet(name = "ServletProfil", urlPatterns = "/Profil")
 public class ServletProfil extends HttpServlet implements Servlet {
     private ProjetEnchereManager pem;
