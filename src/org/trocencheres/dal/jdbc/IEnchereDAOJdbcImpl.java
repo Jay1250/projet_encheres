@@ -19,13 +19,30 @@ import java.util.List;
 public class IEnchereDAOJdbcImpl implements IEnchereDAO {
 
     @Override
-    public Enchere selectByIds(Integer noVente, Integer noUtilisateur) throws DALException {
+    public Enchere selectLastByIds(Integer noVente, Integer noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             Enchere enchere = new Enchere();
-            String sqlRequest = "SELECT * FROM ENCHERES WHERE no_vente= ? AND no_utilisateur = ?";
+            String sqlRequest = "SELECT TOP 1 * FROM ENCHERES ORDER BY no_vente= ? AND no_utilisateur = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             statement.setInt(2, noUtilisateur);
+            ResultSet resultset = statement.executeQuery();
+            if (resultset != null && resultset.next())
+                enchere = this.createAuctionFromResultSet(resultset);
+            statement.close();
+            return enchere;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select by id", e);
+        }
+    }
+
+    @Override
+    public Enchere selectLastBySale(Integer noVente) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            Enchere enchere = new Enchere();
+            String sqlRequest = "SELECT TOP 1 * FROM ENCHERES ORDER BY no_vente= ?";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noVente);
             ResultSet resultset = statement.executeQuery();
             if (resultset != null && resultset.next())
                 enchere = this.createAuctionFromResultSet(resultset);
