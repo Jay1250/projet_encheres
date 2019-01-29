@@ -44,28 +44,28 @@
 		</div>
 		
 		<div class="container">
-			<form class="row ">
+			<form class="row " action="/ProjetEncheres/ListEncheres" method="post">
 				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 				<h3 class="text-center">Filtres : </h3>
 				<div class="form-group col-md-5 col-md-offset-2">
 					<div class="form-check">
-	  					<input class="form-check-input" type="checkbox" value="">
+	  					<input class="form-check-input" type="checkbox" name="choix1" value="ventesEnCours">
 	  					<label class="form-check-label" for="checkventes">Mes ventes en cours</label>
 					</div>
 					<div class="form-check">
-	  					<input class="form-check-input" type="checkbox" value="">
+	  					<input class="form-check-input" type="checkbox" name="choix2" value="ventesTerminees">
 	  					<label class="form-check-label" for="checkventes">Mes ventes terminées</label>
 					</div>
 					<div class="form-check">
-	  					<input class="form-check-input" type="checkbox" value="">
+	  					<input class="form-check-input" type="checkbox" name="choix3" value="encheresEnCours">
 	  					<label class="form-check-label" for="checkencheres">Mes enchères en cours</label>
 					</div>
 					<div class="form-check">
-	  					<input class="form-check-input" type="checkbox" value="">
+	  					<input class="form-check-input" type="checkbox" name="choix4" value="acquisitions">
 	  					<label class="form-check-label" for="checkacquisition">Mes acquisitions</label>
 					</div>
 					<div class="form-check">
-	  					<input class="form-check-input" type="checkbox" value="">
+	  					<input class="form-check-input" type="checkbox" name="choix5" value="autres aucheres">
 	  					<label class="form-check-label" for="checkdefault">Autres enchères</label>
 					</div>
 				</div>
@@ -84,75 +84,72 @@
 			  		<button type="submit" class="btn btn-primary marge">Rechercher</button>
 			  	</div>
 			</form>
-			<%
-			if (request.getSession().getAttribute("ventes")==null){
+			
+			
+			<%     						
+			if (request.getParameter("choix1")!=null && request.getParameter("choix1").equals("ventesEnCours")) {
+			%>
+			<h2 class="text-center">Mes ventes en cours</h2><hr />
+			<%	
+				if(request.getSession().getAttribute("ventes")==null){
 				%>
 				<p> Vous n'avez aucune vente </p>
 			<%
-			}else {
+				
+				}else {
 				ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
-				int nbVentes= 4;
-				for(int i=1; i<nbVentes;i++ ){
+				 for(Vente v : ventes) {
 				%>
 
 			<!--  mes ventes en cours -->
-			<h2 class="text-center">Mes ventes en cours</h2><hr />
+			
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
 						<h4 class="card-title"><a href="#">
-							<%=ventes.get(i).getNomArticle()%>
+							<%=v.getNomArticle()%>
 
 							</a></h4>
 
-						<h5 class="card-text">Prix : <%=ventes.get(i).getPrixInitial()%></h5>
-						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: <%=ventes.get(i).getDateFinEncheres()%></h6>
-						<h6 class="card-subtitle mb-2 text-muted">Retrait: <%=utilisateurConnecte.getVille()%></h6>
-						<h5 class="card-title text-left">Meilleure offre : 210 points par <a href="#">jojo45</a></h5>
-						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+						<h5 class="card-text">Prix : <%=v.getPrixInitial()%></h5>
+						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: <%=v.getDateFinEncheres()%></h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: <%=utilisateurConnecte.getRue()+ " " + utilisateurConnecte.getCodePostal() + " " + utilisateurConnecte.getVille()%></h6>
+						<h5 class="card-title text-left">Meilleure offre : <% if (v.getPrixVente()==0){
+						%>
+						Aucune offre
+						<%
+						} else {
+						%>
+						<%=v.getPrixVente()%> points par : <a href="Profil de un tel"> pseudo de la Personne qui a enchéri à ce prix</a>
+						<%
+						}
+						%>
+						</h5>
+						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageDetailMaVente.html">détails</a></h5>
 					</div>
 				</div>
 	    	</div>
-			<div class="col-md-3">
-				<div class="card col-md-12 block-info-vente">
-					<div class="card-body">
-					    <h4 class="card-title"><a href="#">Rocket stove pour riz et pâtes</a></h4>
-					    <h5 class="card-text">Prix : 185 points</h5>
-					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 09/10/2018</h6>
-						<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des Pinsons 44000 Nantes</h6>
-					    <h5 class="card-title text-left">Meilleure offre : aucune offre</h5>
-					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
-					</div>
-				</div>
-	    	</div>
-	    	<div class="col-md-3">
-	    		<div class="card col-md-12 block-info-vente">
-					<div class="card-body">
-					    <h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
-					    <h5 class="card-text">Prix : 210 points</h5>
-					    <h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
-					    <h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
-						<h5 class="card-title text-left">Meilleure offre : 210 points par <a href="#">jojo45</a></h5>
-						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
-					 </div>
-				</div>
-	    	</div>
-		    <div class="col-md-3">
-    			<div class="card col-md-12 block-info-vente">
-				 	<div class="card-body">
-				    	<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
-				    	<h5 class="card-text">Prix : 210 points</h5>
-				      	<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
-				      	<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
-				      	<h5 class="card-title text-left">Meilleure offre : aucune offre</h5>
-				    	<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>		
-				  	</div>
-				</div>
-    		</div>
-    		<!-- fin mes ventes en cours -->
+	    			<!-- fin mes ventes en cours -->
+			
+    		<%  }
+				}
+			}if (request.getParameter("choix2")!=null && request.getParameter("choix2").equals("ventesTerminees")) {
+					%>
+					<h2 class="text-center">Mes ventes terminées</h2><hr />
+					<%	
+						if(request.getSession().getAttribute("ventes")==null ){
+						%>
+						<p> Vous n'avez aucune vente </p>
+					<%
+						
+						}else {
+						ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
+						 for(Vente v : ventes) {
+						%>
+    
     		
 			<!--  mes ventes terminées -->
-			<h2 class="text-center">Mes ventes terminées</h2><hr />
+			
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
@@ -201,14 +198,28 @@
 				  	</div>
 				</div>
     		</div>
-    		<%
-    		}
-			}
-    		%>
     		<!-- fin mes ventes terminées -->
     		
+    		
+    			<%  }
+						}
+			}if (request.getParameter("choix3")!=null && request.getParameter("choix3").equals("encheresEnCours")) {
+					%>
+					<h2 class="text-center">Mes enchères en cours </h2><hr />
+					<%	
+						if(request.getSession().getAttribute("ventes")==null ){
+						%>
+						<p> Vous n'avez aucune vente </p>
+					<%
+						
+						}else {
+						ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
+						 for(Vente v : ventes) {
+						%>
+    		
+    		
 			<!--  mes enchères en cours -->
-			<h2 class="text-center test">Mes enchères en cours</h2><hr />
+
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
@@ -218,7 +229,7 @@
 						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
 						<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
 						<h5 class="card-title text-left">Classement : 1</h5>
-						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					</div>
 				</div>
 	    	</div>
@@ -263,8 +274,24 @@
     		</div>
     		<!-- fin mes enchères en cours -->
     		
+    		<%  }
+						}
+			}if (request.getParameter("choix4")!=null && request.getParameter("choix4").equals("acquisitions")) {
+					%>
+					<h2 class="text-center">Mes acquisitions </h2><hr />
+					<%	
+						if(request.getSession().getAttribute("ventes")==null){
+						%>
+						<p> Vous n'avez aucune vente </p>
+					<%
+						
+						}else {
+						ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
+						 for(Vente v : ventes) {
+						%>
+    		
 			<!--  mes acquisitions -->
-			<h2 class="text-center">Mes acquisitions</h2><hr />
+	
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
@@ -318,6 +345,11 @@
 				</div>
     		</div>
     		<!-- fin mes acquisitions -->
+    		<%
+    		}
+			}
+			}
+				%>
 		</div>
 	</body>
 </html>
