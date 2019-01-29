@@ -51,11 +51,11 @@ public class ServletConnexion extends HttpServlet implements Servlet {
         String identifiant = request.getParameter("identifiant");
         String mdp = request.getParameter("motdepasse");
 
-        if (identifiant != null && !identifiant.equals(""))
+        if (identifiant != null && !identifiant.trim().equals(""))
             identifiant = identifiant.trim();
         else request.setAttribute("identifiantNonRenseigne", true);
 
-        if (mdp != null && !mdp.equals(""))
+        if (mdp != null && !mdp.trim().equals(""))
             mdp = mdp.trim();
         else request.setAttribute("mdpNonRenseigne", true);
 
@@ -71,6 +71,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
                 else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
                     request.getSession().setAttribute("utilisateurConnecte", null);
                     request.getSession().invalidate();
+                    request.setAttribute("identifiantOuMdpIncorrects", true);
                     this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
                 }
 
