@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="
+				java.util.Map,
+				org.trocencheres.beans.Categorie
+				"
+%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -8,7 +13,7 @@
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	</head>
-	
+	<% Categorie categories=(Categorie)request.getSession().getAttribute("categorie");%>
 	<body>
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
@@ -17,11 +22,11 @@
 			    </div>
 			    <ul class="nav navbar-nav">
 			      <li><a href="/ProjetEncheres/PageProfil.html">Mon profil</a></li>
-			      <li><a href="/ProjetEncheres/PageListeEncheres.html">Les enchères</a></li>
+			      <li><a href="/ProjetEncheres/PageListeEncheres.html">Les enchÃ¨res</a></li>
 			      <li class="active"><a href="/ProjetEncheres/PageVendreUnArticle.html">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href=/ProjetEncheres/PageConnexion.html#"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="/ProjetEncheres/PageConnexion.html#"><span class="glyphicon glyphicon-user"></span> DÃ©connexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
@@ -48,15 +53,17 @@
 					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220" name="prixinitial"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchÃ¨re :</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="date" class="form-control" name="finenchere"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Catégories</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">CatÃ©gories</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1">   				
 						<select class="form-control" name="categorie">
-        					<option selected>Toutes</option>
-        					<option>...</option>
+        					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>					<option>...</option>
+	      					<c:forEach var='item' items='${categorie}'>
+								<option value="${item.key}"><c:out value='${item.value.libelle}'/></option>
+							</c:forEach>
       					</select>
       				</div>
 			  	</div>
