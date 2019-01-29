@@ -229,7 +229,7 @@
 						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
 						<p>Vendeur : <a href="#" class="card-link">jojo42</a></p>
 						<h5 class="card-title text-left">Classement : 1</h5>
-						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
+					    <h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					</div>
 				</div>
 	    	</div>

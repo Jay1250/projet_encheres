@@ -42,7 +42,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 			Enchere enchere=null;
 			try {
 				ventes = pem.selectAllByUser(utilisateurConnecte.getNoUtilisateur());
-				enchere=pem.
+				
 			} catch (BLLException e) {
 				e.printStackTrace();
 				request.setAttribute("erreur", e);
