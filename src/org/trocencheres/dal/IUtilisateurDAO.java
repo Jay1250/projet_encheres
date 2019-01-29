@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public interface UtilisateurDAO {
+public interface IUtilisateurDAO {
     Utilisateur selectById(Integer id) throws DALException;
 
     Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException;
