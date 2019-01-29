@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Troc Encheres</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
