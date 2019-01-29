@@ -2,6 +2,9 @@ package org.trocencheres.beans;
 
 import java.util.Date;
 
+/**
+ * @author JY
+ */
 public class Enchere {
 
 	private Date dateEnchere;

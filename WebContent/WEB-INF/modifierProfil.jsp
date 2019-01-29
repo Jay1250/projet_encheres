@@ -16,7 +16,24 @@
 	Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 %>
 <body>
-<%@include file="navbar.jspf" %>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/ProjetEncheres/MonProfil">Mon
+					profil</a></li>
+				<li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+				<li><a href="/ProjetEncheres/VendreUnArticle">Vendre
+					un article</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/ProjetEncheres/Deconnexion"><span
+						class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<div class="row top-buffer">
 			<%
