@@ -1,6 +1,6 @@
 package org.trocencheres.servlets;
 
-import org.trocencheres.beans.Utilisateur;
+import org.trocencheres.beans.Vente;
 import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "ServletProfil", urlPatterns = "/Profil")
-public class ServletProfil extends HttpServlet implements Servlet {
+@WebServlet(name = "ServletEncherir", urlPatterns = "/Encherir")
+public class ServletEncherir extends HttpServlet implements Servlet {
     private ProjetEnchereManager pem;
 
-    public ServletProfil() throws BLLException {
+    public ServletEncherir() throws BLLException {
         super();
         this.pem = ProjetEnchereManager.getInstance();
     }
@@ -29,13 +29,13 @@ public class ServletProfil extends HttpServlet implements Servlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("utilisateurConnecte") != null) {
             try {
-                String userParameter = request.getParameter("userId");
-                if (userParameter != null) {
-                    int userId = Integer.parseInt(userParameter);
-                    Utilisateur autreUtilisateur = pem.getUserById(userId);
-                    request.setAttribute("autreUtilisateur", autreUtilisateur);
+                String saleParamater = request.getParameter("saleId");
+                if (saleParamater != null) {
+                    int saleId = Integer.parseInt(saleParamater);
+                    Vente vente = pem.getSaleById(saleId);
+                    request.setAttribute("vente", vente);
                 }
-                request.getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
             } catch (BLLException e) {
                 e.printStackTrace();
                 request.setAttribute("erreur", e);
