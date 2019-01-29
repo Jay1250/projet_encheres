@@ -3,7 +3,7 @@ package org.trocencheres.dal.jdbc;
 import org.trocencheres.beans.Retrait;
 import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.RetraitDAO;
+import org.trocencheres.dal.IRetraitDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public class RetraitDAOJdbcImpl implements RetraitDAO {
+public class IRetraitDAOJdbcImpl implements IRetraitDAO {
 
     @Override
     public Retrait selectByIdVente(Integer noVente) throws DALException {

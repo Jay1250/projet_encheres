@@ -1,10 +1,10 @@
 package org.trocencheres.dal;
 
-import org.trocencheres.dal.jdbc.UtilisateurDAOJdbcImpl;
+import org.trocencheres.dal.jdbc.IUtilisateurDAOJdbcImpl;
 
 /**
  * @author Kévin Le Devéhat
  */
 public class UtilisateurDAOFactory {
-    public static UtilisateurDAO getUtilisateurDao() { return new UtilisateurDAOJdbcImpl();}
+    public static IUtilisateurDAO getUtilisateurDao() { return new IUtilisateurDAOJdbcImpl();}
 }

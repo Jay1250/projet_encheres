@@ -1,10 +1,10 @@
 package org.trocencheres.dal;
 
-import org.trocencheres.dal.jdbc.VenteDAOJdbcImpl;
+import org.trocencheres.dal.jdbc.IVenteDAOJdbcImpl;
 
 /**
  * @author Kévin Le Devéhat
  */
 public class VenteDAOFactory {
-    public static VenteDAO getVenteDAO() { return new VenteDAOJdbcImpl(); }
+    public static IVenteDAO getVenteDAO() { return new IVenteDAOJdbcImpl(); }
 }

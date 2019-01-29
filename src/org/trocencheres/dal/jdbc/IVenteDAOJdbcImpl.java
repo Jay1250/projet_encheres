@@ -3,7 +3,7 @@ package org.trocencheres.dal.jdbc;
 import org.trocencheres.beans.*;
 import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.VenteDAO;
+import org.trocencheres.dal.IVenteDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public class VenteDAOJdbcImpl implements VenteDAO {
+public class IVenteDAOJdbcImpl implements IVenteDAO {
 
     @Override
     public Vente selectById(Integer noVente) throws DALException {

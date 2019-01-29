@@ -1,7 +1,7 @@
 package org.trocencheres.dal.jdbc;
 
 import org.trocencheres.beans.Categorie;
-import org.trocencheres.dal.CategorieDAO;
+import org.trocencheres.dal.ICategorieDAO;
 import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public class CategorieDAOJdbcImpl implements CategorieDAO {
+public class ICategorieDAOJdbcImpl implements ICategorieDAO {
     @Override
     public Categorie selectById(Integer noCategorie) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {

@@ -3,7 +3,7 @@ package org.trocencheres.dal.jdbc;
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.UtilisateurDAO;
+import org.trocencheres.dal.IUtilisateurDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+public class IUtilisateurDAOJdbcImpl implements IUtilisateurDAO {
 
 	@Override
 	public Utilisateur selectById(Integer noUtilisateur) throws DALException {
