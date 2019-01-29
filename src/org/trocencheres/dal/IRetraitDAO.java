@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public interface RetraitDAO {
+public interface IRetraitDAO {
         Retrait selectByIdVente(Integer noVente) throws DALException;
 
         List<Retrait> selectAll() throws DALException;

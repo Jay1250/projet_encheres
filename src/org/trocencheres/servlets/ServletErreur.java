@@ -30,6 +30,6 @@ public class ServletErreur extends HttpServlet {
         request.setAttribute("error", "Servlet " + servletName +
                 " has thrown an exception " + throwable.getClass().getName() +
                 " : " + throwable.getMessage());
-        request.getRequestDispatcher("/ErrorPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/erreur.jsp").forward(request, response);
     }
 }

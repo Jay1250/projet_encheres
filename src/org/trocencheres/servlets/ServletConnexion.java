@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.bll.BLLException;
@@ -16,7 +17,6 @@ import org.trocencheres.bll.ProjetEnchereManager;
  * author JY
  * Servlet implementation class ServletConnexion
  * Servlet permettant de faire la vérification de l'identifiant et du mot de passe saisis
- * La servlet VerifConnexion envoie ici quand les deux champs identifiant +mdp  sont bien remplis
  */
 @WebServlet(name = "ServletConnexion", urlPatterns = "/Connexion")
 public class ServletConnexion extends HttpServlet implements Servlet {
@@ -33,7 +33,13 @@ public class ServletConnexion extends HttpServlet implements Servlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        if (session.getAttribute("utilisateurConnecte") != null) {
+            response.sendRedirect("/ProjetEncheres/ListEncheres");
+        } else {
+            session.invalidate();
+            this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -41,40 +47,38 @@ public class ServletConnexion extends HttpServlet implements Servlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        //System.out.println("dans doPost de servlet connexion");
-        String identifiant = request.getParameter("identifiant").trim();
-        //System.out.println("identifiant ds servlet connexion : "+identifiant );
-        String mdp = request.getParameter("motdepasse").trim();
-        Integer count = (Integer) request.getSession().getAttribute("compteur");
 
-        try {
-            Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette méthode construit un utilisateur vide puis set les attributs avec le résultat de la requete sql
-            //System.out.println("utilisateur : " + utilisateurRecupere.toString());
-            if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'être égal à zero, tandis que le constructeur par défaut initialise à zero le no_util qui est de type int
-                //System.out.println("utilisateur trouve ac succès");
-                request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
+        String identifiant = request.getParameter("identifiant");
+        String mdp = request.getParameter("motdepasse");
 
-            } else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
-                //System.out.println("utilisateur non trouve");
-                request.getSession().setAttribute("utilisateurConnecte", null);
+        if (identifiant != null && !identifiant.equals(""))
+            identifiant = identifiant.trim();
+        else request.setAttribute("identifiantNonRenseigne", true);
 
+        if (mdp != null && !mdp.equals(""))
+            mdp = mdp.trim();
+        else request.setAttribute("mdpNonRenseigne", true);
+
+        if(request.getAttribute("mdpNonRenseigne") != null || request.getAttribute("identifiantNonRenseigne") != null)
+            this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+        else {
+            try {
+                Utilisateur utilisateurRecupere = pem.getUserByLogin(identifiant, mdp); // cette méthode construit un utilisateur vide puis set les attributs avec le résultat de la requete sql
+                if (utilisateurRecupere.getNoUtilisateur() != 0) { // les no util sont en identity 1,1 dans la base donc impossible d'être égal à zero, tandis que le constructeur par défaut initialise à zero le no_util qui est de type int
+                    request.getSession().setAttribute("utilisateurConnecte", utilisateurRecupere);
+                    this.getServletContext().getRequestDispatcher("/ListEncheres").forward(request, response);
+                }
+                else { // si no_util=0 ca veut dire aucune ligne trouvée dans le resultat de la requete
+                    request.getSession().setAttribute("utilisateurConnecte", null);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+                }
+
+            } catch (BLLException e) {
+                //redirection à une page d'erreur si pb avec la méthode utilisant : pem.getUserByLogin(identifiant, mdp) ou la conexion sql
+                e.printStackTrace();
+                request.setAttribute("erreur", e);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
             }
-            if (count == null) { // variable permettant de savoir cb de tentatives de connexions  il y a eu
-                count = 1;
-            } else {
-                count += 1;
-            }
-            request.getSession().setAttribute("compteur", count);
-            request.getSession().setAttribute("identifiant", utilisateurRecupere.getPseudo());
-            System.out.println("va dans servlet Connexion");
-            //on renvoie à la servlet connexion qui va dispatcher selon que l'utilisateur récupéré est nul ou pas
-            this.getServletContext().getRequestDispatcher("/VerifConnexion").forward(request, response);
-
-        } catch (BLLException e) {
-            //redirection à une page d'erreur si pb avec la méthode utilisant : pem.getUserByLogin(identifiant, mdp) ou la conexion sql
-            e.printStackTrace();
-            request.setAttribute("erreur", e);
-            this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
         }
     }
 }

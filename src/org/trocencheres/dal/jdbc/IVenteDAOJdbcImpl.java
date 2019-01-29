@@ -3,7 +3,7 @@ package org.trocencheres.dal.jdbc;
 import org.trocencheres.beans.*;
 import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
-import org.trocencheres.dal.VenteDAO;
+import org.trocencheres.dal.IVenteDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Kévin Le Devéhat
  */
-public class VenteDAOJdbcImpl implements VenteDAO {
+public class IVenteDAOJdbcImpl implements IVenteDAO {
 
     @Override
     public Vente selectById(Integer noVente) throws DALException {
@@ -151,4 +151,18 @@ public class VenteDAOJdbcImpl implements VenteDAO {
         Retrait retrait = new Retrait(noVente);
         return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, noUtilisateur, noCategorie, retrait);
     }
+    
+	public ArrayList<Vente> selectAllByUser() throws DALException {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			ArrayList<Vente> allVentes = new ArrayList<>();
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES WHERE no_utilisateur=?");
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet != null && resultSet.next()) {
+				allVentes.add(this.createSaleFromResultSet(resultSet));
+			}
+			return allVentes;
+		} catch (SQLException e) {
+			throw new DALException("Sale - Select all by user", e);
+		}
+	}
 }

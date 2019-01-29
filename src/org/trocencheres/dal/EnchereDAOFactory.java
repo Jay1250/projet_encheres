@@ -1,12 +1,12 @@
 package org.trocencheres.dal;
 
-import org.trocencheres.dal.jdbc.EnchereDAOJdbcImpl;
+import org.trocencheres.dal.jdbc.IEnchereDAOJdbcImpl;
 
 /**
  * @author Kévin Le Devéhat
  */
 public class EnchereDAOFactory {
-    public static EnchereDAO getEnchereDAO() {
-        return new EnchereDAOJdbcImpl();
+    public static IEnchereDAO getEnchereDAO() {
+        return new IEnchereDAOJdbcImpl();
     }
 }

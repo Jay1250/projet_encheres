@@ -300,7 +300,7 @@
 				<button type="submit" class="btn btn-primary marge ">Enregistrer</button>
 				<button type="button" class="btn btn-primary marge ">Supprimer
 					mon compte</button>
-				<a href="/ProjetEncheres/VerifConnexion" class="btn btn-primary marge" >Retour</a>
+				<a href="/ProjetEncheres/ServletMonProfil" class="btn btn-primary marge" >Retour</a>
 			</div>
 		</form>
 	</div>
