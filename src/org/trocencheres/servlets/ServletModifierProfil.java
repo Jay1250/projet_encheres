@@ -1,5 +1,6 @@
 package org.trocencheres.servlets;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
+ * author JY
  * Servlet implementation class ServletModifierProfil
  */
 @WebServlet(name = "ServletModifierProfil", urlPatterns = "/ModifierProfil")

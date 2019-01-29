@@ -36,10 +36,26 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
     }
 
     @Override
-    public List<Vente> selectAll() throws DALException {
+    public ArrayList<Vente> selectAll() throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
-            List<Vente> allVentes = new ArrayList<>();
+            ArrayList<Vente> allVentes = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allVentes.add(this.createSaleFromResultSet(resultSet));
+            }
+            return allVentes;
+        } catch (SQLException e) {
+            throw new DALException("Sale - Select all", e);
+        }
+    }
+
+    @Override
+    public ArrayList<Vente> selectAllByUser(int noUtilisateur) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            ArrayList<Vente> allVentes = new ArrayList<>();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES WHERE no_utilisateur = ?");
+            statement.setInt(1, noUtilisateur);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
                 allVentes.add(this.createSaleFromResultSet(resultSet));

@@ -1,5 +1,8 @@
 package org.trocencheres.beans;
 
+/**
+ * @author JY
+ */
 public class Retrait {
 
 	private int noVente;

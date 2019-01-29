@@ -1,3 +1,4 @@
+<!-- author JY + JI -->
 <%@page import="org.trocencheres.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -22,10 +23,10 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/ProjetEncheres/MonProfil">Mon
-						profil</a></li>
+					profil</a></li>
 				<li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
 				<li><a href="/ProjetEncheres/VendreUnArticle">Vendre
-						un article</a></li>
+					un article</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/ProjetEncheres/Deconnexion"><span

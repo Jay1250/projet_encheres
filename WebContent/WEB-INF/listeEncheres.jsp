@@ -1,3 +1,6 @@
+<!-- author JY + JI -->
+<%@page import="org.trocencheres.beans.Vente"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="org.trocencheres.beans.Utilisateur"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,19 +18,19 @@
 			String identifiant = utilisateurConnecte.getPseudo(); %>
 	<body>
 		<nav class="navbar navbar-inverse">
-	  		<div class="container-fluid">
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
-			    </div>
-			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
-			    </ul>
-	  		</div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
+					<li class="active"><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
+					<li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+				</ul>
+			</div>
 		</nav>
 		<div class="container-fluid">
 			<div class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
@@ -80,16 +83,30 @@
 			  		<button type="submit" class="btn btn-primary marge">Rechercher</button>
 			  	</div>
 			</form>
-			
+			<%
+			if (request.getSession().getAttribute("ventes")==null){
+				%>
+				<p> Vous n'avez aucune vente </p>
+			<%
+			}else {
+				ArrayList <Vente> ventes=(ArrayList<Vente>)request.getSession().getAttribute("ventes");
+				int nbVentes= 4;
+				for(int i=1; i<nbVentes;i++ ){
+				%>
+
 			<!--  mes ventes en cours -->
 			<h2 class="text-center">Mes ventes en cours</h2><hr />
 	    	<div class="col-md-3">
 	    		<div class="card col-md-12 block-info-vente">
 					<div class="card-body">
-						<h4 class="card-title"><a href="#">PC Gamer pour travailler</a></h4>
-						<h5 class="card-text">Prix : 210 points</h5>
-						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: 10/08/2018</h6>
-						<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée des Alouettes 44800 Saint Herblain</h6>
+						<h4 class="card-title"><a href="#">
+							<%=ventes.get(i).getNomArticle()%>
+
+							</a></h4>
+
+						<h5 class="card-text">Prix : <%=ventes.get(i).getPrixInitial()%></h5>
+						<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère: <%=ventes.get(i).getDateFinEncheres()%></h6>
+						<h6 class="card-subtitle mb-2 text-muted">Retrait: <%=utilisateurConnecte.getVille()%></h6>
 						<h5 class="card-title text-left">Meilleure offre : 210 points par <a href="#">jojo45</a></h5>
 						<h5 class="card-title text-right"><a href="/ProjetEncheres/PageEncherir.html">détails</a></h5>
 					</div>
@@ -183,7 +200,11 @@
 				  	</div>
 				</div>
     		</div>
-    		<!-- fin mes ventes terminées -->	
+    		<%
+    		}
+			}
+    		%>
+    		<!-- fin mes ventes terminées -->
     		
 			<!--  mes enchères en cours -->
 			<h2 class="text-center test">Mes enchères en cours</h2><hr />

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * author JY
  * Servlet implementation class ServletDeconnexion
  */
 @WebServlet(name = "ServletDeconnexion", urlPatterns = "/Deconnexion")

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author JY
+ */
 public class Vente {
 	private int noVente, prixInitial, prixVente, noUtilisateur, noCategorie;
 	private String nomArticle, description;
