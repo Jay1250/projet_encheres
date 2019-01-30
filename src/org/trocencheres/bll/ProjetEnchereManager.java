@@ -328,7 +328,6 @@ public class ProjetEnchereManager {
         Enchere enchere = new Enchere();
         try {
             enchere = this.enchereDAO.selectLastByIds(noVente, noUtilisateur);
-            this.validateAuction(enchere);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -339,7 +338,6 @@ public class ProjetEnchereManager {
         Enchere enchere = new Enchere();
         try {
             enchere = this.enchereDAO.selectLastBySale(noVente);
-            this.validateAuction(enchere);
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -364,7 +362,10 @@ public class ProjetEnchereManager {
     }
 
     private void validateAuction(Enchere enchere) throws BLLException {
-        if(enchere.getDateEnchere() == null || enchere.getNoUtilisateur() == 0 || enchere.getNoVente() == 0)
+        if(enchere.getDateEnchere() == null
+                || enchere.getNoUtilisateur() == 0
+                || enchere.getNoVente() == 0
+                || enchere.getMontantEnchere() == 0)
             throw new BLLException("Invalid auction");
     }
 }
