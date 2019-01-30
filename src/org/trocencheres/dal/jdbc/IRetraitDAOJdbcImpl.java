@@ -21,7 +21,7 @@ public class IRetraitDAOJdbcImpl implements IRetraitDAO {
     public Retrait selectByIdVente(Integer noVente) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             Retrait retrait = new Retrait();
-            String sqlRequest = "SELECT * FROM CATEGORIES WHERE no_categorie = ?";
+            String sqlRequest = "SELECT * FROM RETRAITS WHERE no_vente = ?";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             ResultSet resultset = statement.executeQuery();

@@ -1,6 +1,7 @@
 package org.trocencheres.servlets;
 
 import org.trocencheres.beans.Utilisateur;
+import org.trocencheres.beans.Vente;
 import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
@@ -16,11 +17,11 @@ import java.io.IOException;
 /**
  * @author Kévin Le Devéhat
  */
-@WebServlet(name = "ServletProfil", urlPatterns = "/Profil")
-public class ServletProfil extends HttpServlet implements Servlet {
+@WebServlet(name = "ServletEncherir", urlPatterns = "/Vente")
+public class ServletEncherir extends HttpServlet implements Servlet {
     private ProjetEnchereManager pem;
 
-    public ServletProfil() throws BLLException {
+    public ServletEncherir() throws BLLException {
         super();
         this.pem = ProjetEnchereManager.getInstance();
     }
@@ -30,26 +31,20 @@ public class ServletProfil extends HttpServlet implements Servlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Object sessionUser = session.getAttribute("utilisateurConnecte");
-        if (sessionUser != null) {
-            Utilisateur currentUser = (Utilisateur)sessionUser;
+        if (session.getAttribute("utilisateurConnecte") != null) {
             try {
-                String fromSale = request.getParameter("fromSale");
-                if (fromSale != null)
-                    request.setAttribute("fromSale", fromSale);
-
-                String userParameter = request.getParameter("userId");
-                int userId = 0;
-                if (userParameter != null) {
-                    userId = Integer.parseInt(userParameter);
-                    Utilisateur autreUtilisateur = pem.getUserById(userId);
-                    request.setAttribute("autreUtilisateur", autreUtilisateur);
+                String saleParameter = request.getParameter("saleId");
+                if (saleParameter != null) {
+                    int saleId = Integer.parseInt(saleParameter);
+                    Vente sale = pem.getSaleById(saleId);
+                    request.setAttribute("vente", sale);
+                    if (sale != null && sale.getNoUtilisateur() != 0) {
+                        Utilisateur seller = pem.getUserById(sale.getNoUtilisateur());
+                        if (seller != null && seller.getNoUtilisateur() != 0)
+                            request.setAttribute("vendeur", seller);
+                    }
                 }
-
-                if (currentUser.getNoUtilisateur() == userId)
-                    response.sendRedirect("/ProjetEncheres/MonProfil" + (fromSale != null ? "?fromSale=" + fromSale : ""));
-                else
-                    request.getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
             } catch (BLLException e) {
                 e.printStackTrace();
                 request.setAttribute("erreur", e);
