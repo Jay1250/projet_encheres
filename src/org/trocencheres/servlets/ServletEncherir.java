@@ -1,5 +1,6 @@
 package org.trocencheres.servlets;
 
+import org.trocencheres.beans.Enchere;
 import org.trocencheres.beans.Utilisateur;
 import org.trocencheres.beans.Vente;
 import org.trocencheres.bll.BLLException;
@@ -42,6 +43,16 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                         Utilisateur seller = pem.getUserById(sale.getNoUtilisateur());
                         if (seller != null && seller.getNoUtilisateur() != 0)
                             request.setAttribute("vendeur", seller);
+                    }
+                    if (sale != null && sale.getNoVente() != 0) {
+                        Enchere lastAuction = pem.getLastAuctionBySale(sale.getNoVente());
+                        if (lastAuction != null && lastAuction.getMontantEnchere() != 0)
+                            request.setAttribute("montantDerniereEnchere", lastAuction.getMontantEnchere());
+                        if (lastAuction != null && lastAuction.getNoUtilisateur() != 0) {
+                            Utilisateur lastBidder = pem.getUserById(lastAuction.getNoUtilisateur());
+                            if (lastBidder != null && lastBidder.getNoUtilisateur() != 0)
+                                request.setAttribute("dernierEncherisseur", lastBidder);
+                        }
                     }
                 }
                 request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);

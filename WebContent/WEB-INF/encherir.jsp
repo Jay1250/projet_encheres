@@ -1,6 +1,7 @@
 <%@ page import="org.trocencheres.beans.Vente" %>
 <%@ page import="org.trocencheres.beans.Retrait" %>
-<%@ page import="org.trocencheres.beans.Utilisateur" %><%--Author Kévin Le Devéhat + JI--%>
+<%@ page import="org.trocencheres.beans.Utilisateur" %>
+<%@ page import="org.trocencheres.beans.Enchere" %><%--Author Kévin Le Devéhat + JI--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -47,7 +48,22 @@
                     </div>
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Meilleure offre :</label></div>
-                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label>210 points par <a href=#>bob</a></label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1">
+                            <% Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
+                               Object requestLastBidder = request.getAttribute("dernierEncherisseur");
+                                if (requestLastAuctionPrice != null && requestLastBidder != null) {
+                                    int lastAuctionPrice = (int) requestLastAuctionPrice;
+                                    Utilisateur lastBidder = (Utilisateur) requestLastBidder;
+                            %>
+                                <label><%=lastAuctionPrice%> points par
+                                    <a href="ProjetEncheres/Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
+                                        <%=lastBidder.getPseudo()%>
+                                    </a>
+                                </label>
+                            <% } else { %>
+                                <label>Aucune offre</label>
+                            <% } %>
+                        </div>
                     </div>
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Mise à prix :</label></div>
@@ -105,7 +121,7 @@
                     </div>
                 <%} else {%>
                 <div class="text-center">
-                    <p>Aucun utilisateur à afficher</p>
+                    <p>Aucune vente à afficher</p>
                 </div>
                 <div class="text-center">
                     <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
