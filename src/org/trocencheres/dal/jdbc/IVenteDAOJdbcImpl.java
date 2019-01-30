@@ -173,19 +173,11 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
     private void setStatementWithGenericInfosFromVente(PreparedStatement statement, Vente vente) throws SQLException {
         statement.setString(1, vente.getNomArticle());
         statement.setString(2, vente.getDescription());
-        statement.setDate(3, this.convertJavaDataToSQLDate(vente.getDateFinEncheres()));
+        statement.setTimestamp(3, new Timestamp(vente.getDateFinEncheres().getTime()));
         statement.setInt(4, vente.getPrixInitial());
         statement.setInt(5, vente.getPrixVente());
         statement.setInt(6, vente.getNoUtilisateur());
         statement.setInt(7, vente.getNoCategorie());
-    }
-
-    private java.sql.Date convertJavaDataToSQLDate(Date javaDate) {
-        return new java.sql.Date(javaDate.getTime());
-    }
-
-    private Date convertSQLDateToJavaDate(java.sql.Date SQLDate) {
-        return new Date(SQLDate.getTime());
     }
 
     private Vente createSaleFromResultSet(ResultSet resultSet) throws SQLException {

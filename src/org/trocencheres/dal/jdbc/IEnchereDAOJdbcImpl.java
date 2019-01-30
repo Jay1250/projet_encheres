@@ -103,13 +103,13 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
-            String sqlRequest = "SELECT * " +
-                    "FROM ENCHERES e " +
-                    "INNER JOIN VENTES v " +
-                    "ON e.no_vente = v.no_vente " +
-                    "WHERE e.no_utilisateur = ? " +
-                    "AND v.date_fin_encheres > ?" +
-                    "ORDER BY date_enchere DESC";
+            String sqlRequest = "SELECT e.date_enchere, e.no_utilisateur, e.no_vente, montant_enchere " +
+                    "FROM ENCHERES e WHERE montant_enchere = (" +
+                    "SELECT MAX(en.montant_enchere) " +
+                    "FROM ENCHERES en " +
+                    "INNER JOIN VENTES v ON en.no_vente = v.no_vente " +
+                    "WHERE en.no_utilisateur = ? AND v.date_fin_encheres > ? " +
+                    "GROUP BY en.no_vente)";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
             statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
@@ -128,15 +128,16 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public ArrayList<Enchere> selectAllEndedByUser(int noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
-            String sqlRequest = "SELECT * " +
-                    "FROM ENCHERES e " +
-                    "INNER JOIN VENTES v " +
-                    "ON e.no_vente = v.no_vente " +
-                    "WHERE e.no_utilisateur = ? " +
-                    "AND v.date_fin_encheres < ?" +
-                    "ORDER BY date_enchere DESC";
+            String sqlRequest = "SELECT e.date_enchere, e.no_utilisateur, e.no_vente, montant_enchere " +
+                    "FROM ENCHERES e WHERE montant_enchere = (" +
+                    "SELECT MAX(en.montant_enchere) " +
+                    "FROM ENCHERES en " +
+                    "INNER JOIN VENTES v ON en.no_vente = v.no_vente " +
+                    "WHERE en.no_utilisateur = ? AND v.date_fin_encheres < ? " +
+                    "GROUP BY en.no_vente)";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
+            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
                 allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
@@ -152,7 +153,7 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
         try (Connection connection = ConnectionProvider.getConnection()) {
             String sqlRequest = "INSERT INTO ENCHERES (date_enchere, no_utilisateur, no_vente) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
-            statement.setDate(1, this.convertJavaDataToSQLDate(enchere.getDateEnchere()));
+            statement.setTimestamp(1, new Timestamp(enchere.getDateEnchere().getTime()));
             statement.setInt(2, enchere.getNoUtilisateur());
             statement.setInt(3, enchere.getNoVente());
             statement.executeUpdate();
@@ -176,19 +177,11 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
         }
     }
 
-    private java.sql.Date convertJavaDataToSQLDate(Date javaDate) {
-        return new java.sql.Date(javaDate.getTime());
-    }
-
-    private Date convertSQLDateToJavaDate(java.sql.Date SQLDate) {
-        return new Date(SQLDate.getTime());
-    }
-
     private Enchere createAuctionFromResultSet(ResultSet resultSet) throws SQLException {
         int noVente = resultSet.getInt("no_vente");
         int noUtilisateur = resultSet.getInt("no_utilisateur");
-        int montantEnchere=resultSet.getInt("montant_enchere");
-        Date dateEncheres = this.convertSQLDateToJavaDate(resultSet.getDate("date_enchere"));
+        int montantEnchere = resultSet.getInt("montant_enchere");
+        Date dateEncheres = new Date(resultSet.getTimestamp("date_enchere").getTime());
         return new Enchere(noVente, noUtilisateur, dateEncheres,montantEnchere );
     }
 }
