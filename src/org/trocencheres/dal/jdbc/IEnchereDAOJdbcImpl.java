@@ -103,9 +103,15 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ENCHERES WHERE no_utilisateur = ? AND date_enchere > ? ORDER BY date_enchere DESC");
+            String sqlRequest = "SELECT * " +
+                    "FROM ENCHERES e " +
+                    "INNER JOIN VENTES v " +
+                    "ON e.no_vente = v.no_vente " +
+                    "WHERE e.no_utilisateur = ? " +
+                    "AND e.date_enchere < v.date_fin_encheres " +
+                    "ORDER BY date_enchere DESC";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
-            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
                 allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
