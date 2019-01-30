@@ -38,6 +38,19 @@
 			</div>
 			<form class="row" action = "/ProjetEncheres/VendreUnArticle" method="POST">
 			 	<div class="form-group col-md-12 col-xs-12 text-left">
+			 		<% if ((request.getAttribute("articleNonRenseigne") != null && request.getAttribute("articleNonRenseigne").equals(true))
+			 				|| (request.getAttribute("descriptionNonRenseigne") != null && request.getAttribute("descriptionNonRenseigne").equals(true))
+			 				|| (request.getAttribute("descriptionNonRenseigne") != null && request.getAttribute("descriptionNonRenseigne").equals(true))
+			 				|| (request.getAttribute("finEnchereNonRenseigne") != null && request.getAttribute("finEnchereNonRenseigne").equals(true))
+			 				|| (request.getAttribute("articleNonRenseigne") != null && request.getAttribute("articleNonRenseigne").equals(true))
+			 				|| (request.getAttribute("rueNonRenseigne") != null && request.getAttribute("rueNonRenseigne").equals(true))
+			 				|| (request.getAttribute("codePostalNonRenseigne") != null && request.getAttribute("codePostalNonRenseigne").equals(true))
+			 				|| (request.getAttribute("villeNonRenseigne") != null && request.getAttribute("villeNonRenseigne").equals(true))
+			 				) 
+			
+			 		{%>
+                	<h4 class="text-danger text-center">Tous les champs sont obligatoires</h4>
+            		<%}%>
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Articles :</label></div>
 				  	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="article"></div>
 			  	</div>
@@ -51,7 +64,7 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Prix initial :</label></div>
-					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220" name="prixinitial"></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" min="0" value="220" name="prixinitial"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'ench�re :</label></div>
