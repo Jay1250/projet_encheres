@@ -196,6 +196,7 @@ public class ProjetEnchereManager {
         }
         return ventesList;
     }
+
     public ArrayList<Vente> selectAllEndedByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
@@ -205,6 +206,7 @@ public class ProjetEnchereManager {
         }
         return ventesList;
     }
+
     public ArrayList<Vente> selectAllCurrentByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {

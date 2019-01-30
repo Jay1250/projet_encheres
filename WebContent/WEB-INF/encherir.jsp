@@ -130,7 +130,7 @@
                     <div class="text-center">
                         <% if (!currentUserIsSeller) { %>
                             <% if (!currentUserIsLastBidder) { %>
-                                <button type="button" class="btn btn-primary marge ">Encherir</button>
+                                <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>&bid=<%=%>" class="btn btn-primary marge">Encherir</a>
                             <% } else { %>
                                 <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
                             <% } %>
