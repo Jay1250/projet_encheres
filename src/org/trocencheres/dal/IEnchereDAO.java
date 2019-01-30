@@ -3,13 +3,13 @@ package org.trocencheres.dal;
 import org.trocencheres.beans.Enchere;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * @author Kévin Le Devéhat
  */
 public interface IEnchereDAO {
-    Enchere selectLastByIds(Integer noVente, Integer noUtilisateur) throws DALException;
+    Enchere selectLastByIds(Integer noVente, Integer noUtilisateur, Date dateEnchere) throws DALException;
 
     Enchere selectLastBySale(Integer noVente) throws DALException;
 
@@ -25,5 +25,5 @@ public interface IEnchereDAO {
 
     void insert(Enchere enchere) throws DALException;
 
-    void delete(Integer noVente, Integer noUtilisateur) throws DALException;
+    void delete(Integer noVente, Integer noUtilisateur, Date dateEnchere) throws DALException;
 }

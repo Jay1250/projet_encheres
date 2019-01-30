@@ -79,7 +79,7 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
             }
             return allVentes;
         } catch (SQLException e) {
-            throw new DALException("Sale - Select all end", e);
+            throw new DALException("Sale - Select all ended", e);
         }
 	}
 
