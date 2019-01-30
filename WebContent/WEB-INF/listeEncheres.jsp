@@ -40,27 +40,32 @@
 		</div>
 	</nav>
 	<div class="container-fluid">
-		<div
-			class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
+		
 			<%
 				if (request.getAttribute("changerProfil") != null && request.getAttribute("changerProfil").equals(true)) {
 			%>
+			<div
+			class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
 			<strong>Votre profil a bien été changé <%=identifiant%> !
 			</strong>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
 			<%
 				} else if (request.getSession().getAttribute("premiereConnexion") != null
 						&& request.getSession().getAttribute("premiereConnexion").equals(true)) {
 			%>
+			<div
+			class="alert alert-success col-md-2 col-md-push-9 alert-dismissable">
 			<strong>Bonjour <%=identifiant%> !
 			</strong>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
 			<%
 				request.getSession().setAttribute("premiereConnexion", null);
 				}
 			%>
 
-		</div>
+		
 	</div>
 
 	<div class="container">
