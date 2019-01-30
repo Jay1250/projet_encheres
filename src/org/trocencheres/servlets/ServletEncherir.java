@@ -26,36 +26,47 @@ public class ServletEncherir extends HttpServlet implements Servlet {
         super();
         this.pem = ProjetEnchereManager.getInstance();
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("utilisateurConnecte") != null) {
+        Object sessionUserAttr = session.getAttribute("utilisateurConnecte");
+        if (sessionUserAttr != null) {
             try {
+                Utilisateur currentUser = (Utilisateur) sessionUserAttr;
                 String saleParameter = request.getParameter("saleId");
+                Object requestDelete = request.getParameter("delete");
+                Vente sale = new Vente();
                 if (saleParameter != null) {
                     int saleId = Integer.parseInt(saleParameter);
-                    Vente sale = pem.getSaleById(saleId);
+                    sale = pem.getSaleById(saleId);
                     request.setAttribute("vente", sale);
-                    if (sale != null && sale.getNoUtilisateur() != 0) {
-                        Utilisateur seller = pem.getUserById(sale.getNoUtilisateur());
-                        if (seller != null && seller.getNoUtilisateur() != 0)
-                            request.setAttribute("vendeur", seller);
-                    }
-                    if (sale != null && sale.getNoVente() != 0) {
-                        Enchere lastAuction = pem.getLastAuctionBySale(sale.getNoVente());
-                        if (lastAuction != null && lastAuction.getMontantEnchere() != 0)
-                            request.setAttribute("montantDerniereEnchere", lastAuction.getMontantEnchere());
-                        if (lastAuction != null && lastAuction.getNoUtilisateur() != 0) {
-                            Utilisateur lastBidder = pem.getUserById(lastAuction.getNoUtilisateur());
-                            if (lastBidder != null && lastBidder.getNoUtilisateur() != 0)
-                                request.setAttribute("dernierEncherisseur", lastBidder);
+                    if (sale != null) {
+                        if (sale.getNoUtilisateur() != 0) {
+                            Utilisateur seller = pem.getUserById(sale.getNoUtilisateur());
+                            if (seller != null && seller.getNoUtilisateur() != 0)
+                                request.setAttribute("vendeur", seller);
+                        }
+                        if (sale.getNoVente() != 0) {
+                            Enchere lastAuction = pem.getLastAuctionBySale(sale.getNoVente());
+                            if (lastAuction != null && lastAuction.getMontantEnchere() != 0)
+                                request.setAttribute("montantDerniereEnchere", lastAuction.getMontantEnchere());
+                            if (lastAuction != null && lastAuction.getNoUtilisateur() != 0) {
+                                Utilisateur lastBidder = pem.getUserById(lastAuction.getNoUtilisateur());
+                                if (lastBidder != null && lastBidder.getNoUtilisateur() != 0)
+                                    request.setAttribute("dernierEncherisseur", lastBidder);
+                            }
                         }
                     }
                 }
-                request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
+                if (requestDelete != null && requestDelete.equals("true") && sale != null && currentUser.getNoUtilisateur() == sale.getNoUtilisateur()) {
+                    pem.removeSale(sale.getNoVente());
+                    response.sendRedirect("/ProjetEncheres/ListEncheres");
+                } else
+                    request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
             } catch (BLLException e) {
                 e.printStackTrace();
                 request.setAttribute("erreur", e);
