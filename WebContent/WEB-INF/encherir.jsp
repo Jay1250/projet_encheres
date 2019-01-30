@@ -110,6 +110,7 @@
                                 </label>
                             </div>
                         </div>
+                <%--being form--%>
                         <% if (!currentUserIsSeller && !currentUserIsLastBidder) {
                             int proposedPrice = (requestLastAuctionPrice != null && requestLastBidder != null) ? lastAuctionPrice +1 : currentSale.getPrixInitial();
                         %>
@@ -130,7 +131,7 @@
                     <div class="text-center">
                         <% if (!currentUserIsSeller) { %>
                             <% if (!currentUserIsLastBidder) { %>
-                                <button type="button" class="btn btn-primary marge ">Encherir</button>
+                                <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>" class="btn btn-primary marge">Encherir</a>
                             <% } else { %>
                                 <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
                             <% } %>
@@ -139,6 +140,7 @@
                         <% } %>
                         <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
                     </div>
+                <%--end form--%>
                 <%} else {%>
                 <div class="text-center">
                     <p>Aucune vente à afficher</p>

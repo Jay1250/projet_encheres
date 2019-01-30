@@ -23,5 +23,4 @@ public interface IVenteDAO {
 	void insert(Vente vente) throws DALException;
 
 	void delete(Integer noVente) throws DALException;
-
 }
