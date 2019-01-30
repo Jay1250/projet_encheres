@@ -5,10 +5,13 @@ import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.IVenteDAO;
 
+import javafx.util.converter.LocalDateStringConverter;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -77,9 +80,7 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
             ArrayList<Vente> allVentes = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES WHERE no_utilisateur = ? AND date_fin_encheres < ?");
             statement.setInt(1, noUtilisateur); 
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            String maDate = sdf.format(LocalDateTime.now());
-            statement.setString(2, maDate);
+            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
                 allVentes.add(this.createSaleFromResultSet(resultSet));
@@ -96,9 +97,7 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
             ArrayList<Vente> allVentes = new ArrayList<>();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES WHERE no_utilisateur = ? AND date_fin_encheres > ?");
             statement.setInt(1, noUtilisateur);
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            String maDate = sdf.format(LocalDateTime.now());
-            statement.setString(2, maDate);
+            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
                 allVentes.add(this.createSaleFromResultSet(resultSet));
@@ -201,7 +200,7 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
         int noVente = resultSet.getInt("no_vente");
         String nomArticle = resultSet.getString("nomarticle");
         String description = resultSet.getString("description");
-        Date dateFinEncheres = this.convertSQLDateToJavaDate(resultSet.getDate("date_fin_encheres"));
+        Date dateFinEncheres = new Date(resultSet.getTimestamp("date_fin_encheres").getTime());
         int prixInitial = resultSet.getInt("prix_initial");
         int prixVente = resultSet.getInt("prix_vente");
         int noUtilisateur= resultSet.getInt("no_utilisateur");
