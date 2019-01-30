@@ -1,7 +1,7 @@
+<%--Author Kévin Le Devéhat + JI--%>
 <%@ page import="org.trocencheres.beans.Vente" %>
 <%@ page import="org.trocencheres.beans.Retrait" %>
 <%@ page import="org.trocencheres.beans.Utilisateur" %>
-<%@ page import="org.trocencheres.beans.Enchere" %><%--Author Kévin Le Devéhat + JI--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -12,6 +12,12 @@
         <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
         <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
     </head>
+    <%! private int lastAuctionPrice;
+        private Utilisateur lastBidder;
+        private Utilisateur seller;
+        private boolean currentUserIsSeller = false;
+        private boolean currentUserIsLastBidder = false;
+    %>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -37,6 +43,21 @@
                 <% Object requestSale = request.getAttribute("vente");
                     if (requestSale != null) {
                         Vente currentSale = (Vente) requestSale;
+                        Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
+                        Object requestLastBidder = request.getAttribute("dernierEncherisseur");
+                        if (requestLastAuctionPrice != null && requestLastBidder != null) {
+                            lastAuctionPrice = (int) requestLastAuctionPrice;
+                            lastBidder = (Utilisateur) requestLastBidder;
+                        }
+
+                        Object requestSeller = request.getAttribute("vendeur");
+                        if (requestSeller != null) seller = (Utilisateur) requestSeller;
+
+                        Utilisateur currentUser = (Utilisateur)session.getAttribute("utilisateurConnecte");
+                        if (currentUser != null) {
+                            currentUserIsSeller = seller.getNoUtilisateur() == currentUser.getNoUtilisateur();
+                            if (lastBidder != null) currentUserIsLastBidder = lastBidder.getNoUtilisateur() == currentUser.getNoUtilisateur();
+                        }
                 %>
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Article :</label></div>
@@ -49,12 +70,7 @@
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Meilleure offre :</label></div>
                         <div class="col-md-3 col-xs-5 col-md-offset-1">
-                            <% Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
-                               Object requestLastBidder = request.getAttribute("dernierEncherisseur");
-                                if (requestLastAuctionPrice != null && requestLastBidder != null) {
-                                    int lastAuctionPrice = (int) requestLastAuctionPrice;
-                                    Utilisateur lastBidder = (Utilisateur) requestLastBidder;
-                            %>
+                            <% if (requestLastAuctionPrice != null && requestLastBidder != null) { %>
                                 <label><%=lastAuctionPrice%> points par
                                     <a href="ProjetEncheres/Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
                                         <%=lastBidder.getPseudo()%>
@@ -83,10 +99,7 @@
                             </label>
                         </div>
                     </div>
-                    <% Object requestSeller = request.getAttribute("vendeur");
-                        if (requestSeller != null) {
-                            Utilisateur seller = (Utilisateur) requestSeller;
-                    %>
+                    <% if (requestSeller != null) { %>
                         <div class="form-group col-md-12 col-xs-12 text-left">
                             <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Vendeur :</label></div>
                             <div class="col-md-3 col-xs-5 col-md-offset-1">
@@ -97,15 +110,15 @@
                                 </label>
                             </div>
                         </div>
-                        <% Utilisateur currentUser = (Utilisateur)session.getAttribute("utilisateurConnecte");
-                            if (currentUser != null && seller.getNoUtilisateur() != currentUser.getNoUtilisateur()) {
+                        <% if (!currentUserIsSeller && !currentUserIsLastBidder) {
+                            int proposedPrice = (requestLastAuctionPrice != null && requestLastBidder != null) ? lastAuctionPrice +1 : currentSale.getPrixInitial();
                         %>
                             <div class="form-group col-md-12 col-xs-12 text-left">
                                 <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Ma proposition :</label></div>
-                                <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220"></div>
+                                <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="<%=proposedPrice%>"></div>
                             </div>
-                        <% }%>
-                    <%} else { %>
+                        <% } %>
+                    <% } else { %>
                         <div class="form-group col-md-12 col-xs-12 text-left">
                             <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Vendeur :</label></div>
                             <div class="col-md-3 col-xs-5 col-md-offset-1"><label>unknown</label></div>
@@ -115,8 +128,15 @@
                         <a  class="visible-xs" href="ModalInfosVente.html" data-toggle="modal" data-target="#infosVente">Détails</a>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary marge ">Encherir</button>
-                        <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                        <% if (!currentUserIsSeller) { %>
+                            <% if (!currentUserIsLastBidder) { %>
+                                <button type="button" class="btn btn-primary marge ">Encherir</button>
+                            <% } else { %>
+                                <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                            <% } %>
+                        <% } else { %>
+                            <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>&delete=true" class="btn btn-primary marge">Supprimer cette vente</a>
+                        <% } %>
                         <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
                     </div>
                 <%} else {%>
