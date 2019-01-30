@@ -91,3 +91,5 @@ ALTER TABLE VENTES
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_pseudo UNIQUE (pseudo);
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_email UNIQUE (email);
 ALTER TABLE Utilisateurs ADD CONSTRAINT U_telephone UNIQUE (telephone);
+
+ALTER TABLE Utilisateurs ALTER COLUMN email VARCHAR(50) NOT NULL
