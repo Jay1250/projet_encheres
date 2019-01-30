@@ -58,6 +58,22 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			
 			System.out.println(categorie);
 			
+			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+			
+			try {
+				pem.getUserById(user.getNoUtilisateur());
+				
+				request.setAttribute("rue", user.getRue());
+				request.setAttribute("codePostal", user.getCodePostal());
+				request.setAttribute("ville", user.getVille());
+				
+				System.out.println(user.getRue());
+				
+			} catch (BLLException e1) {
+				e1.printStackTrace();
+			}
+			
+			
 			 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 		}
 
@@ -81,6 +97,19 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			String codePostal = request.getParameter("codepostal");
 			String ville = request.getParameter("ville");
 			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+			
+			try {
+				pem.getUserById(user.getNoUtilisateur());
+				
+				request.setAttribute("rue", user.getRue());
+				request.setAttribute("codePostal", user.getCodePostal());
+				request.setAttribute("ville", user.getVille());
+				
+				System.out.println(user.getRue());
+				
+			} catch (BLLException e1) {
+				e1.printStackTrace();
+			}
 			
 			Boolean isFormOk = true;
 	
@@ -149,9 +178,9 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 				request.setAttribute("description", description);
 				request.setAttribute("finEnchere", finEnchere);
 				request.setAttribute("prixInitial", prixInitial);
-				request.setAttribute("rue", rue);
-				request.setAttribute("codePostal", codePostal);
-				request.setAttribute("ville", ville);
+				//request.setAttribute("rue", rue);
+			//	request.setAttribute("codePostal", codePostal);
+				//request.setAttribute("ville", ville);
 				
 				
 				 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);

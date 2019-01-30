@@ -68,7 +68,7 @@
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1" data-autoclose="true">
-						<input type="text" name="finencheretime" class="timepicker form-control" value="00:00" data-autoclose="true"/>
+						<input type="text" name="finencheretime" class="timepicker form-control" value="00:00" data-autoclose="true" readonly/>
 						<input type="date" class="form-control" name="finencheredate">
 					</div>
 			  	</div>
@@ -88,7 +88,7 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>rue :</label></div>
-			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="rue"></div>
+			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="rue" value=<%=request.getParameter("rue")%> /></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>code postal :</label></div>
