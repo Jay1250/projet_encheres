@@ -30,15 +30,26 @@ public class ServletProfil extends HttpServlet implements Servlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("utilisateurConnecte") != null) {
+        Object sessionUser = session.getAttribute("utilisateurConnecte");
+        if (sessionUser != null) {
+            Utilisateur currentUser = (Utilisateur)sessionUser;
             try {
+                String fromSale = request.getParameter("fromSale");
+                if (fromSale != null)
+                    request.setAttribute("fromSale", fromSale);
+
                 String userParameter = request.getParameter("userId");
+                int userId = 0;
                 if (userParameter != null) {
-                    int userId = Integer.parseInt(userParameter);
+                    userId = Integer.parseInt(userParameter);
                     Utilisateur autreUtilisateur = pem.getUserById(userId);
                     request.setAttribute("autreUtilisateur", autreUtilisateur);
                 }
-                request.getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);
+
+                if (currentUser.getNoUtilisateur() == userId)
+                    response.sendRedirect("/ProjetEncheres/MonProfil" + (fromSale != null ? "?fromSale=" + fromSale : ""));
+                else
+                    request.getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);
             } catch (BLLException e) {
                 e.printStackTrace();
                 request.setAttribute("erreur", e);

@@ -1,4 +1,6 @@
-<%--Author Kévin Le Devéhat + JI--%>
+<%@ page import="org.trocencheres.beans.Vente" %>
+<%@ page import="org.trocencheres.beans.Retrait" %>
+<%@ page import="org.trocencheres.beans.Utilisateur" %><%--Author Kévin Le Devéhat + JI--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -30,46 +32,85 @@
                 <div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
                 <h3 class="text-center">Détail vente</h3><br>
             </div>
-            <div class="row top-buffer">
-                <h4 class="text-left col-md-offset-3 col-xs-offset-1">PC Gamer pour travailler</h4><br>
-            </div>
             <form class="row ">
-                <div class="form-group col-md-12 col-xs-12 text-left hidden-xs">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Description :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label>Pc incroyable avec un i7, une gtx 1080, 16Gb de RAM et un disque dur SSD de 500 Giga</label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Meilleure offre :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label>210 points par <a href=#>bob</a></label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Mise à prix :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label>185 points</label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label>09/10/2018</label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Retrait :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label>11 allée des Alouettes 44800 Saint Herblain</label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Vendeur :</label></div>
-                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label><a href="#">jojo44</a></label></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-left">
-                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Ma proposition :</label></div>
-                    <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220"></div>
-                </div>
-                <div class="form-group col-md-12 col-xs-12 text-center">
-                    <a  class="visible-xs" href="ModalInfosVente.html" data-toggle="modal" data-target="#infosVente">Détails</a>
+                <% Object requestSale = request.getAttribute("vente");
+                    if (requestSale != null) {
+                        Vente currentSale = (Vente) requestSale;
+                %>
+                    <div class="form-group col-md-12 col-xs-12 text-left">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Article :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getNomArticle()%></label></div>
+                    </div>
+                    <div class="form-group col-md-12 col-xs-12 text-left hidden-xs">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Description :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getDescription()%></label></div>
+                    </div>
+                    <div class="form-group col-md-12 col-xs-12 text-left">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Meilleure offre :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label>210 points par <a href=#>bob</a></label></div>
+                    </div>
+                    <div class="form-group col-md-12 col-xs-12 text-left">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Mise à prix :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getPrixInitial()%></label></div>
+                    </div>
+                    <div class="form-group col-md-12 col-xs-12 text-left">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getDateFinEncheres()%></label></div>
+                    </div>
+                    <%Retrait withdrawal = currentSale.getRetrait();%>
+                    <div class="form-group col-md-12 col-xs-12 text-left">
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Retrait :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1">
+                            <label>
+                                <%=withdrawal.getRue() + " " + withdrawal.getCodePostal() + " " +
+                                        withdrawal.getVille()%>
+                            </label>
+                        </div>
+                    </div>
+                    <% Object requestSeller = request.getAttribute("vendeur");
+                        if (requestSeller != null) {
+                            Utilisateur seller = (Utilisateur) requestSeller;
+                    %>
+                        <div class="form-group col-md-12 col-xs-12 text-left">
+                            <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Vendeur :</label></div>
+                            <div class="col-md-3 col-xs-5 col-md-offset-1">
+                                <label>
+                                    <a href="/ProjetEncheres/Profil?userId=<%=seller.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
+                                        <%=seller.getPseudo()%>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                        <% Utilisateur currentUser = (Utilisateur)session.getAttribute("utilisateurConnecte");
+                            if (currentUser != null && seller.getNoUtilisateur() != currentUser.getNoUtilisateur()) {
+                        %>
+                            <div class="form-group col-md-12 col-xs-12 text-left">
+                                <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Ma proposition :</label></div>
+                                <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="220"></div>
+                            </div>
+                        <% }%>
+                    <%} else { %>
+                        <div class="form-group col-md-12 col-xs-12 text-left">
+                            <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Vendeur :</label></div>
+                            <div class="col-md-3 col-xs-5 col-md-offset-1"><label>unknown</label></div>
+                        </div>
+                    <% } %>
+                    <div class="form-group col-md-12 col-xs-12 text-center">
+                        <a  class="visible-xs" href="ModalInfosVente.html" data-toggle="modal" data-target="#infosVente">Détails</a>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary marge ">Encherir</button>
+                        <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                        <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
+                    </div>
+                <%} else {%>
+                <div class="text-center">
+                    <p>Aucun utilisateur à afficher</p>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary marge ">Encherir</button>
-                    <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
-                    <button type="button" class="btn btn-primary marge ">Retour</button>
+                    <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
                 </div>
+                <%}%>
             </form>
             <!--  modal détails vente -->
             <div id="infosVente" class="modal fade text-center">

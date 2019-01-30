@@ -22,7 +22,10 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public Enchere selectLastByIds(Integer noVente, Integer noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             Enchere enchere = new Enchere();
-            String sqlRequest = "SELECT TOP 1 * FROM ENCHERES ORDER BY no_vente= ? AND no_utilisateur = ?";
+            String sqlRequest = "SELECT TOP 1 * " +
+                    "FROM ENCHERES " +
+                    "WHERE no_vente= ? AND no_utilisateur = ? " +
+                    "ORDER BY date_enchere DESC";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             statement.setInt(2, noUtilisateur);
@@ -40,7 +43,7 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public Enchere selectLastBySale(Integer noVente) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             Enchere enchere = new Enchere();
-            String sqlRequest = "SELECT TOP 1 * FROM ENCHERES ORDER BY no_vente= ?";
+            String sqlRequest = "SELECT TOP 1 * FROM ENCHERES WHERE no_vente = ? ORDER BY date_enchere DESC";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             ResultSet resultset = statement.executeQuery();
