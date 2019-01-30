@@ -187,7 +187,7 @@ public class ProjetEnchereManager {
         return vente;
     }
 
-    public ArrayList<Vente> selectAllByUser(int noUtilisateur) throws BLLException {
+    public ArrayList<Vente> selectAllSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
             ventesList = venteDAO.selectAllByUser(noUtilisateur);
@@ -197,7 +197,7 @@ public class ProjetEnchereManager {
         return ventesList;
     }
 
-    public ArrayList<Vente> selectAllEndedByUser(int noUtilisateur) throws BLLException {
+    public ArrayList<Vente> selectAllEndedSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
             ventesList = venteDAO.selectAllEndedByUser(noUtilisateur);
@@ -207,7 +207,7 @@ public class ProjetEnchereManager {
         return ventesList;
     }
 
-    public ArrayList<Vente> selectAllCurrentByUser(int noUtilisateur) throws BLLException {
+    public ArrayList<Vente> selectAllCurrentSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
             ventesList = venteDAO.selectAllCurrentByUser(noUtilisateur);
@@ -362,6 +362,16 @@ public class ProjetEnchereManager {
             e.printStackTrace();
         }
         return enchere;
+    }
+
+    public ArrayList<Enchere> selectAllCurrentAuctionsByUser(Integer noUtilisateur) throws BLLException {
+        ArrayList<Enchere> auctionsList = new ArrayList<>();
+        try {
+            auctionsList = enchereDAO.selectAllCurrentByUser(noUtilisateur);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return auctionsList;
     }
 
     public void addAuction(Enchere enchere) throws BLLException {

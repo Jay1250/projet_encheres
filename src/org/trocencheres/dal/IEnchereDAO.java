@@ -2,6 +2,7 @@ package org.trocencheres.dal;
 
 import org.trocencheres.beans.Enchere;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +13,13 @@ public interface IEnchereDAO {
 
     Enchere selectLastBySale(Integer noVente) throws DALException;
 
-    List<Enchere> selectAll() throws DALException;
+    ArrayList<Enchere> selectAll() throws DALException;
 
-    List<Enchere> selectAllBySale(int noVente) throws DALException;
+    ArrayList<Enchere> selectAllBySale(int noVente) throws DALException;
 
-    List<Enchere> selectAllByUser(int noUtilisateur) throws DALException;
+    ArrayList<Enchere> selectAllByUser(int noUtilisateur) throws DALException;
+
+    ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException;
 
     void insert(Enchere enchere) throws DALException;
 
