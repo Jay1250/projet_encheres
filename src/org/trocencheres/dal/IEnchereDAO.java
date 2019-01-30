@@ -21,6 +21,8 @@ public interface IEnchereDAO {
 
     ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException;
 
+    ArrayList<Enchere> selectAllEndedByUser(int noUtilisateur) throws DALException;
+
     void insert(Enchere enchere) throws DALException;
 
     void delete(Integer noVente, Integer noUtilisateur) throws DALException;

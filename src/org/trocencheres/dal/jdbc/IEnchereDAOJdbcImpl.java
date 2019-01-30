@@ -108,7 +108,32 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
                     "INNER JOIN VENTES v " +
                     "ON e.no_vente = v.no_vente " +
                     "WHERE e.no_utilisateur = ? " +
-                    "AND e.date_enchere < v.date_fin_encheres " +
+                    "AND v.date_fin_encheres > ?" +
+                    "ORDER BY date_enchere DESC";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noUtilisateur);
+            statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
+            }
+            return allEncheresByUser;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select all by user", e);
+        }
+    }
+
+    @Override
+    public ArrayList<Enchere> selectAllEndedByUser(int noUtilisateur) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
+            String sqlRequest = "SELECT * " +
+                    "FROM ENCHERES e " +
+                    "INNER JOIN VENTES v " +
+                    "ON e.no_vente = v.no_vente " +
+                    "WHERE e.no_utilisateur = ? " +
+                    "AND v.date_fin_encheres < ?" +
                     "ORDER BY date_enchere DESC";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
