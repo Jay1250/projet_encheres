@@ -149,7 +149,7 @@
 					<h5 class="card-title text-left">
 						Meilleure offre :
 						<%
-						if (request.getSession().getAttribute("encheres") == null) {
+						if (request.getSession().getAttribute("encheres")==null) {
 					%>
 						Aucune offre
 						<%
@@ -172,20 +172,19 @@
 					</h5>
 					<h5 class="card-title text-right">
 						<a href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>">détails</a>
-						
+
 					</h5>
 				</div>
 			</div>
 		</div>
-		<%
-							}
-						%>
+
 		<!-- fin mes ventes en cours -->
 
 
 		<!--  mes ventes terminées -->
 		<%
 			}
+				}
 			}
 			if (request.getParameter("choix2") != null && request.getParameter("choix2").equals("ventesTerminees")) {
 		%>
@@ -202,7 +201,7 @@
 		%>
 
 
-	
+
 
 		<div class="col-md-3">
 			<div class="card col-md-12 block-info-vente">

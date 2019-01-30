@@ -41,16 +41,18 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 			ArrayList<Vente> ventes = null;
 
 			ArrayList<Enchere> encheres = null;
-			ArrayList<Utilisateur> utilisateurs=null;
+			ArrayList<Utilisateur> utilisateurs = null;
 			try {
 				ventes = pem.selectAllByUser(utilisateurConnecte.getNoUtilisateur());
-				encheres=new ArrayList<Enchere>();
-				utilisateurs= new ArrayList<Utilisateur>();
+				encheres = new ArrayList<Enchere>();
+				utilisateurs = new ArrayList<Utilisateur>();
 				for (Vente v : ventes) {
-					
-					encheres.add(pem.getLastAuctionBySale(v.getNoVente()));
+					Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
+					if (enchere != null && enchere.getNoUtilisateur() != 0)
+						encheres.add(enchere);
+
 				}
-				for (Enchere e :encheres) {
+				for (Enchere e : encheres) {
 					utilisateurs.add(pem.getUserById(e.getNoUtilisateur()));
 				}
 
@@ -60,13 +62,10 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 			}
 			request.getSession().setAttribute("ventes", ventes);
-			request.getSession().setAttribute("encheres", encheres);
-			request.getSession().setAttribute("utilisateurs", utilisateurs);
-			
-			
-			
-			
+			if (!encheres.isEmpty())
+				request.getSession().setAttribute("encheres", encheres);
 
+			request.getSession().setAttribute("utilisateurs", utilisateurs);
 
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		} else {
