@@ -1,5 +1,7 @@
 package org.trocencheres.servlets;
 
+import org.trocencheres.beans.Utilisateur;
+
 import java.io.IOException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -7,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * author JY
@@ -35,24 +38,27 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Object sessionUser = session.getAttribute("utilisateurConnecte");
 
-        // si la session a expiré:
-        if (request.getSession().getAttribute("utilisateurConnecte") == null) {
+        // si la session a n'a pas expiré:
+        if (sessionUser != null) {
+            Utilisateur currentUser = (Utilisateur) sessionUser;
 
-            this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+            String fromSale = request.getParameter("fromSale");
+            if (fromSale != null)
+                request.setAttribute("fromSale", fromSale);
 
+            String modifierProfil = request.getParameter("modifierProfil");
+            if (modifierProfil != null)
+                request.setAttribute("modifierProfil", modifierProfil);
+
+
+
+            request.getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
         } else {
-            String modifierProfil = (String) request.getParameter("modifierProfil");
-
-            if (modifierProfil != null && modifierProfil.equals("true")) {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/modifierProfil.jsp").forward(request, response);
-            } else {
-                // si la session utilisateur est toujours active
-                System.out.println("va ds monProfil.jsp");
-                this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
-            }
+            session.invalidate();
+            response.sendRedirect("/ProjetEncheres/Connexion");
         }
-
     }
-
 }
