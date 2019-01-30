@@ -9,7 +9,7 @@
 <html lang="fr">
 	<head>
 	  <title>Troc Encheres</title>
-	  <meta charset="ISO-8859-1">
+	  <meta charset="UTF-8">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/clockpicker.css">
@@ -27,7 +27,7 @@
 			      <li class="active"><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> D�connexion</a></li>
+			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
@@ -47,7 +47,6 @@
 			 				|| (request.getAttribute("codePostalNonRenseigne") != null && request.getAttribute("codePostalNonRenseigne").equals(true))
 			 				|| (request.getAttribute("villeNonRenseigne") != null && request.getAttribute("villeNonRenseigne").equals(true))
 			 				) 
-			
 			 		{%>
                 	<h4 class="text-danger text-center">Tous les champs sont obligatoires</h4>
             		<%}%>
@@ -67,14 +66,14 @@
 					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" min="0" value="220" name="prixinitial"></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'ench�re :</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1" data-autoclose="true">
-						<input type="text" name="finencheretime" class="timepicker form-control" value="00:00" data-autoclose="true"/>
+						<input type="text" name="finencheretime" class="timepicker form-control" value="00:00" data-autoclose="true" readonly/>
 						<input type="date" class="form-control" name="finencheredate">
 					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
-					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Cat�gories</label></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Catégories</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1">   				
 						<select class="form-control" name="categorie">
         					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
@@ -89,7 +88,7 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>rue :</label></div>
-			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="rue"></div>
+			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="rue" value=<%=request.getParameter("rue")%> /></div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>code postal :</label></div>

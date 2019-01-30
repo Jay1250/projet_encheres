@@ -5,19 +5,13 @@ import org.trocencheres.dal.ConnectionProvider;
 import org.trocencheres.dal.DALException;
 import org.trocencheres.dal.IVenteDAO;
 
-import javafx.util.converter.LocalDateStringConverter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Kévin Le Devéhat
@@ -71,8 +65,6 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
             throw new DALException("Sale - Select all", e);
         }
     }
-    
-    
 
     @Override
 	public ArrayList<Vente> selectAllEndedByUser(int noUtilisateur) throws DALException {
@@ -209,18 +201,4 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
         Retrait retrait = new Retrait(noVente);
         return new Vente(noVente, nomArticle, description, dateFinEncheres, prixInitial, prixVente, encheres, noUtilisateur, noCategorie, retrait);
     }
-    
-	public ArrayList<Vente> selectAllByUser() throws DALException {
-		try (Connection connection = ConnectionProvider.getConnection()) {
-			ArrayList<Vente> allVentes = new ArrayList<>();
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM VENTES WHERE no_utilisateur=?");
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet != null && resultSet.next()) {
-				allVentes.add(this.createSaleFromResultSet(resultSet));
-			}
-			return allVentes;
-		} catch (SQLException e) {
-			throw new DALException("Sale - Select all by user", e);
-		}
-	}
 }

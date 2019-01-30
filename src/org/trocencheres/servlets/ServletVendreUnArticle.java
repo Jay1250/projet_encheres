@@ -58,6 +58,22 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			
 			System.out.println(categorie);
 			
+			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+			
+			try {
+				pem.getUserById(user.getNoUtilisateur());
+				
+				request.setAttribute("rue", user.getRue());
+				request.setAttribute("codePostal", user.getCodePostal());
+				request.setAttribute("ville", user.getVille());
+				
+				System.out.println(user.getRue());
+				
+			} catch (BLLException e1) {
+				e1.printStackTrace();
+			}
+			
+			
 			 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 		}
 
@@ -66,31 +82,12 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		doGet(request, response);
-		/*
-	 * 
-		Date finEnchere2 = null;	
-		String startDateStr1 = request.getParameter("finencheredate");
-		String startDateStr2 = request.getParameter("finencheretime");
-		startDateStr2 = startDateStr2.replaceAll(":","-");
-		
-		
-		String date = startDateStr1 +" " +  startDateStr2;
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH-mm");
-		
-		System.out.println(sdf2);
-		try {
-			finEnchere2 = sdf2.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		System.out.println(finEnchere2);
 
-		*/
-		
 		if(isStillConnected(request, response)) {
 			request.setCharacterEncoding("UTF-8");
+			
+			Map<Integer, Categorie> categorie = pem.getCategories();
+			request.setAttribute("categorie", categorie);
 			
 			String article = request.getParameter("article");
 			String description = request.getParameter("description");
@@ -100,6 +97,19 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			String codePostal = request.getParameter("codepostal");
 			String ville = request.getParameter("ville");
 			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+			
+			try {
+				pem.getUserById(user.getNoUtilisateur());
+				
+				request.setAttribute("rue", user.getRue());
+				request.setAttribute("codePostal", user.getCodePostal());
+				request.setAttribute("ville", user.getVille());
+				
+				System.out.println(user.getRue());
+				
+			} catch (BLLException e1) {
+				e1.printStackTrace();
+			}
 			
 			Boolean isFormOk = true;
 	
@@ -134,7 +144,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			}
 			
 			if(isFormOk) {
-				System.out.println("yo");
+
 				Retrait retrait = new Retrait(
 					0,
 					rue,
@@ -160,10 +170,19 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 					e.printStackTrace();
 				}
 				System.out.println(vente);
-			
-				this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);		
+				response.sendRedirect("/ProjetEncheres/ListEncheres");
 			}
 			else {
+				
+				request.setAttribute("article", article);
+				request.setAttribute("description", description);
+				request.setAttribute("finEnchere", finEnchere);
+				request.setAttribute("prixInitial", prixInitial);
+				//request.setAttribute("rue", rue);
+			//	request.setAttribute("codePostal", codePostal);
+				//request.setAttribute("ville", ville);
+				
+				
 				 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 			}
 		}

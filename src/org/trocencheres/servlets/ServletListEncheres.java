@@ -52,9 +52,9 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 
 				try {
 
-					ventesEnCours = pem.selectAllCurrentByUser(utilisateurConnecte.getNoUtilisateur());
-					encheresEnCours = new ArrayList<Enchere>();
-					utilisateursEnCours = new ArrayList<Utilisateur>();
+				ventesEnCours = pem.selectAllCurrentSalesByUser(utilisateurConnecte.getNoUtilisateur());
+				encheresEnCours = new ArrayList<Enchere>();
+				utilisateursEnCours = new ArrayList<Utilisateur>();
 
 					for (Vente v : ventesEnCours) {
 						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
@@ -93,6 +93,9 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 					request.getSession().setAttribute("utilisateursEnCours", utilisateursEnCours);
 				}
 
+				ventesTerminees = pem.selectAllEndedSalesByUser(utilisateurConnecte.getNoUtilisateur());
+				encheresTerminees = new ArrayList<Enchere>();
+				utilisateursTermines = new ArrayList<Utilisateur>();
 				if (!ventesTerminees.isEmpty())
 					request.getSession().setAttribute("ventesTerminees", ventesTerminees);
 
