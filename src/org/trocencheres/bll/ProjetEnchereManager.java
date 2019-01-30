@@ -196,6 +196,24 @@ public class ProjetEnchereManager {
         }
         return ventesList;
     }
+    public ArrayList<Vente> selectAllEndedByUser(int noUtilisateur) throws BLLException {
+        ArrayList<Vente> ventesList = new ArrayList<>();
+        try {
+            ventesList = venteDAO.selectAllEndedByUser(noUtilisateur);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return ventesList;
+    }
+    public ArrayList<Vente> selectAllCurrentByUser(int noUtilisateur) throws BLLException {
+        ArrayList<Vente> ventesList = new ArrayList<>();
+        try {
+            ventesList = venteDAO.selectAllCurrentByUser(noUtilisateur);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return ventesList;
+    }
 
     public void addSale(Vente vente, Retrait retrait) throws BLLException {
         try {
