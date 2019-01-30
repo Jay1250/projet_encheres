@@ -168,21 +168,25 @@
 							<%=u.getPseudo()%></a>
 						<%
 							}
-									}
 						%>
 					</h5>
 					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageDetailMaVente.html">détails</a>
+						<a href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>">détails</a>
+						
 					</h5>
 				</div>
 			</div>
 		</div>
+		<%
+							}
+						%>
 		<!-- fin mes ventes en cours -->
 
+
+		<!--  mes ventes terminées -->
 		<%
 			}
 			}
-
 			if (request.getParameter("choix2") != null && request.getParameter("choix2").equals("ventesTerminees")) {
 		%>
 		<h2 class="text-center">Mes ventes terminées</h2>
@@ -198,7 +202,7 @@
 		%>
 
 
-		<!--  mes ventes terminées -->
+	
 
 		<div class="col-md-3">
 			<div class="card col-md-12 block-info-vente">

@@ -62,6 +62,10 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 			request.getSession().setAttribute("ventes", ventes);
 			request.getSession().setAttribute("encheres", encheres);
 			request.getSession().setAttribute("utilisateurs", utilisateurs);
+			
+			
+			
+			
 
 
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);

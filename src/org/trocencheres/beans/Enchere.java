@@ -10,22 +10,14 @@ public class Enchere {
 	private Date dateEnchere;
 	private int noVente, noUtilisateur, montantEnchere;
 
-	public Enchere() {}
-	
-
-	public Enchere(Date dateEnchere, int noVente, int noUtilisateur) {
-		super();
-		this.dateEnchere = dateEnchere;
-		this.noVente = noVente;
-		this.noUtilisateur = noUtilisateur;
+	public Enchere() {
 	}
-
 
 	public Enchere(int noVente, int noUtilisateur, Date dateEnchere, int montantEnchere) {
 		this.dateEnchere = dateEnchere;
 		this.noVente = noVente;
 		this.noUtilisateur = noUtilisateur;
-		this.montantEnchere=montantEnchere;
+		this.montantEnchere = montantEnchere;
 	}
 
 	public int getMontantEnchere() {
