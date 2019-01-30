@@ -12,6 +12,7 @@
 	  <meta charset="ISO-8859-1">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/clockpicker.css">
 	</head>
 	<% Categorie categories=(Categorie)request.getSession().getAttribute("categorie");%>
 	<body>
@@ -54,13 +55,16 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'ench�re :</label></div>
-					<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="datetime-local" class="form-control" name="finenchere"></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-1" data-autoclose="true">
+						<input type="text" name="finencheretime" class="timepicker form-control" value="00:00" data-autoclose="true"/>
+						<input type="date" class="form-control" name="finencheredate">
+					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label for="inputState">Cat�gories</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1">   				
 						<select class="form-control" name="categorie">
-        					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>					<option>...</option>
+        					<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
 	      					<c:forEach var='item' items='${categorie}'>
 								<option value="${item.key}"><c:out value='${item.value.libelle}'/></option>
 							</c:forEach>
@@ -89,5 +93,15 @@
 			  	</div>
 			</form>
 		</div>
+		<script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
+		<script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/ProjetEncheres/theme/js/clockpicker.js"></script>
+		<script type="text/javascript">
+		   $('.timepicker').clockpicker({
+			    placement: 'top',
+			    align: 'left',
+			    donetext: 'Done'
+			});
+		 </script>
 	</body>
 </html>

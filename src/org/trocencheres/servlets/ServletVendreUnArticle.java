@@ -66,7 +66,26 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	/*
+		Date finEnchere2 = null;	
+		String startDateStr1 = request.getParameter("finencheredate");
+		String startDateStr2 = request.getParameter("finencheretime");
+		startDateStr2 = startDateStr2.replaceAll(":","-");
+		
+		
+		String date = startDateStr1 +" " +  startDateStr2;
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH-mm");
+		
+		System.out.println(sdf2);
+		try {
+			finEnchere2 = sdf2.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(finEnchere2);
+
+		*/
+		
 		if(isStillConnected(request, response)) {
 			
 			request.setCharacterEncoding("UTF-8");
@@ -76,11 +95,15 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			String article = request.getParameter("article");
 			String description = request.getParameter("description");
 			Date finEnchere = null;	
-			String startDateStr = request.getParameter("finenchere");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			String dateFinEnchere = request.getParameter("finencheredate");
+			String timeFinEnchere = request.getParameter("finencheretime");
+			timeFinEnchere = timeFinEnchere.replaceAll(":","-");
+			String parseDateTime = dateFinEnchere +" " +  timeFinEnchere;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
 			
 			try {
-				finEnchere = sdf.parse(startDateStr);
+				finEnchere = sdf.parse(parseDateTime);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -117,6 +140,9 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 				e.printStackTrace();
 			}
 		System.out.println(vente);
+		
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		}
 	}
 	
