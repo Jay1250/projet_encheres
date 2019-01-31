@@ -374,6 +374,16 @@ public class ProjetEnchereManager {
         return auctionsList;
     }
 
+    public ArrayList<Enchere> selectAllEndedAuctionsByUser(Integer noUtilisateur) throws BLLException {
+        ArrayList<Enchere> auctionsList = new ArrayList<>();
+        try {
+            auctionsList = enchereDAO.selectAllEndedByUser(noUtilisateur);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return auctionsList;
+    }
+
     public void addAuction(Enchere enchere) throws BLLException {
         try {
             this.validateAuction(enchere);
