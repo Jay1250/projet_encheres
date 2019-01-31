@@ -66,6 +66,10 @@
 			    <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label>Ville :</label></div>
 			    <div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getVille() %></label></div>
 			  </div>
+			    <div class="form-group col-md-12 col-xs-12">
+			    <div class="col-md-4 col-xs-4"><h3>Credit : </h3></div>
+			    <div class="col-md-8 col-xs-8"><h3><%=utilisateurConnecte.getCredit()%></h3></div>
+			  </div>
 			  <div class="text-center">
 			  	<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge" >Retour</a>
 			  	<a href="/ProjetEncheres/MonProfil?modifierProfil=true" class="btn btn-primary marge">Modifier</a>

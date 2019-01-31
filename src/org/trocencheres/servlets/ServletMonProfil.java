@@ -39,16 +39,16 @@ public class ServletMonProfil extends HttpServlet implements Servlet {
         // si la session a expiré:
         if (request.getSession().getAttribute("utilisateurConnecte") == null) {
 
-            this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+        	request.getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
 
         } else {
-            String modifierProfil = (String) request.getParameter("modifierProfil");
+            String modifierProfil = request.getParameter("modifierProfil");
 
             if (modifierProfil != null && modifierProfil.equals("true")) {
                 this.getServletContext().getRequestDispatcher("/WEB-INF/modifierProfil.jsp").forward(request, response);
             } else {
                 // si la session utilisateur est toujours active
-                System.out.println("va ds monProfil.jsp");
+               
                 this.getServletContext().getRequestDispatcher("/WEB-INF/monProfil.jsp").forward(request, response);
             }
         }

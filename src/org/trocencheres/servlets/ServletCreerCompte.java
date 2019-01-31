@@ -51,9 +51,8 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		Integer count = (Integer) request.getSession().getAttribute("compteur");
 
-		// lors du premier appel a cette servlet par la jsp connexion via son lien "se
+
 
 		String pseudo = request.getParameter("pseudo").trim();
 		String nom = request.getParameter("nom").trim();
@@ -73,12 +72,8 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 
 		Utilisateur newUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue,
 				codePostal, ville, credit, administrateur, ventes, motDePasse);
-		System.out.println(newUtilisateur.toString());
-		count = count.intValue() + 1;
-		System.out.println("compteur : " + count);
-		System.out.println("pseudo non renseigne " + pseudo);
-		System.out.println("prenom avec espaces en trim " + prenom);
-		request.getSession().setAttribute("compteur", count);
+		
+
 
 		if (pseudo.equals("") || nom.equals("") || prenom.equals("") || email.equals("") || rue.equals("")
 				|| codePostal.equals("") || ville.equals("") || motDePasse.equals("")
@@ -113,19 +108,14 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 		Boolean confirmationKo = (Boolean) request.getAttribute("confirmationKo");
 		Boolean champsNonRemplis = (Boolean) request.getAttribute("champsNonRemplis");
 
-		System.out.println("pseudoExiste= " + request.getAttribute("pseudoExists"));
-		System.out.println("email existe= " + request.getAttribute("emailExists"));
-		System.out.println("telephone exist= " + request.getAttribute("telephoneExists"));
-		System.out.println("confirmation KO= " + request.getAttribute("confirmationKo"));
-		System.out.println("champs non remplis= " + request.getAttribute("champsNonRemplis"));
 
 		if (!pseudoExists && !emailExists && !telephoneExists && !confirmationKo && !champsNonRemplis) {
 			try {
-				System.out.println(newUtilisateur.toString());
+			
 				pem.addUser(newUtilisateur);
 
 				request.getSession().setAttribute("utilisateurConnecte", newUtilisateur);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
+				response.sendRedirect("/ProjetEncheres/ListEncheres");
 
 			} catch (BLLException e) {
 				request.setAttribute("erreur", e);
