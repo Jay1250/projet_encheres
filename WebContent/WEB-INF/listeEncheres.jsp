@@ -275,7 +275,7 @@
 		<h2 class="text-center">Mes enchères en cours</h2>
 		<hr />
 		<%
-			if (request.getSession().getAttribute("ventesEnCours") == null) {
+			if (request.getSession().getAttribute("ventesEnCours2") == null) {
 		%>
 		<p>Vous n'avez aucune aucune enchère en cours</p>
 		<%
@@ -336,7 +336,7 @@
 		<%
 			if (request.getSession().getAttribute("ventesTerminees2") == null) {
 		%>
-		<p>Vous n'avez emporté aucune enchère</p>
+		<p>Vous n'avez remporté aucune enchère</p>
 		<%
 			} else {
 					ArrayList<Vente> ventesTerminees2 = (ArrayList<Vente>) request.getSession()
