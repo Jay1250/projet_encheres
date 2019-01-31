@@ -103,20 +103,30 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
-            String sqlRequest = "SELECT e.date_enchere, e.no_utilisateur, e.no_vente, montant_enchere " +
-                    "FROM ENCHERES e WHERE montant_enchere = (" +
-                    "SELECT MAX(en.montant_enchere) " +
+            String sqlRequest = "SELECT en.no_vente, count(*) " +
                     "FROM ENCHERES en " +
                     "INNER JOIN VENTES v ON en.no_vente = v.no_vente " +
                     "WHERE en.no_utilisateur = ? AND v.date_fin_encheres > ? " +
-                    "GROUP BY en.no_vente)";
+                    "GROUP BY en.no_vente";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
             statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
-                allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
+                int noVente = resultSet.getInt("no_vente");
+                String subSqlRequest = "SELECT TOP 1 * " +
+                        "FROM ENCHERES " +
+                        "WHERE no_vente= ? AND no_utilisateur = ? " +
+                        "ORDER BY date_enchere DESC";
+                PreparedStatement subStatement = connection.prepareStatement(subSqlRequest);
+                subStatement.setInt(1, noVente);
+                subStatement.setInt(2, noUtilisateur);
+                ResultSet subResultset = subStatement.executeQuery();
+                if (subResultset != null && subResultset.next())
+                    allEncheresByUser.add(this.createAuctionFromResultSet(subResultset));
+                subStatement.close();
             }
+            statement.close();
             return allEncheresByUser;
         } catch (SQLException e) {
             throw new DALException("Auction - Select all current by user", e);
@@ -127,20 +137,30 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     public ArrayList<Enchere> selectAllEndedByUser(int noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             ArrayList<Enchere> allEncheresByUser = new ArrayList<>();
-            String sqlRequest = "SELECT e.date_enchere, e.no_utilisateur, e.no_vente, montant_enchere " +
-                    "FROM ENCHERES e WHERE montant_enchere = (" +
-                    "SELECT MAX(en.montant_enchere) " +
+            String sqlRequest = "SELECT en.no_vente, count(*) " +
                     "FROM ENCHERES en " +
                     "INNER JOIN VENTES v ON en.no_vente = v.no_vente " +
                     "WHERE en.no_utilisateur = ? AND v.date_fin_encheres < ? " +
-                    "GROUP BY en.no_vente)";
+                    "GROUP BY en.no_vente";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noUtilisateur);
             statement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet != null && resultSet.next()) {
-                allEncheresByUser.add(this.createAuctionFromResultSet(resultSet));
+                int noVente = resultSet.getInt("no_vente");
+                String subSqlRequest = "SELECT TOP 1 * " +
+                        "FROM ENCHERES " +
+                        "WHERE no_vente= ? AND no_utilisateur = ? " +
+                        "ORDER BY date_enchere DESC";
+                PreparedStatement subStatement = connection.prepareStatement(subSqlRequest);
+                subStatement.setInt(1, noVente);
+                subStatement.setInt(2, noUtilisateur);
+                ResultSet subResultset = subStatement.executeQuery();
+                if (subResultset != null && subResultset.next())
+                    allEncheresByUser.add(this.createAuctionFromResultSet(subResultset));
+                subStatement.close();
             }
+            statement.close();
             return allEncheresByUser;
         } catch (SQLException e) {
             throw new DALException("Auction - Select all ended by user", e);
