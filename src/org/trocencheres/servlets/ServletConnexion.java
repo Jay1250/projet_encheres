@@ -38,7 +38,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
             response.sendRedirect("/ProjetEncheres/ListEncheres");
         } else {
             session.invalidate();
-            this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
         }
     }
 
@@ -80,7 +80,7 @@ public class ServletConnexion extends HttpServlet implements Servlet {
                 //redirection à une page d'erreur si pb avec la méthode utilisant : pem.getUserByLogin(identifiant, mdp) ou la conexion sql
                 e.printStackTrace();
                 request.setAttribute("erreur", e);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
             }
         }
     }

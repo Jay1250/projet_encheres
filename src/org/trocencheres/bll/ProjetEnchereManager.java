@@ -175,11 +175,13 @@ public class ProjetEnchereManager {
         try {
             if (vente == null) {
                 vente = this.venteDAO.selectById(noVente);
-                Retrait retrait = this.retraitDAO.selectByIdVente(noVente);
-                this.validateWithdrawal(retrait);
-                vente.setRetrait(retrait);
-                this.validateSale(vente);
-                this.ventesIndex.put(vente.getNoUtilisateur(), vente);
+                if (vente.getNoVente() != 0) {
+                    Retrait retrait = this.retraitDAO.selectByIdVente(noVente);
+                    this.validateWithdrawal(retrait);
+                    vente.setRetrait(retrait);
+                    this.validateSale(vente);
+                    this.ventesIndex.put(vente.getNoUtilisateur(), vente);
+                }
             }
         } catch (DALException e) {
             e.printStackTrace();
