@@ -25,5 +25,5 @@ public interface IEnchereDAO {
 
     void insert(Enchere enchere) throws DALException;
 
-    void delete(Integer noVente, Integer noUtilisateur, Date dateEnchere) throws DALException;
+    void deleteLast(Integer noVente, Integer noUtilisateur) throws DALException;
 }

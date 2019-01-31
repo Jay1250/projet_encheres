@@ -385,7 +385,7 @@ public class ProjetEnchereManager {
 
     public void removeAuction(int noVente, int noUtilisateur) throws BLLException {
         try {
-            this.enchereDAO.delete(noVente, noUtilisateur);
+            this.enchereDAO.deleteLast(noVente, noUtilisateur);
         } catch (DALException e){
             e.printStackTrace();
         }
