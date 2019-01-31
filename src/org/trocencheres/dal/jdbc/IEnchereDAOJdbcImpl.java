@@ -15,17 +15,16 @@ import java.util.Date;
 public class IEnchereDAOJdbcImpl implements IEnchereDAO {
 
     @Override
-    public Enchere selectLastByIds(Integer noVente, Integer noUtilisateur, Date dateEnchere) throws DALException {
+    public Enchere selectLastByIds(Integer noVente, Integer noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             Enchere enchere = new Enchere();
             String sqlRequest = "SELECT TOP 1 * " +
                     "FROM ENCHERES " +
-                    "WHERE no_vente= ? AND no_utilisateur = ? AND date_enchere = ? " +
+                    "WHERE no_vente= ? AND no_utilisateur = ? " +
                     "ORDER BY date_enchere DESC";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             statement.setInt(2, noUtilisateur);
-            statement.setTimestamp(3, new Timestamp(dateEnchere.getTime()));
             ResultSet resultset = statement.executeQuery();
             if (resultset != null && resultset.next())
                 enchere = this.createAuctionFromResultSet(resultset);
