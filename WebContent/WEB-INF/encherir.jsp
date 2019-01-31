@@ -131,6 +131,12 @@
                                         <% } %>
                                 </div>
                             </div>
+                            <% if (currentUser != null) {%>
+                                <div class="form-group col-md-12 col-xs-12 text-left">
+                                    <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Votre credit :</label></div>
+                                    <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentUser.getCredit()%></label></div>
+                                </div>
+                            <% } %>
                         <% } %>
                     <% } else { %>
                         <div class="form-group col-md-12 col-xs-12 text-left">
