@@ -154,8 +154,7 @@
 						<%=v.getDateFinEncheres()%></h6>
 					<h6 class="card-subtitle mb-2 text-muted">
 						Retrait:
-						<%=utilisateurConnecte.getRue() + " " + utilisateurConnecte.getCodePostal() + " "
-								+ utilisateurConnecte.getVille()%></h6>
+						<%=v.getRetrait()%></h6>
 					<h5 class="card-title text-left">
 						Meilleure offre :
 						<%
@@ -174,8 +173,8 @@
 
 						<%=e.getMontantEnchere()%>
 						points par : <a
-							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>">
-							<%=u.getPseudo()%></a>
+							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>"
+							class="card-link"> <%=u.getPseudo()%></a>
 						<%
 							}
 						%>
@@ -230,8 +229,7 @@
 						<%=v.getDateFinEncheres()%></h6>
 					<h6 class="card-subtitle mb-2 text-muted">
 						Retrait:
-						<%=utilisateurConnecte.getRue() + " " + utilisateurConnecte.getCodePostal() + " "
-								+ utilisateurConnecte.getVille()%></h6>
+						<%=v.getRetrait()%></h6>
 					<h5 class="card-title text-left">
 						Meilleure offre :
 						<%
@@ -250,8 +248,8 @@
 
 						<%=e.getMontantEnchere()%>
 						points par : <a
-							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>">
-							<%=u.getPseudo()%></a>
+							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>"
+							class="card-link"> <%=u.getPseudo()%></a>
 						<%
 							}
 						%>
@@ -277,13 +275,18 @@
 		<h2 class="text-center">Mes enchères en cours</h2>
 		<hr />
 		<%
-			if (request.getSession().getAttribute("ventes") == null) {
+			if (request.getSession().getAttribute("ventesEnCours") == null) {
 		%>
-		<p>Vous n'avez aucune vente</p>
+		<p>Vous n'avez aucune aucune enchère en cours</p>
 		<%
 			} else {
-					ArrayList<Vente> ventes = (ArrayList<Vente>) request.getSession().getAttribute("ventes");
-					for (Vente v : ventes) {
+					ArrayList<Vente> ventesEnCours2 = (ArrayList<Vente>) request.getSession()
+							.getAttribute("ventesEnCours2");
+					ArrayList<Utilisateur> utilisateursEnCours2 = (ArrayList<Utilisateur>) request.getSession()
+							.getAttribute("utilisateursEnCours2");
+					
+					for (Vente v : ventesEnCours2) {
+						Utilisateur u = utilisateursEnCours2.get(ventesEnCours2.indexOf(v));
 		%>
 
 
@@ -293,86 +296,33 @@
 			<div class="card col-md-12 block-info-vente">
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
+						<a href="#"><%=v.getDescription()%></a>
 					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
+					<h5 class="card-text">
+						Prix intiial :
+						<%=v.getPrixInitial()%>
+						points
+					</h5>
+					<h6 class="card-subtitle mb-2 text-muted">
+						Fin de l'enchère:
+						<%=v.getDateFinEncheres()%></h6>
+					<h6 class="card-subtitle mb-2 text-muted">
+						Retrait:
+						<%=v.getRetrait()%></h6>
 					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
+						Vendeur :
+					
+						<a href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>"
+							class="card-link"><%=u.getPseudo()%></a>
 					</p>
 					<h5 class="card-title text-left">Classement : 1</h5>
 					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
+						<a href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>">détails</a>
 					</h5>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">Rocket stove pour riz et pâtes</a>
-					</h4>
-					<h5 class="card-text">Prix : 185 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						09/10/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des
-						Pinsons 44000 Nantes</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">NinaJea</a>
-					</p>
-					<h5 class="card-title text-left">Classement : 4</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
-					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
-					</p>
-					<h5 class="card-title text-left">Classement : 1</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
-					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
-					</p>
-					<h5 class="card-title text-left">Classement : 2</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
+
 		<!-- fin mes enchères en cours -->
 
 		<%
@@ -384,13 +334,18 @@
 		<h2 class="text-center">Mes acquisitions</h2>
 		<hr />
 		<%
-			if (request.getSession().getAttribute("ventes") == null) {
+			if (request.getSession().getAttribute("ventesTerminees2") == null) {
 		%>
-		<p>Vous n'avez aucune vente</p>
+		<p>Vous n'avez emporté aucune enchère</p>
 		<%
 			} else {
-					ArrayList<Vente> ventes = (ArrayList<Vente>) request.getSession().getAttribute("ventes");
-					for (Vente v : ventes) {
+					ArrayList<Vente> ventesTerminees2 = (ArrayList<Vente>) request.getSession()
+							.getAttribute("ventesTerminees2");
+					ArrayList<Utilisateur> utilisateursTermines2 = (ArrayList<Utilisateur>) request.getSession()
+							.getAttribute("utilisateursTermines2");
+					
+					for (Vente v : ventesTerminees2) {
+						Utilisateur u = utilisateursTermines2.get(ventesTerminees2.indexOf(v));
 		%>
 
 		<!--  mes acquisitions -->
@@ -399,90 +354,33 @@
 			<div class="card col-md-12 block-info-vente">
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
+						<a href="#"><%=v.getDescription()%></a>
 					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
+					<h5 class="card-text">
+						Prix intiial :
+						<%=v.getPrixInitial()%></h5>
+					<h6 class="card-subtitle mb-2 text-muted">
+						Fin de l'enchère:
+						<%=v.getDateFinEncheres()%></h6>
+					<h6 class="card-subtitle mb-2 text-muted">
+						Retrait:
+						<%=v.getRetrait()%></h6>
 					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
+						Vendeur :
+						<a href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>"
+							class="card-link"><%=u.getPseudo()%></a>
 					</p>
-					<h5 class="card-title text-left">Prix d'achat final: 110
-						points</h5>
+					<h5 class="card-title text-left">
+						Prix d'achat final:
+						<%=v.getPrixVente()%></h5>
 					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
+						<a href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>">détails</a>
+
 					</h5>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">Rocket stove pour riz et pâtes</a>
-					</h4>
-					<h5 class="card-text">Prix : 185 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						09/10/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 5 rue des
-						Pinsons 44000 Nantes</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">NinaJea</a>
-					</p>
-					<h5 class="card-title text-left">Prix d'achat final : 300
-						points</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
-					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
-					</p>
-					<h5 class="card-title text-left">Prix d'achat final : 250
-						points</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#">PC Gamer pour travailler</a>
-					</h4>
-					<h5 class="card-text">Prix : 210 points</h5>
-					<h6 class="card-subtitle mb-2 text-muted">Fin de l'enchère:
-						10/08/2018</h6>
-					<h6 class="card-subtitle mb-2 text-muted">Retrait: 10 allée
-						des Alouettes 44800 Saint Herblain</h6>
-					<p>
-						Vendeur : <a href="#" class="card-link">jojo42</a>
-					</p>
-					<h5 class="card-title text-left">Prix d'achat final : 210
-						points</h5>
-					<h5 class="card-title text-right">
-						<a href="/ProjetEncheres/PageEncherir.html">détails</a>
-					</h5>
-				</div>
-			</div>
-		</div>
+		
 		<!-- fin mes acquisitions -->
 		<%
 			}

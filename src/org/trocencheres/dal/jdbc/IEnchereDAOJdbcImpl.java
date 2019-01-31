@@ -165,13 +165,14 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
     }
 
     @Override
-    public void delete(Integer noVente, Integer noUtilisateur, Date dateEnchere) throws DALException {
+    public void deleteLast(Integer noVente, Integer noUtilisateur) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
-            String sqlRequest = "DELETE FROM ENCHERES WHERE no_vente = ? AND no_utilisateur = ? AND date_enchere = ?";
+            String sqlRequest = "DELETE FROM ENCHERES WHERE no_vente = ? AND no_utilisateur = ? AND date_enchere = (SELECT MAX(e.date_enchere) FROM ENCHERES e WHERE e.no_vente = ? AND e.no_utilisateur = ?)";
             PreparedStatement statement = connection.prepareStatement(sqlRequest);
             statement.setInt(1, noVente);
             statement.setInt(2, noUtilisateur);
-            statement.setTimestamp(3, new Timestamp(dateEnchere.getTime()));
+            statement.setInt(1, noVente);
+            statement.setInt(2, noUtilisateur);
             statement.executeUpdate();
             statement.close();
         } catch (SQLException e) {
