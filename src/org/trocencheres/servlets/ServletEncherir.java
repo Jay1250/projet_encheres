@@ -40,6 +40,7 @@ public class ServletEncherir extends HttpServlet implements Servlet {
             try {
                 Utilisateur currentUser = (Utilisateur) sessionUserAttr;
                 String saleParameter = request.getParameter("saleId");
+                String fromChoices = request.getParameter("fromChoices");
                 Object requestDelete = request.getParameter("delete");
                 String requestBid = request.getParameter("newbid");
                 Vente sale = null;
@@ -53,6 +54,9 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                     sale = pem.getSaleById(saleId);
                     request.setAttribute("vente", sale);
                     if (sale != null) {
+
+                        if (fromChoices != null)
+                            request.setAttribute("fromChoices", fromChoices);
 
                         if (sale.getDateFinEncheres() != null) {
                             saleEnded = currentTime.after(sale.getDateFinEncheres());
@@ -104,7 +108,8 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                         }
 
                         if (errorMessage.equals(""))
-                            response.sendRedirect("/ProjetEncheres/Vente?saleId=" + sale.getNoVente());
+                            response.sendRedirect("/ProjetEncheres/Vente?saleId=" + sale.getNoVente()
+                                    + (fromChoices != null ? ("&fromChoices=" + fromChoices) : ""));
                         else {
                             request.setAttribute("errorBidding", errorMessage);
                             request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);

@@ -83,9 +83,15 @@
                 <%}%>
                 <div class="text-center">
                     <% Object requestFromSale = request.getAttribute("fromSale");
+                        Object requestFromChoices = request.getAttribute("fromChoices");
                         if (requestFromSale != null) {
                     %>
                         <a href="/ProjetEncheres/Vente?saleId=<%=(String)requestFromSale%>"
+                           class="btn btn-primary marge">
+                            Retour
+                        </a>
+                    <% } else if (requestFromChoices != null) { %>
+                        <a href="/ProjetEncheres/ListEncheres?choices=<%=(String)requestFromChoices%>"
                            class="btn btn-primary marge">
                             Retour
                         </a>

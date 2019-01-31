@@ -12,13 +12,6 @@
         <script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
         <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
     </head>
-    <%! private int lastAuctionPrice;
-        private Utilisateur lastBidder;
-        private Utilisateur seller;
-        private boolean currentUserIsSeller = false;
-        private boolean currentUserIsLastBidder = false;
-        private boolean saleEnded = false;
-    %>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -47,22 +40,28 @@
 
                         Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
                         Object requestLastBidder = request.getAttribute("dernierEncherisseur");
+                        int lastAuctionPrice = 0;
+                        Utilisateur lastBidder = null;
                         if (requestLastAuctionPrice != null && requestLastBidder != null) {
                             lastAuctionPrice = (int) requestLastAuctionPrice;
                             lastBidder = (Utilisateur) requestLastBidder;
                         }
 
+                        Utilisateur seller = null;
                         Object requestSeller = request.getAttribute("vendeur");
                         if (requestSeller != null) seller = (Utilisateur) requestSeller;
 
                         Utilisateur currentUser = (Utilisateur)session.getAttribute("utilisateurConnecte");
+                        boolean currentUserIsSeller = false;
+                        boolean currentUserIsLastBidder = false;
                         if (currentUser != null) {
-                            currentUserIsSeller = seller.getNoUtilisateur() == currentUser.getNoUtilisateur();
+                            if (seller != null) currentUserIsSeller = seller.getNoUtilisateur() == currentUser.getNoUtilisateur();
                             if (lastBidder != null) currentUserIsLastBidder = lastBidder.getNoUtilisateur() == currentUser.getNoUtilisateur();
                         }
             %>
                  <% Object requestEndedSale = request.getAttribute("venteTerminee");
-                     if (requestEndedSale != null) saleEnded = (boolean)requestEndedSale;
+                     boolean saleEnded = false;
+                    if (requestEndedSale != null) saleEnded = (boolean)requestEndedSale;
                  %>
                 <form class="row" action="./Vente?saleId=<%=currentSale.getNoVente()%>" method="post">
                     <div class="form-group col-md-12 col-xs-12 text-left">
@@ -158,7 +157,7 @@
                                 <% if (!currentUserIsLastBidder) { %>
                                     <button type="submit" class="btn btn-primary marge ">Enchérir</button>
                                 <% } else { %>
-                                    <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                                    <%--<button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>--%>
                                 <% } %>
                             <% } else { %>
                                 <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>&delete=true" class="btn btn-primary marge">Supprimer cette vente</a>
