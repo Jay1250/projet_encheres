@@ -34,50 +34,39 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 
 		if (utilisateurConnecte != null) {
 			if ((request.getParameter("choix1") != null)) {
 
-				ArrayList<Vente> ventesEnCours = null;
-
-				ArrayList<Enchere> encheresEnCours = null;
-				ArrayList<Utilisateur> utilisateursEnCours = null;
-
-				ArrayList<Vente> ventesTerminees = null;
-
-				ArrayList<Enchere> encheresTerminees = null;
-				ArrayList<Utilisateur> utilisateursTermines = null;
+				ArrayList<Vente> ventesEnCoursVendeur = null;
+				ArrayList<Enchere> encheresVentesEnCoursVendeur = null;
+				ArrayList<Utilisateur> utilisateursEncheresVentesEnCoursVendeur = null;
 
 				try {
 
-					ventesEnCours = pem.selectAllCurrentSalesByUser(utilisateurConnecte.getNoUtilisateur());
-					encheresEnCours = new ArrayList<Enchere>();
-					utilisateursEnCours = new ArrayList<Utilisateur>();
+					ventesEnCoursVendeur = pem.selectAllCurrentSalesByUser(utilisateurConnecte.getNoUtilisateur());
+					encheresVentesEnCoursVendeur = new ArrayList<Enchere>();
+					utilisateursEncheresVentesEnCoursVendeur = new ArrayList<Utilisateur>();
 
-					for (Vente v : ventesEnCours) {
+					for (Vente v : ventesEnCoursVendeur) {
 						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
 						if (enchere != null && enchere.getNoUtilisateur() != 0)
-							encheresEnCours.add(enchere);
+							encheresVentesEnCoursVendeur.add(enchere);
 
 					}
-					for (Enchere e : encheresEnCours) {
-						utilisateursEnCours.add(pem.getUserById(e.getNoUtilisateur()));
+					for (Enchere e : encheresVentesEnCoursVendeur) {
+						utilisateursEncheresVentesEnCoursVendeur.add(pem.getUserById(e.getNoUtilisateur()));
 					}
 
-					ventesTerminees = pem.selectAllEndedSalesByUser(utilisateurConnecte.getNoUtilisateur());
-					encheresTerminees = new ArrayList<Enchere>();
-					utilisateursTermines = new ArrayList<Utilisateur>();
+					if (!ventesEnCoursVendeur.isEmpty())
+						request.getSession().setAttribute("ventesEnCours", ventesEnCoursVendeur);
 
-					for (Vente v : ventesTerminees) {
-						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
-						if (enchere != null && enchere.getNoUtilisateur() != 0)
-							encheresTerminees.add(enchere);
-
-					}
-					for (Enchere e : encheresTerminees) {
-						utilisateursTermines.add(pem.getUserById(e.getNoUtilisateur()));
+					if (!encheresVentesEnCoursVendeur.isEmpty()) {
+						request.getSession().setAttribute("encheresEnCours", encheresVentesEnCoursVendeur);
+						request.getSession().setAttribute("utilisateursEnCours", utilisateursEncheresVentesEnCoursVendeur);
 					}
 
 				} catch (BLLException e) {
@@ -85,64 +74,74 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 					request.setAttribute("erreur", e);
 					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 				}
-				if (!ventesEnCours.isEmpty())
-					request.getSession().setAttribute("ventesEnCours", ventesEnCours);
-
-				if (!encheresEnCours.isEmpty()) {
-					request.getSession().setAttribute("encheresEnCours", encheresEnCours);
-					request.getSession().setAttribute("utilisateursEnCours", utilisateursEnCours);
-				}
-
-				if (!ventesTerminees.isEmpty())
-					request.getSession().setAttribute("ventesTerminees", ventesTerminees);
-
-				if (!encheresTerminees.isEmpty()) {
-					request.getSession().setAttribute("encheresTerminees", encheresTerminees);
-
-					request.getSession().setAttribute("utilisateursTermines", utilisateursTermines);
-				}
-				request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 
 			}
 			if (request.getParameter("choix2") != null) {
-				ArrayList<Enchere> encheresEnCours = null;
-				ArrayList<Vente> ventesEnCours = null;
-				ArrayList<Utilisateur> utilisateursEnCours = null;
 
-				ArrayList<Enchere> encheresTerminees = null;
-				ArrayList<Vente> ventesTerminees = null;
-				ArrayList<Utilisateur> utilisateursTermines = null;
+				ArrayList<Vente> ventesTermineesVendeur = null;
+				ArrayList<Enchere> encheresVentesTermineesVendeur = null;
+				ArrayList<Utilisateur> utilisateursEncehresVentesTermineesVendeur = null;
+
+				try {
+					ventesTermineesVendeur = pem.selectAllEndedSalesByUser(utilisateurConnecte.getNoUtilisateur());
+					encheresVentesTermineesVendeur = new ArrayList<Enchere>();
+					utilisateursEncehresVentesTermineesVendeur = new ArrayList<Utilisateur>();
+
+					for (Vente v : ventesTermineesVendeur) {
+						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
+						if (enchere != null && enchere.getNoUtilisateur() != 0)
+							encheresVentesTermineesVendeur.add(enchere);
+
+					}
+					for (Enchere e : encheresVentesTermineesVendeur) {
+						utilisateursEncehresVentesTermineesVendeur.add(pem.getUserById(e.getNoUtilisateur()));
+					}
+
+					if (!ventesTermineesVendeur.isEmpty())
+						request.getSession().setAttribute("ventesTerminees", ventesTermineesVendeur);
+
+					if (!encheresVentesTermineesVendeur.isEmpty()) {
+						request.getSession().setAttribute("encheresTerminees", encheresVentesTermineesVendeur);
+
+						request.getSession().setAttribute("utilisateursTermines", utilisateursEncehresVentesTermineesVendeur);
+					}
+
+				} catch (BLLException e) {
+					e.printStackTrace();
+					request.setAttribute("erreur", e);
+					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+
+				}
+			}
+			if (request.getParameter("choix3") != null) {
+				ArrayList<Enchere> encheresEnCours2 = null;
+				ArrayList<Vente> ventesEnCours2 = null;
+				ArrayList<Utilisateur> utilisateursEnCours2 = null;
 
 				try {
 
-					encheresEnCours = pem.selectAllCurrentAuctionsByUser(utilisateurConnecte.getNoUtilisateur());
-					ventesEnCours = new ArrayList<Vente>();
-					utilisateursEnCours = new ArrayList<Utilisateur>();
+					encheresEnCours2 = pem.selectAllCurrentAuctionsByUser(utilisateurConnecte.getNoUtilisateur());
+					ventesEnCours2 = new ArrayList<Vente>();
+					utilisateursEnCours2 = new ArrayList<Utilisateur>();
 
-					for (Enchere e : encheresEnCours) {
-						Vente vente = pem.getSaleById(e.getNoVente());
-						if (vente != null && vente.getNoUtilisateur() != 0)
-							ventesEnCours.add(vente);
+					if (!encheresEnCours2.isEmpty()) {
 
-					}
-					for (Vente v : ventesEnCours) {
-						Utilisateur utilisateur = pem.getUserById(v.getNoUtilisateur());
-						utilisateursEnCours.add(utilisateur);
-					}
+						for (Enchere e : encheresEnCours2) {
+							Vente vente = pem.getSaleById(e.getNoVente());
+							if (vente != null && vente.getNoUtilisateur() != 0) {
+								ventesEnCours2.add(vente);
 
-					encheresEnCours = pem.selectAllCurrentAuctionsByUser(utilisateurConnecte.getNoUtilisateur());
-					ventesTerminees = new ArrayList<Vente>();
-					utilisateursTermines = new ArrayList<Utilisateur>();
+								for (Vente v : ventesEnCours2) {
+									Utilisateur utilisateur = pem.getUserById(v.getNoUtilisateur());
+									utilisateursEnCours2.add(utilisateur);
+								}
 
-					for (Enchere e : encheresTerminees) {
-						Vente vente = pem.getSaleById(e.getNoVente());
-						if (vente != null && vente.getNoUtilisateur() != 0)
-							ventesTerminees.add(vente);
+							}
 
-					}
-					for (Vente v : ventesTerminees) {
-						Utilisateur utilisateur = pem.getUserById(v.getNoUtilisateur());
-						utilisateursTermines.add(utilisateur);
+							request.getSession().setAttribute("ventesEnCours2", ventesEnCours2);
+							request.getSession().setAttribute("utilisateursEnCours2", utilisateursEnCours2);
+						}
+
 					}
 
 				} catch (BLLException e) {
@@ -150,43 +149,58 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 					request.setAttribute("erreur", e);
 					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 				}
-
-				if (!encheresEnCours.isEmpty()) {
-					request.getSession().setAttribute("encheresEnCoursAcheteur", encheresEnCours);
-
-					request.getSession().setAttribute("utilisateursEnCours", utilisateursEnCours);
-				}
-
-				if (!ventesEnCours.isEmpty())
-					request.getSession().setAttribute("ventesEnCours", ventesEnCours);
-
-				request.getSession().setAttribute("ventesTerminees", ventesTerminees);
-
-				if (!encheresTerminees.isEmpty())
-					request.getSession().setAttribute("encheresTerminees", encheresTerminees);
-
-				request.getSession().setAttribute("utilisateursTermines", utilisateursTermines);
-
-				request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
-
-			}
-			if (request.getParameter("choix3") != null) {
 
 			}
 			if (request.getParameter("choix4") != null) {
 
+				ArrayList<Enchere> encheresTerminees2 = null;
+				ArrayList<Vente> ventesTerminees2 = null;
+				ArrayList<Utilisateur> utilisateursTermines2 = null;
+
+				try {
+					encheresTerminees2 = pem.selectAllEndedAuctionsByUser(utilisateurConnecte.getNoUtilisateur());
+					ventesTerminees2 = new ArrayList<Vente>();
+					utilisateursTermines2 = new ArrayList<Utilisateur>();
+
+					if (!encheresTerminees2.isEmpty()) {
+						for (Enchere e : encheresTerminees2) {
+							Enchere e2 = pem.getLastAuctionBySale(e.getNoVente());
+							if (e.getNoUtilisateur() == e2.getNoUtilisateur()) {
+								Vente vente = pem.getSaleById(e.getNoVente());
+								if (vente != null && vente.getNoUtilisateur() != 0)
+									ventesTerminees2.add(vente);
+							}
+							
+						}
+						for (Vente v : ventesTerminees2) {
+							Utilisateur utilisateur = pem.getUserById(v.getNoUtilisateur());
+							utilisateursTermines2.add(utilisateur);
+						}
+
+						if(!ventesTerminees2.isEmpty()) {
+						request.getSession().setAttribute("ventesTerminees2", ventesTerminees2);
+						request.getSession().setAttribute("utilisateursTermines2", utilisateursTermines2);
+					}
+					}
+
+				} catch (BLLException e) {
+					e.printStackTrace();
+					request.setAttribute("erreur", e);
+					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+				}
 			}
+
 			if (request.getParameter("choix5") != null) {
 
 			}
+
+			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
+
 		}
 		if (utilisateurConnecte == null) {
 
 			session.invalidate();
 			response.sendRedirect("/ProjetEncheres/Connexion");
-		} else {
-
-			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 		}
 	}
 }
