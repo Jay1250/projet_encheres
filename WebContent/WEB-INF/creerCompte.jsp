@@ -40,7 +40,7 @@
 			<h2 class="text-center">Créer un compte</h2>
 			<br>
 		</div>
-		<form class="row" action="./CreerCompte" method="post">
+		<form class="row" action="/ProjetEncheres/CreerCompte" method="post">
 			<div class="form-group col-md-6 col-xs-12">
 				<div class="col-md-4 col-xs-4">
 					<label for="pseudo">Pseudo :</label>

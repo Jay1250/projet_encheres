@@ -300,8 +300,8 @@
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary marge ">Enregistrer</button>
-				<button type="button" class="btn btn-primary marge ">Supprimer
-					mon compte</button>
+<!-- 				<button type="button" class="btn btn-primary marge ">Supprimer -->
+<!-- 					mon compte</button> -->
 				<a href="/ProjetEncheres/MonProfil" class="btn btn-primary marge" >Retour</a>
 			</div>
 		</form>
