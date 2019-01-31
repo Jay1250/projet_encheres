@@ -64,27 +64,26 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/creerCompte.jsp").forward(request, response);
 			// lors du 2e appel appel on considere que le formulaire a été rempli :
 		} else {
-			String pseudo = (String) request.getParameter("pseudo").trim();
-			String nom = (String) request.getParameter("nom").trim();
-			String prenom = (String) request.getParameter("prenom").trim();
-			String email = (String) request.getParameter("email").trim().toLowerCase();
-			String telephone = (String) request.getParameter("telephone").trim();
-			String rue = (String) request.getParameter("rue").trim();
-			String codePostal = (String) request.getParameter("codepostal").trim();
-			String ville = (String) request.getParameter("ville").trim();
-			String motDePasse = (String) request.getParameter("motdepasse").trim();
-			String confirmationMotDePasse = (String) request.getParameter("confirmation").trim();
+			String pseudo = request.getParameter("pseudo").trim();
+			String nom = request.getParameter("nom").trim();
+			String prenom = request.getParameter("prenom").trim();
+			String email = request.getParameter("email").trim().toLowerCase();
+			String telephone = request.getParameter("telephone").trim();
+			String rue = request.getParameter("rue").trim();
+			String codePostal = request.getParameter("codepostal").trim();
+			String ville = request.getParameter("ville").trim();
+			String motDePasse = request.getParameter("motdepasse").trim();
+			String confirmationMotDePasse = request.getParameter("confirmation").trim();
 
 			ArrayList<Integer> ventes = new ArrayList<>();
-			boolean administrateur = false;
 			int credit = 0;
 			int noUtilisateur = 0;
 
 			Utilisateur newUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue,
-					codePostal, ville, credit, administrateur, ventes, motDePasse);
+					codePostal, ville, credit, false, ventes, motDePasse);
 			System.out.println(newUtilisateur.toString());
-			count = count.intValue() + 1;
-			System.out.println("compteur : "+count);
+			count += 1;
+			System.out.println("compteur : " + count);
 			System.out.println("pseudo non renseigne " + pseudo);
 			System.out.println("prenom avec espaces en trim " + prenom);
 			request.getSession().setAttribute("compteur", count);
