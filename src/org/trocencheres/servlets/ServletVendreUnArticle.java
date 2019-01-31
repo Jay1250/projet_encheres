@@ -145,7 +145,8 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 				// preserve fields if they exist
 				request.setAttribute("article", article);
 				request.setAttribute("description", description);
-				//request.setAttribute("finenchere", finEnchere);
+				request.setAttribute("finencheredate",  request.getParameter("finencheredate")); 
+				request.setAttribute("finencheretime",  request.getParameter("finencheretime")); 
 				request.setAttribute("prixinitial", prixInitial);
 				request.setAttribute("rue", rue);
 				request.setAttribute("codePostal", codePostal);

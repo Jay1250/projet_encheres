@@ -1,6 +1,8 @@
-<%@page import="java.util.Map,
+<%@page import="
+				java.util.Map,
 				org.trocencheres.beans.Categorie
-"%>
+				"
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -80,7 +82,7 @@
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Prix initial :</label></div>
 					<div class="col-md-3 col-xs-5 col-md-offset-1">
-						<input class="form-control" type="number" min="1" value="220" name="prixinitial" <%if (prixInitial != null) {%> value="<%=prixInitial%>"<%}%>>
+						<input class="form-control" type="number" min="1" value="1" name="prixinitial" <%if (prixInitial != null) {%> value="<%=prixInitial%>"<%}%>>
 					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
