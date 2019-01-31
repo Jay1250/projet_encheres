@@ -17,6 +17,7 @@
         private Utilisateur seller;
         private boolean currentUserIsSeller = false;
         private boolean currentUserIsLastBidder = false;
+        private boolean saleEnded = false;
     %>
     <body>
         <nav class="navbar navbar-inverse">
@@ -34,15 +35,16 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
+        <p class="container">
             <div class="row top-buffer">
                 <div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
                 <h3 class="text-center">Détail vente</h3><br>
             </div>
-            <form class="row ">
-                <% Object requestSale = request.getAttribute("vente");
-                    if (requestSale != null) {
-                        Vente currentSale = (Vente) requestSale;
+            <% Object requestSale = request.getAttribute("vente");
+                if (requestSale != null) {
+                    Vente currentSale = (Vente) requestSale;
+                    if (currentSale.getNoVente() != 0) {
+
                         Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
                         Object requestLastBidder = request.getAttribute("dernierEncherisseur");
                         if (requestLastAuctionPrice != null && requestLastBidder != null) {
@@ -58,7 +60,11 @@
                             currentUserIsSeller = seller.getNoUtilisateur() == currentUser.getNoUtilisateur();
                             if (lastBidder != null) currentUserIsLastBidder = lastBidder.getNoUtilisateur() == currentUser.getNoUtilisateur();
                         }
-                %>
+            %>
+                 <% Object requestEndedSale = request.getAttribute("venteTerminee");
+                     if (requestEndedSale != null) saleEnded = (boolean)requestEndedSale;
+                 %>
+                <form class="row" action="./Vente?saleId=<%=currentSale.getNoVente()%>" method="post">
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Article :</label></div>
                         <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getNomArticle()%></label></div>
@@ -72,7 +78,7 @@
                         <div class="col-md-3 col-xs-5 col-md-offset-1">
                             <% if (requestLastAuctionPrice != null && requestLastBidder != null) { %>
                                 <label><%=lastAuctionPrice%> points par
-                                    <a href="ProjetEncheres/Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
+                                    <a href="./Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
                                         <%=lastBidder.getPseudo()%>
                                     </a>
                                 </label>
@@ -110,13 +116,20 @@
                                 </label>
                             </div>
                         </div>
-                <%--being form--%>
-                        <% if (!currentUserIsSeller && !currentUserIsLastBidder) {
+                        <% if (!currentUserIsSeller && !currentUserIsLastBidder && !saleEnded) {
                             int proposedPrice = (requestLastAuctionPrice != null && requestLastBidder != null) ? lastAuctionPrice +1 : currentSale.getPrixInitial();
                         %>
                             <div class="form-group col-md-12 col-xs-12 text-left">
                                 <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Ma proposition :</label></div>
-                                <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" value="<%=proposedPrice%>"></div>
+                                <div class="col-md-2 col-xs-5 col-md-offset-1">
+                                    <input class="form-control" type="number" name="newbid" value="<%=proposedPrice%>">
+                                        <% Object requestErrorBidding = request.getAttribute("errorBidding");
+                                            if (requestErrorBidding != null) {
+                                                String errorBidding = (String) requestErrorBidding;
+                                        %>
+                                        <p class="text-danger"><%=errorBidding%></p>
+                                        <% } %>
+                                </div>
                             </div>
                         <% } %>
                     <% } else { %>
@@ -128,28 +141,41 @@
                     <div class="form-group col-md-12 col-xs-12 text-center">
                         <a  class="visible-xs" href="ModalInfosVente.html" data-toggle="modal" data-target="#infosVente">Détails</a>
                     </div>
+                    <% if (saleEnded) {%>
                     <div class="text-center">
-                        <% if (!currentUserIsSeller) { %>
-                            <% if (!currentUserIsLastBidder) { %>
-                                <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>" class="btn btn-primary marge">Encherir</a>
+                        <h3 class="text-center">Vente terminée</h3><br>
+                    </div>
+                    <%}%>
+                    <div class="text-center">
+                        <% if (!saleEnded) { %>
+                            <% if (!currentUserIsSeller) { %>
+                                <% if (!currentUserIsLastBidder) { %>
+                                    <button type="submit" class="btn btn-primary marge ">Enchérir</button>
+                                <% } else { %>
+                                    <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                                <% } %>
                             <% } else { %>
-                                <button type="button" class="btn btn-primary marge ">Annuler ma dernière enchère</button>
+                                <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>&delete=true" class="btn btn-primary marge">Supprimer cette vente</a>
                             <% } %>
-                        <% } else { %>
-                            <a href="/ProjetEncheres/Vente?saleId=<%=currentSale.getNoVente()%>&delete=true" class="btn btn-primary marge">Supprimer cette vente</a>
                         <% } %>
                         <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
                     </div>
-                <%--end form--%>
-                <%} else {%>
+                </form>
+            <%} else {%>
                 <div class="text-center">
                     <p>Aucune vente à afficher</p>
                 </div>
                 <div class="text-center">
                     <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
                 </div>
-                <%}%>
-            </form>
+            <%}} else {%>
+            <div class="text-center">
+                <p>Aucune vente à afficher</p>
+            </div>
+            <div class="text-center">
+                <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
+            </div>
+            <%}%>
             <!--  modal détails vente -->
             <div id="infosVente" class="modal fade text-center">
                 <div class="modal-dialog"><div class="modal-content"></div></div>
