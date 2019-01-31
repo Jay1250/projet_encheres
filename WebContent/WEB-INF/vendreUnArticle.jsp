@@ -1,8 +1,6 @@
-<%@page import="
-				java.util.Map,
+<%@page import="java.util.Map,
 				org.trocencheres.beans.Categorie
-				"
-%>
+"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +12,17 @@
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/clockpicker.css">
 	</head>
-	<% Categorie categories=(Categorie)request.getSession().getAttribute("categorie");%>
+	<% 
+	 Categorie categories = (Categorie)request.getSession().getAttribute("categorie");
+	 String rue = (String) request.getAttribute("rue");
+	 String codePostal = (String) request.getAttribute("codePostal");
+	 String ville = (String) request.getAttribute("ville");
+	 String article = (String) request.getAttribute("article");
+	 String description = (String) request.getAttribute("description");
+	 String prixInitial =  (String) request.getAttribute("prixInitial");
+	 %>
 	<body>
-<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
 			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
@@ -50,12 +56,22 @@
 			 		{%>
                 	<h4 class="text-danger text-center">Tous les champs sont obligatoires</h4>
             		<%}%>
+            		<% if ((request.getAttribute("erreur") != null && request.getAttribute("erreur").equals(true))) 
+			 		{%>
+                	<h4 class="text-danger text-center">Un problème est survenu lors de la création de la vente</h4>
+            		<%}%>
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Articles :</label></div>
-				  	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="article"></div>
+				  	<div class="col-md-3 col-xs-5 col-md-offset-1">
+				  		<input type="text" class="form-control" name="article" <%if (article != null) {%> value="<%=article%>"<%}%>>
+				  	</div>
 			  	</div>
 			 	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Description :</label></div>
-				  	<div class="col-md-3 col-xs-5 col-md-offset-1"><textarea class="form-control" rows="3" name="description"></textarea></div>
+				  	<div class="col-md-3 col-xs-5 col-md-offset-1">
+				  		<textarea class="form-control" rows="3" name="description">
+				  			<%if (article != null) {%> <%=description%> <%} %>
+				  		</textarea>
+				  	</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Photo de l'article :</label></div>
@@ -63,7 +79,9 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Prix initial :</label></div>
-					<div class="col-md-3 col-xs-5 col-md-offset-1"><input class="form-control" type="number" min="0" value="220" name="prixinitial"></div>
+					<div class="col-md-3 col-xs-5 col-md-offset-1">
+						<input class="form-control" type="number" min="1" value="220" name="prixinitial" <%if (prixInitial != null) {%> value="<%=prixInitial%>"<%}%>>
+					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
@@ -88,20 +106,25 @@
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>rue :</label></div>
-			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="rue" value=<%=request.getParameter("rue")%> /></div>
+			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
+			    		<input type="text" class="form-control" name="rue" <%if (rue != null) {%> value="<%=rue%>"<%}%>/>
+					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>code postal :</label></div>
-			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="codepostal"></div>
+			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
+			    		<input type="text" class="form-control" name="codepostal" <%if (codePostal != null) {%> value="<%=codePostal%>"<%}%>>
+			    	</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>ville :</label></div>
-			    	<div class="col-md-3 col-xs-5 col-md-offset-1"><input type="text" class="form-control" name="ville"></div>
+			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
+			    		<input type="text" class="form-control" name="ville" <%if (ville != null) {%> value="<%=ville%>"<%}%>>
+			    	</div>
 			  	</div>
 			  	<div class="text-center">
 			  		<button type="submit" class="btn btn-primary marge ">Publier</button>
-			  		<button type="button" class="btn btn-primary marge ">Enregistrer</button>
-			  		<button type="button" class="btn btn-primary marge ">Annuler</button>
+			  		<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge ">Annuler</a>
 			  	</div>
 			</form>
 		</div>

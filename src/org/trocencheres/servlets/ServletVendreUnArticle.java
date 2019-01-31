@@ -22,7 +22,7 @@ import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
- * author JY
+ * author JI
  * Servlet implementation class ServletVendreUnArticle
  */
 @WebServlet(name="ServletVendreUnArticle", urlPatterns = "/VendreUnArticle")
@@ -39,84 +39,52 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
     public ServletVendreUnArticle() throws BLLException {
         super();
         this.pem = ProjetEnchereManager.getInstance();
-      
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		if(isStillConnected(request, response)) {
-			
-			System.out.println("connecté !");
+			request.setCharacterEncoding("UTF-8");
+			// get categories
 			Map<Integer, Categorie> categorie = pem.getCategories();
-			
-			//categorie.
-			
 			request.setAttribute("categorie", categorie);
-			
-			System.out.println(categorie);
-			
 			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
-			
 			try {
+				// get default user retrait address
 				pem.getUserById(user.getNoUtilisateur());
-				
 				request.setAttribute("rue", user.getRue());
 				request.setAttribute("codePostal", user.getCodePostal());
-				request.setAttribute("ville", user.getVille());
-				
-				System.out.println(user.getRue());
-				
+				request.setAttribute("ville", user.getVille());	
 			} catch (BLLException e1) {
 				e1.printStackTrace();
 			}
-			
-			
 			 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 		}
-
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		if(isStillConnected(request, response)) {
 			request.setCharacterEncoding("UTF-8");
-			
-			Map<Integer, Categorie> categorie = pem.getCategories();
-			request.setAttribute("categorie", categorie);
-			
+			//recup fields
 			String article = request.getParameter("article");
 			String description = request.getParameter("description");
-			Date finEnchere = creationFinEnchere(request);	
+			Date finEnchere = null;
+			if(request.getParameter("finencheredate") != null && request.getParameter("finencheredate") != "" && request.getParameter("finencheretime") != null && request.getParameter("finencheretime") != "")
+				finEnchere = creationFinEnchere(request);	
 			int prixInitial = Integer.parseInt(request.getParameter("prixinitial"));
 			String rue = request.getParameter("rue");	
 			String codePostal = request.getParameter("codepostal");
 			String ville = request.getParameter("ville");
 			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
-			
-			try {
-				pem.getUserById(user.getNoUtilisateur());
-				
-				request.setAttribute("rue", user.getRue());
-				request.setAttribute("codePostal", user.getCodePostal());
-				request.setAttribute("ville", user.getVille());
-				
-				System.out.println(user.getRue());
-				
-			} catch (BLLException e1) {
-				e1.printStackTrace();
-			}
-			
+			//  ***** verif form
 			Boolean isFormOk = true;
-	
 			if(article == null || article.trim().equals("")) {
 				request.setAttribute("articleNonRenseigne", true);
 				isFormOk = false;
-				System.out.println("article null");
 			}
 			if(description == null || description.trim().equals("")) {
 				request.setAttribute("descriptionNonRenseigne", true);
@@ -142,16 +110,14 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 				request.setAttribute("villeNonRenseigne", true);
 				isFormOk = false;
 			}
-			
+			// *****
 			if(isFormOk) {
-
 				Retrait retrait = new Retrait(
 					0,
 					rue,
 					codePostal,
 					ville	
 				);
-	
 				Vente vente = new Vente(
 					0, 
 					article, 
@@ -163,48 +129,44 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 					user.getNoUtilisateur(),//utilisateurATrouver
 					Integer.parseInt(request.getParameter("categorie"))//noCategorie
 					);
-				
 				try {
 					pem.addSale(vente, retrait);
+					response.sendRedirect("/ProjetEncheres/ListEncheres");
 				} catch (BLLException e) {
 					e.printStackTrace();
+					request.setAttribute("erreur", true);
+					this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 				}
-				System.out.println(vente);
-				response.sendRedirect("/ProjetEncheres/ListEncheres");
 			}
 			else {
-				
+				// get categories
+				Map<Integer, Categorie> categorie = pem.getCategories();
+				request.setAttribute("categorie", categorie);
+				// preserve fields if they exist
 				request.setAttribute("article", article);
 				request.setAttribute("description", description);
-				request.setAttribute("finEnchere", finEnchere);
-				request.setAttribute("prixInitial", prixInitial);
-				//request.setAttribute("rue", rue);
-			//	request.setAttribute("codePostal", codePostal);
-				//request.setAttribute("ville", ville);
-				
-				
-				 this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
+				//request.setAttribute("finenchere", finEnchere);
+				request.setAttribute("prixinitial", prixInitial);
+				request.setAttribute("rue", rue);
+				request.setAttribute("codePostal", codePostal);
+				request.setAttribute("ville", ville);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/vendreUnArticle.jsp").forward(request, response);
 			}
 		}
 	}
 	
-	
 	private Date creationFinEnchere(HttpServletRequest request) {
-	
 		Date finEnchere = null;
-		
 		String dateFinEnchere = request.getParameter("finencheredate");
 		String timeFinEnchere = request.getParameter("finencheretime");
 		timeFinEnchere = timeFinEnchere.replaceAll(":","-");
 		String parseDateTime = dateFinEnchere +" " +  timeFinEnchere;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
-		
 		try {
 			finEnchere = sdf.parse(parseDateTime);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
 		return finEnchere;
 	}
 	
