@@ -93,8 +93,15 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                             errorMessage = "Vente terminée, vous ne pouvez enchérir !";
                         else if (bid < minimumBid)
                             errorMessage = "Le montant est trop bas ! Minimum : " + minimumBid;
-                        else
+                        else if (bid > currentUser.getCredit())
+                            errorMessage = "Vous n'avez pas assez de crédit !";
+                        else {
+                            Enchere lastAuctionForCurrentUser = pem.getLastAuctionByIds(sale.getNoVente(), currentUser.getNoUtilisateur());
+                            int newCredit = currentUser.getCredit() - (bid - lastAuctionForCurrentUser.getMontantEnchere());
+                            currentUser.setCredit(newCredit);
+                            pem.updateUser(currentUser);
                             pem.addAuction(new Enchere(sale.getNoVente(), currentUser.getNoUtilisateur(), currentTime, bid));
+                        }
 
                         if (errorMessage.equals(""))
                             response.sendRedirect("/ProjetEncheres/Vente?saleId=" + sale.getNoVente());

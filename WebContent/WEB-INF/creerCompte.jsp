@@ -27,6 +27,7 @@
 	</nav>
 	<div class="container">
 		<div class="row top-buffer">
+			<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
 			<%
 				if (request.getAttribute("champsNonRemplis") != null
 						&& request.getAttribute("champsNonRemplis").equals(true)) {

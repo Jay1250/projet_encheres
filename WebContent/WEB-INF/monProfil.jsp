@@ -35,7 +35,7 @@
 			</div>
 			<form class="row ">
 			  <div class="form-group col-md-12 col-xs-12 text-left">
-				  <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label>Pseudo :</label></div>
+				  <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label><strong>Pseudo :</strong></label></div>
 				  <div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getPseudo() %></label></div>
 			  </div>
 			  <div class="form-group col-md-12 col-xs-12 text-left">
@@ -66,9 +66,9 @@
 			    <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><label>Ville :</label></div>
 			    <div class="col-md-3 col-xs-5"><label><%=utilisateurConnecte.getVille() %></label></div>
 			  </div>
-			    <div class="form-group col-md-12 col-xs-12">
-			    <div class="col-md-4 col-xs-4"><h3>Credit : </h3></div>
-			    <div class="col-md-8 col-xs-8"><h3><%=utilisateurConnecte.getCredit()%></h3></div>
+			    <div class="form-group col-md-12 col-xs-12 text-left">
+			    <div class="col-md-3 col-xs-5 col-md-offset-4 col-xs-offset-1"><h3>Credit : </h3></div>
+			    <div class="col-md-3 col-xs-5"><h3><%=utilisateurConnecte.getCredit()%></h3></div>
 			  </div>
 			  <div class="text-center">
 			  	<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge" >Retour</a>
