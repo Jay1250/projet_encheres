@@ -78,7 +78,7 @@
                         <div class="col-md-3 col-xs-5 col-md-offset-1">
                             <% if (requestLastAuctionPrice != null && requestLastBidder != null) { %>
                                 <label><%=lastAuctionPrice%> points par
-                                    <a href="ProjetEncheres/Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
+                                    <a href="./Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
                                         <%=lastBidder.getPseudo()%>
                                     </a>
                                 </label>
