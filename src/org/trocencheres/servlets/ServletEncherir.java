@@ -85,7 +85,9 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                     if (requestBid != null && currentUser.getNoUtilisateur() != sale.getNoUtilisateur()){
                         int bid = Integer.parseInt(requestBid);
                         String errorMessage = "";
-                        int minimumBid = (lastAuction != null ? lastAuction.getMontantEnchere() + 1 : sale.getPrixInitial());
+                        int minimumBid = ((lastAuction != null && lastAuction.getMontantEnchere() != 0)
+                                ? lastAuction.getMontantEnchere() + 1
+                                : sale.getPrixInitial());
 
                         if (currentTime.after(sale.getDateFinEncheres()))
                             errorMessage = "Vente terminée, vous ne pouvez enchérir !";
@@ -97,7 +99,7 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                         if (errorMessage.equals(""))
                             response.sendRedirect("/ProjetEncheres/Vente?saleId=" + sale.getNoVente());
                         else {
-                            /*request.setAttribute();*/
+                            request.setAttribute("errorBidding", errorMessage);
                             request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
                         }
                     }

@@ -35,7 +35,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
+        <p class="container">
             <div class="row top-buffer">
                 <div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
                 <h3 class="text-center">Détail vente</h3><br>
@@ -121,7 +121,15 @@
                         %>
                             <div class="form-group col-md-12 col-xs-12 text-left">
                                 <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Ma proposition :</label></div>
-                                <div class="col-md-2 col-xs-5 col-md-offset-1"><input class="form-control" type="number" name="newbid" value="<%=proposedPrice%>"></div>
+                                <div class="col-md-2 col-xs-5 col-md-offset-1">
+                                    <input class="form-control" type="number" name="newbid" value="<%=proposedPrice%>">
+                                        <% Object requestErrorBidding = request.getAttribute("errorBidding");
+                                            if (requestErrorBidding != null) {
+                                                String errorBidding = (String) requestErrorBidding;
+                                        %>
+                                        <p class="text-danger"><%=errorBidding%></p>
+                                        <% } %>
+                                </div>
                             </div>
                         <% } %>
                     <% } else { %>
