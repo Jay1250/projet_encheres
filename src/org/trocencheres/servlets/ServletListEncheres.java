@@ -34,6 +34,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 
@@ -136,9 +137,9 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 								}
 
 							}
-							request.getSession().setAttribute("encheresEnCoursAcheteur", encheresEnCours);
-							request.getSession().setAttribute("ventesEnCours", ventesEnCours);
-							request.getSession().setAttribute("utilisateursEnCours", utilisateursEnCours);
+							
+							request.getSession().setAttribute("ventesEnCours2", ventesEnCours);
+							request.getSession().setAttribute("utilisateursEnCours2", utilisateursEnCours);
 						}
 
 					}
@@ -172,10 +173,10 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 							Utilisateur utilisateur = pem.getUserById(v.getNoUtilisateur());
 							utilisateursTermines.add(utilisateur);
 						}
-						request.getSession().setAttribute("encheresTerminees", encheresTerminees);
-						request.getSession().setAttribute("ventesTerminees", ventesTerminees);
+				
+						request.getSession().setAttribute("ventesTerminees2", ventesTerminees);
 
-						request.getSession().setAttribute("utilisateursTermines", utilisateursTermines);
+						request.getSession().setAttribute("utilisateursTermines2", utilisateursTermines);
 					}
 
 				} catch (BLLException e) {
@@ -188,6 +189,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 			if (request.getParameter("choix5") != null) {
 
 			}
+			
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 
 		}
