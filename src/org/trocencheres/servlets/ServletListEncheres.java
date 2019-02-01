@@ -264,7 +264,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 
 		} else {
 			session.invalidate();
-			response.sendRedirect("<%=request.getContextPath()%>/Connexion");
+			response.sendRedirect(request.getContextPath() + "/Connexion");
 		}
 	}
 }

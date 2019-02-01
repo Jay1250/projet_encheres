@@ -51,7 +51,7 @@ public class ServletProfil extends HttpServlet implements Servlet {
                 }
 
                 if (currentUser.getNoUtilisateur() == userId)
-                    response.sendRedirect("<%=request.getContextPath()%>/MonProfil"
+                    response.sendRedirect(request.getContextPath() + "/MonProfil"
                             + (fromSale != null
                                 ? "?fromSale=" + fromSale
                                 : choices != null
@@ -66,7 +66,7 @@ public class ServletProfil extends HttpServlet implements Servlet {
             }
         } else {
             session.invalidate();
-            response.sendRedirect("<%=request.getContextPath()%>/Connexion");
+            response.sendRedirect(request.getContextPath() + "/Connexion");
         }
     }
 }

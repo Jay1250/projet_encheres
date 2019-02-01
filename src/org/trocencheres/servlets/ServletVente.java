@@ -84,7 +84,7 @@ public class ServletVente extends HttpServlet implements Servlet {
                 if ((requestBid != null && requestDelete == null && sale != null) || (requestBid == null && requestDelete != null && sale != null)) {
                     if (requestDelete != null && requestDelete.equals("true") && currentUser.getNoUtilisateur() == sale.getNoUtilisateur()) {
                         pem.removeSale(sale.getNoVente());
-                        response.sendRedirect("<%=request.getContextPath()%>/ListEncheres");
+                        response.sendRedirect(request.getContextPath() + "/ListEncheres");
                     }
                     if (requestBid != null && currentUser.getNoUtilisateur() != sale.getNoUtilisateur()){
                         int bid = Integer.parseInt(requestBid);
@@ -108,7 +108,7 @@ public class ServletVente extends HttpServlet implements Servlet {
                         }
 
                         if (errorMessage.equals(""))
-                            response.sendRedirect("<%=request.getContextPath()%>/Vente?saleId=" + sale.getNoVente()
+                            response.sendRedirect(request.getContextPath() + "/Vente?saleId=" + sale.getNoVente()
                                     + (choices != null ? ("&choices=" + choices) : ""));
                         else {
                             request.setAttribute("errorBidding", errorMessage);
@@ -124,7 +124,7 @@ public class ServletVente extends HttpServlet implements Servlet {
             }
         } else {
             session.invalidate();
-            response.sendRedirect("<%=request.getContextPath()%>/Connexion");
+            response.sendRedirect(request.getContextPath() + "/Connexion");
         }
     }
 }
