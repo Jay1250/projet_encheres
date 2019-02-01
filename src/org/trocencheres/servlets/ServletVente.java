@@ -20,11 +20,11 @@ import java.util.Date;
 /**
  * @author Kévin Le Devéhat
  */
-@WebServlet(name = "ServletEncherir", urlPatterns = "/Vente")
-public class ServletEncherir extends HttpServlet implements Servlet {
+@WebServlet(name = "ServletVente", urlPatterns = "/Vente")
+public class ServletVente extends HttpServlet implements Servlet {
     private ProjetEnchereManager pem;
 
-    public ServletEncherir() throws BLLException {
+    public ServletVente() throws BLLException {
         super();
         this.pem = ProjetEnchereManager.getInstance();
     }
@@ -112,11 +112,11 @@ public class ServletEncherir extends HttpServlet implements Servlet {
                                     + (fromChoices != null ? ("&fromChoices=" + fromChoices) : ""));
                         else {
                             request.setAttribute("errorBidding", errorMessage);
-                            request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
+                            request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
                         }
                     }
                 } else
-                    request.getRequestDispatcher("/WEB-INF/encherir.jsp").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);
             } catch (BLLException e) {
                 e.printStackTrace();
                 request.setAttribute("erreur", e);
