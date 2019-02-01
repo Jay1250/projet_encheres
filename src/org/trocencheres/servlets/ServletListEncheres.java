@@ -195,10 +195,45 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 			}
 
 			if (request.getParameter("autresEncheres") != null) {
+				ArrayList<Vente> autresVentes = null;
+				ArrayList<Enchere> encheresAutresVentes = null;
+				ArrayList<Utilisateur> utilisateursEncehresAutresVentes = null;
+				
+				try {
+					autresVentes = pem.selectAllOtherSalesByUser(utilisateurConnecte.getNoUtilisateur());
+					encheresAutresVentes = new ArrayList<Enchere>();
+					utilisateursEncehresAutresVentes = new ArrayList<Utilisateur>();
 
+					for (Vente v : autresVentes) {
+						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
+						if (enchere != null && enchere.getNoUtilisateur() != 0)
+							encheresAutresVentes.add(enchere);
+
+					}
+					for (Enchere e : encheresAutresVentes) {
+						utilisateursEncehresAutresVentes.add(pem.getUserById(e.getNoUtilisateur()));
+					}
+
+					if (!autresVentes.isEmpty())
+						request.getSession().setAttribute("autresVentes", autresVentes);
+
+					if (!encheresAutresVentes.isEmpty()) {
+						request.getSession().setAttribute("encheresAutresVentes", encheresAutresVentes);
+
+						request.getSession().setAttribute("utilisateursEncehresAutresVentes", utilisateursEncehresAutresVentes);
+					}
+
+				} catch (BLLException e) {
+					e.printStackTrace();
+					request.setAttribute("erreur", e);
+					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
+
+				}
 			}
-
+				
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
+
+			
 
 		} else {
 			session.invalidate();
