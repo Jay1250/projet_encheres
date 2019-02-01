@@ -115,7 +115,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 				pem.addUser(newUtilisateur);
 
 				request.getSession().setAttribute("utilisateurConnecte", newUtilisateur);
-				response.sendRedirect("/ProjetEncheres/ListEncheres");
+				response.sendRedirect(request.getContextPath() + "/ListEncheres");
 
 			} catch (BLLException e) {
 				request.setAttribute("erreur", e);
