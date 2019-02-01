@@ -208,10 +208,15 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
 						if (enchere != null && enchere.getNoUtilisateur() != 0)
 							encheresAutresVentes.add(enchere);
+						else
+							encheresAutresVentes.add(new Enchere());
 
 					}
 					for (Enchere e : encheresAutresVentes) {
-						utilisateursEncehresAutresVentes.add(pem.getUserById(e.getNoUtilisateur()));
+						if (e.getNoUtilisateur() != 0)
+							utilisateursEncehresAutresVentes.add(pem.getUserById(e.getNoUtilisateur()));
+						else
+							utilisateursEncehresAutresVentes.add(new Utilisateur());
 					}
 
 					if (!autresVentes.isEmpty())
