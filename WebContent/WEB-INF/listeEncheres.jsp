@@ -81,16 +81,16 @@
                 <label class="form-check-label" for="checkdefault">Autres enchères</label>
             </div>
         </div>
-        <%--<div class="form-group col-md-4">
+        <div class="form-group col-md-4">
             <label for="inputState">Catégories</label>
             <select class="form-control">
                 <option selected>Toutes</option>
                 <option>...</option>
             </select>
-        </div>--%>
-        <%--<div class="form-group col-md-4">
+        </div>
+        <div class="form-group col-md-4">
             <input type="password" class="form-control" placeholder="Le nom de l'article contient">
-        </div>--%>
+        </div>
         <div class="form-group text-center col-md-2 col-md-pull-2">
             <button type="submit" class="btn btn-primary marge">Rechercher</button>
         </div>
@@ -334,7 +334,7 @@
                         Prix : <%=v.getPrixInitial()%>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                        Fin de l'enchère : <%=v.getDateFinEncheres()%>
+                        Fin de l'enchère : <%= df.format(v.getDateFinEncheres())%>
                     </h6>
                     <h6 class="card-subtitle mb-2 text-muted">
                         Retrait : <%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " " + v.getRetrait().getVille()%>
