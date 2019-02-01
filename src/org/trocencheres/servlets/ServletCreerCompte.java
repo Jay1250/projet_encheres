@@ -67,7 +67,7 @@ public class ServletCreerCompte extends HttpServlet implements Servlet {
 
 		ArrayList<Integer> ventes = new ArrayList<>();
 		boolean administrateur = false;
-		int credit = 0;
+		int credit = 250;
 		int noUtilisateur = 0;
 
 		Utilisateur newUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue,
