@@ -118,11 +118,7 @@ public class ServletModifierProfil extends HttpServlet implements Servlet {
 		Boolean confirmationKo = (Boolean) request.getAttribute("confirmationKo");
 		Boolean champsNonRemplis = (Boolean) request.getAttribute("champsNonRemplis");
 
-		System.out.println("pseudoExiste= " + request.getAttribute("pseudoExists"));
-		System.out.println("email existe= " + request.getAttribute("emailExists"));
-		System.out.println("telephone exist= " + request.getAttribute("telephoneExists"));
-		System.out.println("confirmation KO= " + request.getAttribute("confirmationKo"));
-		System.out.println("champs non remplis= " + request.getAttribute("champsNonRemplis"));
+	
 
 		if (!pseudoExists && !emailExists && !telephoneExists && !confirmationKo && !champsNonRemplis) {
 			try {

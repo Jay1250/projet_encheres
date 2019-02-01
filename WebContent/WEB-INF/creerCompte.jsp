@@ -204,13 +204,7 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="password"  maxlength="30" class="form-control" id="motdepasse"
 						name="motdepasse"
-						<%if (request.getAttribute("confirmationKo") != null
-					&& request.getAttribute("confirmationKo").equals(false)) {%>
-						value="<%=request.getParameter("motdepasse")%>
-						"
-					<%
-						}
-					%>
+						
 					>
 				</div>
 			</div>
@@ -221,13 +215,7 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="password"  maxlength="30" class="form-control" id="confirmation"
 						name="confirmation"
-						<%if (request.getAttribute("confirmationKo") != null
-					&& request.getAttribute("confirmationKo").equals(false)) {%>
-						value="<%=request.getParameter("confirmation")%>
-						"
-					<%
-						}
-					%>
+					
 					>
 				</div>
 			</div>
