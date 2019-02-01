@@ -137,17 +137,21 @@
                     <h5 class="card-title text-left">
                         Meilleure offre :
                         <% if (session.getAttribute("encheresVentesEnCoursVendeur") == null) { %>
-                        Aucune offre
+                            Aucune offre
                         <% } else {
                             ArrayList<Enchere> encheresVentesEnCoursVendeur = (ArrayList<Enchere>) session.getAttribute("encheresVentesEnCoursVendeur");
                             Enchere e = encheresVentesEnCoursVendeur.get(encheresVentesEnCoursVendeur.indexOf(v));
                             ArrayList<Utilisateur> utilisateursEncheresVentesEnCoursVendeur = (ArrayList<Utilisateur>) request.getSession().getAttribute("utilisateursEncheresVentesEnCoursVendeur");
                             Utilisateur u = utilisateursEncheresVentesEnCoursVendeur.get(utilisateursEncheresVentesEnCoursVendeur.indexOf(e));
                         %>
+                        <% if(e.getNoUtilisateur() != 0) { %>
                         <%=e.getMontantEnchere()%> par :
-                        <a href="<%=request.getContextPath()%>/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>" class="card-link">
+                        <a href="<%=request.getContextPath()%>/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>" class="card-link">
                             <%=u.getPseudo()%>
                         </a>
+                        <% } else { %>
+                        Aucune offre
+                        <% } %>
                         <% } %>
                     </h5>
                     <h5 class="card-title text-right">
@@ -197,10 +201,14 @@
                             ArrayList<Utilisateur> utilisateursEncehresVentesTermineesVendeur = (ArrayList<Utilisateur>) request.getSession().getAttribute("utilisateursEncehresVentesTermineesVendeur");
                             Utilisateur u = utilisateursEncehresVentesTermineesVendeur.get(encheresVentesTermineesVendeur.indexOf(e));
                         %>
+                        <% if(e.getNoUtilisateur() != 0) { %>
                         <%=e.getMontantEnchere()%> par :
-                        <a href="<%=request.getContextPath()%>/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>"
-                           class="card-link"><%=u.getPseudo()%>
+                        <a href="<%=request.getContextPath()%>/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>" class="card-link">
+                            <%=u.getPseudo()%>
                         </a>
+                        <% } else { %>
+                        Aucune offre
+                        <% } %>
                         <% } %>
                     </h5>
                     <h5 class="card-title text-right">
@@ -334,7 +342,7 @@
                     <h5 class="card-title text-left">
                         Meilleure offre :
                         <% if (session.getAttribute("encheresAutresVentes") == null) { %>
-                        Aucune offre
+                            Aucune offre
                         <% } else {
                             ArrayList<Enchere> encheresAutresVentes = (ArrayList<Enchere>) request.getSession().getAttribute("encheresAutresVentes");
                             Enchere e = encheresAutresVentes.get(autresVentes.indexOf(v));
@@ -347,7 +355,7 @@
                                     <%=u.getPseudo()%>
                                 </a>
                             <% } else { %>
-                                Pas d'enchère
+                                Aucune offre
                             <% } %>
                         <% } %>
                     </h5>
