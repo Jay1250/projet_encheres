@@ -48,10 +48,12 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 		if(isStillConnected(request, response)) {
 			request.setCharacterEncoding("UTF-8");
 			// get categories
-			Map<Integer, Categorie> categorie = pem.getCategories();
-			request.setAttribute("categorie", categorie);
-			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
-			try {
+            try {
+                Map<Integer, Categorie> categories= null;
+                categories = pem.getCategories();
+                if (categories != null)
+                    request.setAttribute("categorie", categories);
+                Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 				// get default user retrait address
 				pem.getUserById(user.getNoUtilisateur());
 				request.setAttribute("rue", user.getRue());
@@ -81,7 +83,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			String ville = request.getParameter("ville");
 			Utilisateur user =(Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 			//  ***** verif form
-			Boolean isFormOk = true;
+			boolean isFormOk = true;
 			if(article == null || article.trim().equals("")) {
 				request.setAttribute("articleNonRenseigne", true);
 				isFormOk = false;
@@ -140,8 +142,13 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 			}
 			else {
 				// get categories
-				Map<Integer, Categorie> categorie = pem.getCategories();
-				request.setAttribute("categorie", categorie);
+                Map<Integer, Categorie> categories = null;
+                try {
+                    categories = pem.getCategories();
+                } catch (BLLException e) {
+                    e.printStackTrace();
+                }
+                if (categories != null) request.setAttribute("categorie", categories);
 				// preserve fields if they exist
 				request.setAttribute("article", article);
 				request.setAttribute("description", description);
@@ -174,10 +181,11 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 	private boolean isStillConnected(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean stillConnected = false;
 		// si la session a expiré:
-		if (request.getSession().getAttribute("utilisateurConnecte") == null) 
-			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
+            request.getSession().invalidate();
+			response.sendRedirect("/ProjetEncheres/Connexion");
 		// si la session utilisateur est toujours active
-		 else 
+        }else
 			 stillConnected = true;
 		return stillConnected;
 	}

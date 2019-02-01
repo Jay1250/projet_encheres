@@ -196,9 +196,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 
 			request.getRequestDispatcher("/WEB-INF/listeEncheres.jsp").forward(request, response);
 
-		}
-		if (utilisateurConnecte == null) {
-
+		} else {
 			session.invalidate();
 			response.sendRedirect("/ProjetEncheres/Connexion");
 		}
