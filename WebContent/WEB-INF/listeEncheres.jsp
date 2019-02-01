@@ -309,7 +309,7 @@
                         Prix initial : <%=v.getPrixInitial()%>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                        Fin de l'enchère : <%= df.format(v.getDateFinEncheres())%>>
+                        Fin de l'enchère : <%= df.format(v.getDateFinEncheres())%>
                     </h6>
                     <h6 class="card-subtitle mb-2 text-muted">
                         Retrait : <%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " " + v.getRetrait().getVille()%>
