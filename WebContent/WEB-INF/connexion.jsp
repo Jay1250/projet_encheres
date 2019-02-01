@@ -45,6 +45,7 @@
                        class="form-control"
                        placeholder="Saisir votre identifiant (email ou username)"
                        name="identifiant"
+                       maxlength="30"
                     <% if (request.getParameter("identifiant") != null && !request.getParameter("identifiant").trim().equals("")) { %>
                        value="<%=request.getParameter("identifiant")%>"
                     <%}%>
@@ -59,6 +60,7 @@
                        class="form-control"
                        placeholder="Saisir votre mot de passe"
                        name="motdepasse"
+                       maxlength="30"
                     <% if (request.getParameter("motdepasse") != null && !request.getParameter("motdepasse").trim().equals("")) { %>
                        value="<%=request.getParameter("motdepasse")%>"
                     <%}%>

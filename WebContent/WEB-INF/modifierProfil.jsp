@@ -57,7 +57,7 @@
 					<label for="pseudo">Pseudo :</label>
 				</div>
 				<div class="col-md-8 col-xs-8 mt-3">
-					<input type="text" class="form-control" id="pseudo" name="pseudo"
+					<input type="text" class="form-control" id="pseudo" name="pseudo" maxlength="30" 
 						<%
 						if (request.getParameter("pseudo") != null) {
 						%>
@@ -88,7 +88,7 @@
 					<label for="nom">Nom :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="text" class="form-control" id="nom" name="nom"
+					<input type="text" class="form-control" id="nom" name="nom" maxlength="30"
 						<%
 						if (request.getParameter("nom") != null) {
 						%>
@@ -110,7 +110,7 @@
 					<label for="Prenom">Prénom :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="text" class="form-control" id="prenom" name="prenom"
+					<input type="text" class="form-control" id="prenom" name="prenom" maxlength="30"
 						<%
 						if (request.getParameter("prenom") != null) {
 						%>
@@ -132,7 +132,7 @@
 					<label for="email">Email :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="email" class="form-control" id="email" name="email"
+					<input type="email" class="form-control" id="email" name="email" maxlength="50"
 						<%
 						if (request.getParameter("email") != null) {
 						%>
@@ -162,7 +162,7 @@
 					<label for="telephone">Téléphone :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="text" class="form-control" id="telephone"
+					<input type="text" class="form-control" id="telephone" maxlength="15"
 						name="telephone"
 						<%
 						if (request.getParameter("telephone") != null) {
@@ -194,7 +194,7 @@
 					<label for="rue">Rue :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="text" class="form-control" id="rue" name="rue"
+					<input type="text" class="form-control" id="rue" name="rue" maxlength="30"
 						<%
 						if (request.getParameter("rue") != null) {
 						%>
@@ -217,7 +217,7 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="codepostal"
-						name="codepostal"
+						name="codepostal" maxlength="10"
 					<%
 						if (request.getParameter("codepostal") != null) {
 						%>
@@ -239,7 +239,7 @@
 					<label for="ville">Ville :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
-					<input type="text" class="form-control" id="ville" name="ville"
+					<input type="text" class="form-control" id="ville" name="ville" maxlength="30"
 						<%
 						if (request.getParameter("ville") != null) {
 						%>
@@ -271,7 +271,7 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="motdepasse"
-						name="motdepasse"
+						name="motdepasse" maxlength="30"
 						<%if (request.getParameter("motdepasse") != null) {%>
 						value="<%=request.getParameter("motdepasse")%>
 						"
@@ -284,7 +284,7 @@
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="confirmation"
-						name="confirmation"
+						name="confirmation" maxlength="30"
 						<%if (request.getParameter("confirmation") != null) {%>
 						value="<%=request.getParameter("confirmation")%>" <%}%>>
 

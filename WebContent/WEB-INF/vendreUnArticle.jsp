@@ -61,13 +61,13 @@
             		<%}%>
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Articles :</label></div>
 				  	<div class="col-md-3 col-xs-5 col-md-offset-1">
-				  		<input type="text" class="form-control" name="article" <%if (article != null) {%> value="<%=article%>"<%}%>>
+				  		<input type="text" class="form-control" name="article" maxlength="30" <%if (article != null) {%> value="<%=article%>"<%}%>>
 				  	</div>
 			  	</div>
 			 	<div class="form-group col-md-12 col-xs-12 text-left">
 					<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Description :</label></div>
 				  	<div class="col-md-3 col-xs-5 col-md-offset-1">
-				  		<textarea class="form-control" rows="3" name="description">
+				  		<textarea class="form-control" rows="3" name="description" maxlength="300">
 				  			<%if (article != null) {%> <%=description%> <%} %>
 				  		</textarea>
 				  	</div>
@@ -106,19 +106,19 @@
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>rue :</label></div>
 			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
-			    		<input type="text" class="form-control" name="rue" <%if (rue != null) {%> value="<%=rue%>"<%}%>/>
+			    		<input type="text" class="form-control" name="rue" maxlength="30" <%if (rue != null) {%> value="<%=rue%>"<%}%>/>
 					</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>code postal :</label></div>
 			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
-			    		<input type="text" class="form-control" name="codepostal" <%if (codePostal != null) {%> value="<%=codePostal%>"<%}%>>
+			    		<input type="text" class="form-control" name="codepostal" maxlength="10" <%if (codePostal != null) {%> value="<%=codePostal%>"<%}%>>
 			    	</div>
 			  	</div>
 			  	<div class="form-group col-md-12 col-xs-12 text-left">
 			    	<div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>ville :</label></div>
 			    	<div class="col-md-3 col-xs-5 col-md-offset-1">
-			    		<input type="text" class="form-control" name="ville" <%if (ville != null) {%> value="<%=ville%>"<%}%>>
+			    		<input type="text" class="form-control" name="ville" maxlength="30" <%if (ville != null) {%> value="<%=ville%>"<%}%>>
 			    	</div>
 			  	</div>
 			  	<div class="text-center">
