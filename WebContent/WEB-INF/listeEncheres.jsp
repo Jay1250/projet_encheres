@@ -61,23 +61,43 @@
         <h3 class="text-center">Filtres :</h3>
         <div class="form-group col-md-5 col-md-offset-2">
             <div class="form-check">
+                <% if (request.getAttribute("ventesEnCours") != null) {%>
+                <input class="form-check-input" type="checkbox" name="ventesEnCours" value="ventesEnCours" checked>
+                <% } else { %>
                 <input class="form-check-input" type="checkbox" name="ventesEnCours" value="ventesEnCours">
+                <% } %>
                 <label class="form-check-label" for="checkventes">Mes ventes en cours</label>
             </div>
             <div class="form-check">
+                <% if (request.getAttribute("ventesTerminees") != null) {%>
+                <input class="form-check-input" type="checkbox" name="ventesTerminees" value="ventesTerminees" checked>
+                <% } else { %>
                 <input class="form-check-input" type="checkbox" name="ventesTerminees" value="ventesTerminees">
+                <% } %>
                 <label class="form-check-label" for="checkventes">Mes ventes terminées</label>
             </div>
             <div class="form-check">
+                <% if (request.getAttribute("encheresEnCours") != null) {%>
+                <input class="form-check-input" type="checkbox" name="encheresEnCours" value="encheresEnCours" checked>
+                <% } else { %>
                 <input class="form-check-input" type="checkbox" name="encheresEnCours" value="encheresEnCours">
+                <% } %>
                 <label class="form-check-label" for="checkencheres">Mes enchères en cours</label>
             </div>
             <div class="form-check">
+                <% if (request.getAttribute("acquisitions") != null) {%>
+                <input class="form-check-input" type="checkbox" name="acquisitions" value="acquisitions" checked>
+                <% } else { %>
                 <input class="form-check-input" type="checkbox" name="acquisitions" value="acquisitions">
+                <% } %>
                 <label class="form-check-label" for="checkacquisition">Mes acquisitions</label>
             </div>
             <div class="form-check">
+                <% if (request.getAttribute("autresEncheres") != null) {%>
+                <input class="form-check-input" type="checkbox" name="autresEncheres" value="autresEncheres" checked>
+                <% } else { %>
                 <input class="form-check-input" type="checkbox" name="autresEncheres" value="autresEncheres">
+                <% } %>
                 <label class="form-check-label" for="checkdefault">Autres enchères</label>
             </div>
         </div>
