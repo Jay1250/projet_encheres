@@ -83,15 +83,15 @@
                 <%}%>
                 <div class="text-center">
                     <% Object requestFromSale = request.getAttribute("fromSale");
-                        Object requestFromChoices = request.getAttribute("fromChoices");
+                        Object requestchoices = request.getAttribute("choices");
                         if (requestFromSale != null) {
                     %>
                         <a href="<%=request.getContextPath()%>/Vente?saleId=<%=(String)requestFromSale%>"
                            class="btn btn-primary marge">
                             Retour
                         </a>
-                    <% } else if (requestFromChoices != null) { %>
-                        <a href="<%=request.getContextPath()%>/ListEncheres?choices=<%=(String)requestFromChoices%>"
+                    <% } else if (requestchoices != null && !(requestchoices).equals("")) { %>
+                        <a href="<%=request.getContextPath()%>/ListEncheres?choices=<%=(String)requestchoices%>"
                            class="btn btn-primary marge">
                             Retour
                         </a>

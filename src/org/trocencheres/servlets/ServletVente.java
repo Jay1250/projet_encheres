@@ -40,7 +40,7 @@ public class ServletVente extends HttpServlet implements Servlet {
             try {
                 Utilisateur currentUser = (Utilisateur) sessionUserAttr;
                 String saleParameter = request.getParameter("saleId");
-                String fromChoices = request.getParameter("fromChoices");
+                String choices = request.getParameter("choices");
                 Object requestDelete = request.getParameter("delete");
                 String requestBid = request.getParameter("newbid");
                 Vente sale = null;
@@ -55,8 +55,8 @@ public class ServletVente extends HttpServlet implements Servlet {
                     request.setAttribute("vente", sale);
                     if (sale != null) {
 
-                        if (fromChoices != null)
-                            request.setAttribute("fromChoices", fromChoices);
+                        if (choices != null)
+                            request.setAttribute("choices", choices);
 
                         if (sale.getDateFinEncheres() != null) {
                             saleEnded = currentTime.after(sale.getDateFinEncheres());
@@ -109,7 +109,7 @@ public class ServletVente extends HttpServlet implements Servlet {
 
                         if (errorMessage.equals(""))
                             response.sendRedirect("/ProjetEncheres/Vente?saleId=" + sale.getNoVente()
-                                    + (fromChoices != null ? ("&fromChoices=" + fromChoices) : ""));
+                                    + (choices != null ? ("&choices=" + choices) : ""));
                         else {
                             request.setAttribute("errorBidding", errorMessage);
                             request.getRequestDispatcher("/WEB-INF/vente.jsp").forward(request, response);

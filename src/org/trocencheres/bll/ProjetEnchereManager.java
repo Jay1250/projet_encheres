@@ -174,9 +174,7 @@ public class ProjetEnchereManager {
             //if (vente == null) {
                 vente = this.venteDAO.selectById(noVente);
                 if (vente.getNoVente() != 0) {
-                    Retrait retrait = this.retraitDAO.selectByIdVente(noVente);
-                    this.validateWithdrawal(retrait);
-                    vente.setRetrait(retrait);
+                    this.applyWithdrawalToSale(vente);
                     this.validateSale(vente);
                     return this.terminateSaleIfNeeded(vente);
                     //this.ventesIndex.put(vente.getNoUtilisateur(), vente);
@@ -193,6 +191,8 @@ public class ProjetEnchereManager {
         try {
             ArrayList<Vente> tempVentesList = venteDAO.selectAllByUser(noUtilisateur);
             for (Vente v: tempVentesList) {
+                this.applyWithdrawalToSale(v);
+                this.validateSale(v);
                 ventesList.add(this.terminateSaleIfNeeded(v));
             }
         } catch (DALException e) {
@@ -206,6 +206,8 @@ public class ProjetEnchereManager {
         try {
             ArrayList<Vente> tempVentesList = venteDAO.selectAllEndedByUser(noUtilisateur);
             for (Vente v: tempVentesList) {
+                this.applyWithdrawalToSale(v);
+                this.validateSale(v);
                 ventesList.add(this.terminateSaleIfNeeded(v));
             }
         } catch (DALException e) {
@@ -217,7 +219,12 @@ public class ProjetEnchereManager {
     public ArrayList<Vente> selectAllCurrentSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
-            ventesList = venteDAO.selectAllCurrentByUser(noUtilisateur);
+            ArrayList<Vente> tempVentesList = venteDAO.selectAllCurrentByUser(noUtilisateur);
+            for (Vente v: tempVentesList) {
+                this.applyWithdrawalToSale(v);
+                this.validateSale(v);
+                ventesList.add(v);
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -229,6 +236,8 @@ public class ProjetEnchereManager {
         try {
             ArrayList<Vente> tempVentesList = venteDAO.selectAllNotCreatedNorBidByUser(noUtilisateur);
             for (Vente v: tempVentesList) {
+                this.applyWithdrawalToSale(v);
+                this.validateSale(v);
                 ventesList.add(this.terminateSaleIfNeeded(v));
             }
         } catch (DALException e) {
@@ -319,6 +328,15 @@ public class ProjetEnchereManager {
     }
 
 
+    private void applyWithdrawalToSale(Vente vente)  throws BLLException  {
+        try {
+            Retrait retrait = this.retraitDAO.selectByIdVente(vente.getNoVente());
+            this.validateWithdrawal(retrait);
+            vente.setRetrait(retrait);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void updateWithdrawal(Retrait retrait) throws BLLException {
         try {
