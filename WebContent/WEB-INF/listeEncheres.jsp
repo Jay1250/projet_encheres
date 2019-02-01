@@ -21,7 +21,9 @@
 	Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 	String identifiant = utilisateurConnecte.getPseudo();
 %>
-<%java.text.DateFormat df = new java.text.SimpleDateFormat("HH:mm dd/MM/yyyy"); %>
+<%
+	java.text.DateFormat df = new java.text.SimpleDateFormat("HH:mm dd/MM/yyyy");
+%>
 <body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -125,7 +127,8 @@
 		</form>
 
 		<!--  mes ventes en cours -->
-		<%	choix = "";
+		<%
+			choix = "";
 			if (request.getParameter("ventesEnCours") != null)
 				choix += "1";
 			if (request.getParameter("ventesTerminees") != null)
@@ -147,386 +150,385 @@
 				if (request.getSession().getAttribute("ventesEnCoursVendeur") == null) {
 			%>
 			<p>Vous n'avez aucune vente</p>
-	
-		<%
-			} else {
-					ArrayList<Vente> ventesEnCoursVendeur = (ArrayList<Vente>) request.getSession()
-							.getAttribute("ventesEnCoursVendeur");
-					for (Vente v : ventesEnCoursVendeur) {
-		%>
+
+			<%
+				} else {
+						ArrayList<Vente> ventesEnCoursVendeur = (ArrayList<Vente>) request.getSession()
+								.getAttribute("ventesEnCoursVendeur");
+						for (Vente v : ventesEnCoursVendeur) {
+			%>
 
 
 
-		<div class="col-md-3">
-			<div class="card col-md-12 block-info-vente">
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="#"> <%=v.getNomArticle()%>
+			<div class="col-md-3">
+				<div class="card col-md-12 block-info-vente">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#"> <%=v.getNomArticle()%>
 
-						</a>
-					</h4>
+							</a>
+						</h4>
 
-					<h5 class="card-text">
-						Prix :
-						<%=v.getPrixInitial()%></h5>
-					<h6 class="card-subtitle mb-2 text-muted">
-						Fin de l'enchère:
-						<%= df.format(v.getDateFinEncheres())%></h6>
-					<h6 class="card-subtitle mb-2 text-muted">
-						Retrait:
-						<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
+						<h5 class="card-text">
+							Prix :
+							<%=v.getPrixInitial()%></h5>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Fin de l'enchère:
+							<%=df.format(v.getDateFinEncheres())%></h6>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Retrait:
+							<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
 								+ v.getRetrait().getVille()%></h6>
-					<h5 class="card-title text-left">
-						Meilleure offre :
-						<%
-						if (request.getSession().getAttribute("encheresVentesEnCoursVendeur") == null) {
-					%>
-						Aucune offre
-						<%
-						} else {
-										ArrayList<Enchere> encheresVentesEnCoursVendeur = (ArrayList<Enchere>) request.getSession()
-												.getAttribute("encheresVentesEnCoursVendeur");
-										Enchere e = encheresVentesEnCoursVendeur.get(encheresVentesEnCoursVendeur.indexOf(v));
-										ArrayList<Utilisateur> utilisateursEncheresVentesEnCoursVendeur = (ArrayList<Utilisateur>) request
-												.getSession().getAttribute("utilisateursEncheresVentesEnCoursVendeur");
-										Utilisateur u = utilisateursEncheresVentesEnCoursVendeur
-												.get(utilisateursEncheresVentesEnCoursVendeur.indexOf(e));
-					%>
-
-						<%=e.getMontantEnchere()%>
-						points par : <a
-							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
-							class="card-link"> <%=u.getPseudo()%></a>
-						<%
-							}
+						<h5 class="card-title text-left">
+							Meilleure offre :
+							<%
+							if (request.getSession().getAttribute("encheresVentesEnCoursVendeur") == null) {
 						%>
-					</h5>
-					<h5 class="card-title text-right">
-						<a
-							href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+							Aucune offre
+							<%
+							} else {
+											ArrayList<Enchere> encheresVentesEnCoursVendeur = (ArrayList<Enchere>) request.getSession()
+													.getAttribute("encheresVentesEnCoursVendeur");
+											Enchere e = encheresVentesEnCoursVendeur.get(encheresVentesEnCoursVendeur.indexOf(v));
+											ArrayList<Utilisateur> utilisateursEncheresVentesEnCoursVendeur = (ArrayList<Utilisateur>) request
+													.getSession().getAttribute("utilisateursEncheresVentesEnCoursVendeur");
+											Utilisateur u = utilisateursEncheresVentesEnCoursVendeur
+													.get(utilisateursEncheresVentesEnCoursVendeur.indexOf(e));
+						%>
 
-					</h5>
+							<%=e.getMontantEnchere()%>
+							points par : <a
+								href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+								class="card-link"> <%=u.getPseudo()%></a>
+							<%
+								}
+							%>
+						</h5>
+						<h5 class="card-title text-right">
+							<a
+								href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+
+						</h5>
+					</div>
 				</div>
 			</div>
-		</div>
 
 
-		<!-- fin mes ventes en cours -->
+			<!-- fin mes ventes en cours -->
 
 
-		<!--  mes ventes terminées -->
-		<%
-			}
+			<!--  mes ventes terminées -->
+			<%
+				}
 
-		}
+					}
 			%>
-			
-			</div>	
-			
-				<%
-		}
-		if (request.getParameter("ventesTerminees") != null) {
-	%>
-	<h2 class="text-center">Mes ventes terminées</h2>
-	<hr />
-	<div class="row">
+
+		</div>
+
 		<%
-			if (request.getSession().getAttribute("ventesTermineesVendeur") == null) {
+			}
+			if (request.getParameter("ventesTerminees") != null) {
 		%>
+		<h2 class="text-center">Mes ventes terminées</h2>
+		<hr />
+		<div class="row">
+			<%
+				if (request.getSession().getAttribute("ventesTermineesVendeur") == null) {
+			%>
 
-		<p>Vous n'avez aucune vente</p>
+			<p>Vous n'avez aucune vente</p>
 
-	<%
-		} else {
-				ArrayList<Vente> ventesTermineesVendeur = (ArrayList<Vente>) request.getSession()
-						.getAttribute("ventesTermineesVendeur");
-				for (Vente v : ventesTermineesVendeur) {
-	%>
+			<%
+				} else {
+						ArrayList<Vente> ventesTermineesVendeur = (ArrayList<Vente>) request.getSession()
+								.getAttribute("ventesTermineesVendeur");
+						for (Vente v : ventesTermineesVendeur) {
+			%>
 
 
-	<div class="col-md-3">
-		<div class="card col-md-12 block-info-vente">
-			<div class="card-body">
-				<h4 class="card-title">
-					<a href="#"> <%=v.getNomArticle()%>
+			<div class="col-md-3">
+				<div class="card col-md-12 block-info-vente">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#"> <%=v.getNomArticle()%>
 
-					</a>
-				</h4>
+							</a>
+						</h4>
 
-				<h5 class="card-text">
-					Prix :
-					<%=v.getPrixInitial()%></h5>
-			
-				<h6 class="card-subtitle mb-2 text-muted">
-					Fin de l'enchère:
-					<%= df.format(v.getDateFinEncheres())%></h6>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Retrait:
-					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
+						<h5 class="card-text">
+							Prix :
+							<%=v.getPrixInitial()%></h5>
+
+						<h6 class="card-subtitle mb-2 text-muted">
+							Fin de l'enchère:
+							<%=df.format(v.getDateFinEncheres())%></h6>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Retrait:
+							<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
 								+ v.getRetrait().getVille()%></h6>
-				<h5 class="card-title text-left">
-					Meilleure offre :
-					<%
-					if (request.getSession().getAttribute("encheresVentesTermineesVendeur") == null) {
-				%>
-					Aucune offre
-					<%
-					} else {
-									ArrayList<Enchere> encheresVentesTermineesVendeur = (ArrayList<Enchere>) request
-											.getSession().getAttribute("encheresVentesTermineesVendeur");
-									Enchere e = encheresVentesTermineesVendeur.get(ventesTermineesVendeur.indexOf(v));
-									ArrayList<Utilisateur> utilisateursEncehresVentesTermineesVendeur = (ArrayList<Utilisateur>) request
-											.getSession().getAttribute("utilisateursEncehresVentesTermineesVendeur");
-									Utilisateur u = utilisateursEncehresVentesTermineesVendeur
-											.get(encheresVentesTermineesVendeur.indexOf(e));
-				%>
+						<h5 class="card-title text-left">
+							Meilleure offre :
+							<%
+							if (request.getSession().getAttribute("encheresVentesTermineesVendeur") == null) {
+						%>
+							Aucune offre
+							<%
+							} else {
+											ArrayList<Enchere> encheresVentesTermineesVendeur = (ArrayList<Enchere>) request
+													.getSession().getAttribute("encheresVentesTermineesVendeur");
+											Enchere e = encheresVentesTermineesVendeur.get(ventesTermineesVendeur.indexOf(v));
+											ArrayList<Utilisateur> utilisateursEncehresVentesTermineesVendeur = (ArrayList<Utilisateur>) request
+													.getSession().getAttribute("utilisateursEncehresVentesTermineesVendeur");
+											Utilisateur u = utilisateursEncehresVentesTermineesVendeur
+													.get(encheresVentesTermineesVendeur.indexOf(e));
+						%>
 
-					<%=e.getMontantEnchere()%>
-					points par : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
-						class="card-link"> <%=u.getPseudo()%></a>
-					<%
-						}
-					%>
-				</h5>
-				<h5 class="card-title text-right">
-					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+							<%=e.getMontantEnchere()%>
+							points par : <a
+								href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+								class="card-link"> <%=u.getPseudo()%></a>
+							<%
+								}
+							%>
+						</h5>
+						<h5 class="card-title text-right">
+							<a
+								href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
 
-				</h5>
+						</h5>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
 
 
-	<!-- fin mes ventes terminees -->
+			<!-- fin mes ventes terminees -->
 
 
-	<!--  mes enchères en cours -->
-	<%
-		}
+			<!--  mes enchères en cours -->
+			<%
+				}
 
-		}
-		%>
+					}
+			%>
 		</div>
 		<%
-		}
-		if (request.getParameter("encheresEnCours") != null) {
-	%>
-	<h2 class="text-center">Mes enchères en cours</h2>
-	<hr />
-	<div class="row">
-		<%
-			if (request.getSession().getAttribute("ventesEncheresEnCoursAcheteur") == null) {
+			}
+			if (request.getParameter("encheresEnCours") != null) {
 		%>
-		<p>Vous n'avez aucune aucune enchère en cours</p>
+		<h2 class="text-center">Mes enchères en cours</h2>
+		<hr />
+		<div class="row">
+			<%
+				if (request.getSession().getAttribute("ventesEncheresEnCoursAcheteur") == null) {
+			%>
+			<p>Vous n'avez aucune aucune enchère en cours</p>
 
-	<%
-		} else {
-				ArrayList<Vente> ventesEncheresEnCoursAcheteur = (ArrayList<Vente>) request.getSession()
-						.getAttribute("ventesEncheresEnCoursAcheteur");
-				ArrayList<Utilisateur> vendeursEncheresEnCoursAcheteur = (ArrayList<Utilisateur>) request
-						.getSession().getAttribute("vendeursEncheresEnCoursAcheteur");
+			<%
+				} else {
+						ArrayList<Vente> ventesEncheresEnCoursAcheteur = (ArrayList<Vente>) request.getSession()
+								.getAttribute("ventesEncheresEnCoursAcheteur");
+						ArrayList<Utilisateur> vendeursEncheresEnCoursAcheteur = (ArrayList<Utilisateur>) request
+								.getSession().getAttribute("vendeursEncheresEnCoursAcheteur");
 
-				for (Vente v : ventesEncheresEnCoursAcheteur) {
-					Utilisateur u = vendeursEncheresEnCoursAcheteur.get(ventesEncheresEnCoursAcheteur.indexOf(v));
-	%>
-
-
+						for (Vente v : ventesEncheresEnCoursAcheteur) {
+							Utilisateur u = vendeursEncheresEnCoursAcheteur.get(ventesEncheresEnCoursAcheteur.indexOf(v));
+			%>
 
 
-	<div class="col-md-3">
-		<div class="card col-md-12 block-info-vente">
-			<div class="card-body">
-				<h4 class="card-title">
-					<a href="#"><%=v.getNomArticle()%></a>
-				</h4>
-				<h5 class="card-text">
-					Prix intiial :
-					<%=v.getPrixInitial()%>
-					points
-				</h5>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Fin de l'enchère:
-					<%= df.format(v.getDateFinEncheres())%>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Retrait:
-					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
+
+
+			<div class="col-md-3">
+				<div class="card col-md-12 block-info-vente">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#"><%=v.getNomArticle()%></a>
+						</h4>
+						<h5 class="card-text">
+							Prix intiial :
+							<%=v.getPrixInitial()%>
+							points
+						</h5>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Fin de l'enchère:
+							<%=df.format(v.getDateFinEncheres())%></h6>
+							<h6 class="card-subtitle mb-2 text-muted">
+								Retrait:
+								<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
 								+ v.getRetrait().getVille()%></h6>
-				<p>
-					Vendeur : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
-						class="card-link"><%=u.getPseudo()%></a>
-				</p>
-				<h5 class="card-title text-left">Classement : 1</h5>
-				<h5 class="card-title text-right">
-					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
-				</h5>
+							<p>
+								Vendeur : <a
+									href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+									class="card-link"><%=u.getPseudo()%></a>
+							</p>
+							<h5 class="card-title text-left">Classement : 1</h5>
+							<h5 class="card-title text-right">
+								<a
+									href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+							</h5>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
 
-	<!-- fin mes enchères en cours -->
+			<!-- fin mes enchères en cours -->
 
 
-	<!--  mes acquisitions -->
-	<%
-		}
+			<!--  mes acquisitions -->
+			<%
+				}
 
-		}
-		%>
+					}
+			%>
 		</div>
 		<%
-		}
-		if (request.getParameter("acquisitions") != null) {
-	%>
-	<h2 class="text-center">Mes acquisitions</h2>
-	<hr />
-	<div class="row">
-		<%
-			if (request.getSession().getAttribute("acquisitionsAcheteur") == null) {
+			}
+			if (request.getParameter("acquisitions") != null) {
 		%>
-		<p>Vous n'avez remporté aucune enchère</p>
+		<h2 class="text-center">Mes acquisitions</h2>
+		<hr />
+		<div class="row">
+			<%
+				if (request.getSession().getAttribute("acquisitionsAcheteur") == null) {
+			%>
+			<p>Vous n'avez remporté aucune enchère</p>
 
-	<%
-		} else {
-				ArrayList<Vente> acquisitionsAcheteur = (ArrayList<Vente>) request.getSession()
-						.getAttribute("acquisitionsAcheteur");
-				ArrayList<Utilisateur> vendeursAcquisitionsAcheteur = (ArrayList<Utilisateur>) request.getSession()
-						.getAttribute("vendeursAcquisitionsAcheteur");
+			<%
+				} else {
+						ArrayList<Vente> acquisitionsAcheteur = (ArrayList<Vente>) request.getSession()
+								.getAttribute("acquisitionsAcheteur");
+						ArrayList<Utilisateur> vendeursAcquisitionsAcheteur = (ArrayList<Utilisateur>) request.getSession()
+								.getAttribute("vendeursAcquisitionsAcheteur");
 
-				for (Vente v : acquisitionsAcheteur) {
-					Utilisateur u = vendeursAcquisitionsAcheteur.get(acquisitionsAcheteur.indexOf(v));
-	%>
+						for (Vente v : acquisitionsAcheteur) {
+							Utilisateur u = vendeursAcquisitionsAcheteur.get(acquisitionsAcheteur.indexOf(v));
+			%>
 
 
 
-	<div class="col-md-3">
-		<div class="card col-md-12 block-info-vente">
-			<div class="card-body">
-				<h4 class="card-title">
-					<a href="#"><%=v.getNomArticle()%></a>
-				</h4>
-				<h5 class="card-text">
-					Prix intiial :
-					<%=v.getPrixInitial()%></h5>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Fin de l'enchère:
-					<%= df.format(v.getDateFinEncheres())%>></h6>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Retrait:
-					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
+			<div class="col-md-3">
+				<div class="card col-md-12 block-info-vente">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#"><%=v.getNomArticle()%></a>
+						</h4>
+						<h5 class="card-text">
+							Prix intiial :
+							<%=v.getPrixInitial()%></h5>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Fin de l'enchère:
+							<%=df.format(v.getDateFinEncheres())%>>
+						</h6>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Retrait:
+							<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
 								+ v.getRetrait().getVille()%></h6>
-				<p>
-					Vendeur : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
-						class="card-link"><%=u.getPseudo()%></a>
-				</p>
-				<h5 class="card-title text-left">
-					Prix d'achat final:
-					<%=v.getPrixVente()%></h5>
-				<h5 class="card-title text-right">
-					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+						<p>
+							Vendeur : <a
+								href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+								class="card-link"><%=u.getPseudo()%></a>
+						</p>
+						<h5 class="card-title text-left">
+							Prix d'achat final:
+							<%=v.getPrixVente()%></h5>
+						<h5 class="card-title text-right">
+							<a
+								href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
 
-				</h5>
+						</h5>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
 
-	<!-- fin mes acquisitions -->
+			<!-- fin mes acquisitions -->
 
-	<!--  autres choix -->
+			<!--  autres choix -->
 
-	<%
-		}
+			<%
+				}
 
-		}
-		%>
+					}
+			%>
 		</div>
 		<%
-		}
-		if (request.getParameter("autresEncheres") != null ) {
-	%>
-	<h2 class="text-center">Autres Enchères</h2>
-	<hr />
-	<div class="row">
-		<%
-			if (request.getSession().getAttribute("autresVentes") == null) {
+			}
+			if (request.getParameter("autresEncheres") != null) {
 		%>
+		<h2 class="text-center">Autres Enchères</h2>
+		<hr />
+		<div class="row">
+			<%
+				if (request.getSession().getAttribute("autresVentes") == null) {
+			%>
 
-		<p>Il n' y a aucune autre enchère </p>
+			<p>Il n' y a aucune autre enchère</p>
 
-	<%
-		} else {
-				ArrayList<Vente> autresVentes = (ArrayList<Vente>) request.getSession()
-						.getAttribute("autresVentes");
-				for (Vente v : autresVentes) {
-	%>
+			<%
+				} else {
+						ArrayList<Vente> autresVentes = (ArrayList<Vente>) request.getSession()
+								.getAttribute("autresVentes");
+						for (Vente v : autresVentes) {
+			%>
 
 
-	<div class="col-md-3">
-		<div class="card col-md-12 block-info-vente">
-			<div class="card-body">
-				<h4 class="card-title">
-					<a href="#"> <%=v.getNomArticle()%>
+			<div class="col-md-3">
+				<div class="card col-md-12 block-info-vente">
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#"> <%=v.getNomArticle()%>
 
-					</a>
-				</h4>
+							</a>
+						</h4>
 
-				<h5 class="card-text">
-					Prix :
-					<%=v.getPrixInitial()%></h5>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Fin de l'enchère:
-					<%=v.getDateFinEncheres()%></h6>
-				<h6 class="card-subtitle mb-2 text-muted">
-					Retrait:
-					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
+						<h5 class="card-text">
+							Prix :
+							<%=v.getPrixInitial()%></h5>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Fin de l'enchère:
+							<%=v.getDateFinEncheres()%></h6>
+						<h6 class="card-subtitle mb-2 text-muted">
+							Retrait:
+							<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
 								+ v.getRetrait().getVille()%></h6>
-				<h5 class="card-title text-left">
-					Meilleure offre :
-					<%
-					if (request.getSession().getAttribute("encheresAutresVentes") == null) {
-				%>
-					Aucune offre
-					<%
-					} else {
-									ArrayList<Enchere> encheresAutresVentes = (ArrayList<Enchere>) request
-											.getSession().getAttribute("encheresAutresVentes");
-									Enchere e = encheresAutresVentes.get(encheresAutresVentes.indexOf(v));
-									ArrayList<Utilisateur> utilisateursEncehresAutresVentes = (ArrayList<Utilisateur>) request
-											.getSession().getAttribute("utilisateursEncehresAutresVentes");
-									Utilisateur u = utilisateursEncehresAutresVentes
-											.get(encheresAutresVentes.indexOf(e));
-				%>
+						<h5 class="card-title text-left">
+							Meilleure offre :
+							<%
+							if (request.getSession().getAttribute("encheresAutresVentes") == null) {
+						%>
+							Aucune offre
+							<%
+							} else {
+											ArrayList<Enchere> encheresAutresVentes = (ArrayList<Enchere>) request.getSession()
+													.getAttribute("encheresAutresVentes");
+											Enchere e = encheresAutresVentes.get(autresVentes.indexOf(v));
+											ArrayList<Utilisateur> utilisateursEncehresAutresVentes = (ArrayList<Utilisateur>) request
+													.getSession().getAttribute("utilisateursEncehresAutresVentes");
+											Utilisateur u = utilisateursEncehresAutresVentes.get(encheresAutresVentes.indexOf(e));
+						%>
+							<%=e.getMontantEnchere()%>
+							points par : <a
+								href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+								class="card-link"> <%=u.getPseudo()%></a>
+							<%
+								}
+							%>
+						</h5>
+						<h5 class="card-title text-right">
+							<a
+								href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
 
-					<%=e.getMontantEnchere()%>
-					points par : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
-						class="card-link"> <%=u.getPseudo()%></a>
-					<%
-						}
-					%>
-				</h5>
-				<h5 class="card-title text-right">
-					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
-
-				</h5>
+						</h5>
+					</div>
+				</div>
 			</div>
+			<%
+				}
+					}
+			%>
 		</div>
-	</div>
-	<%
-		}
+		<%
 			}
 		%>
-		</div>
-		<%
-		}
-	%>
-	
+
 	</div>
 </body>
 </html>

@@ -152,7 +152,7 @@ public class ProjetEnchereManager {
                 || utilisateur.getPrenom() == null
                 || utilisateur.getPrenom().length() > 30
                 || utilisateur.getEmail() == null
-                || utilisateur.getEmail().length() > 20
+                || utilisateur.getEmail().length() > 50
                 || (utilisateur.getMotDePasse() != null && utilisateur.getMotDePasse().length() > 30)
                 || (utilisateur.getTelephone() != null && utilisateur.getTelephone().length() > 15)
                 || utilisateur.getRue() == null
