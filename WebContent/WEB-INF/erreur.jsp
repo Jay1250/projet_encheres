@@ -1,4 +1,4 @@
-<!-- author JY -->
+<!-- author Kévin Le Devéhat -->
 <%@ page contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"
          isErrorPage="true" %>

@@ -17,6 +17,10 @@ import org.trocencheres.bll.ProjetEnchereManager;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * author JY
+ * Servlet implementation class ServletListEncheres
+ */
 @WebServlet(name = "ServletListEncheres", urlPatterns = "/ListEncheres")
 public class ServletListEncheres extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;

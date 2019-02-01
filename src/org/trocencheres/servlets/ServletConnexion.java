@@ -14,7 +14,7 @@ import org.trocencheres.bll.BLLException;
 import org.trocencheres.bll.ProjetEnchereManager;
 
 /**
- * author JY
+ * author JY + Kévin Le Devéhat
  * Servlet implementation class ServletConnexion
  * Servlet permettant de faire la vérification de l'identifiant et du mot de passe saisis
  */
