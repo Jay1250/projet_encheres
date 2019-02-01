@@ -7,8 +7,8 @@
 	<head>
 	  <title>Troc Encheres</title>
 	  <meta charset="UTF-8">
-	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
-	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/style.css">
 	</head>
 	<% Utilisateur utilisateurConnecte=(Utilisateur)request.getSession().getAttribute("utilisateurConnecte");
 %>	
@@ -16,21 +16,21 @@
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+			      <a class="navbar-brand" href="<%=request.getContextPath()%>">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-			      <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
+			      <li class="active"><a href="<%=request.getContextPath()%>/MonProfil">Mon profil</a></li>
+			      <li><a href="<%=request.getContextPath()%>/ListEncheres">Les enchères</a></li>
+			      <li><a href="<%=request.getContextPath()%>/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="<%=request.getContextPath()%>/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
 		<div class="container">
 			<div class="row top-buffer">
-				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
+				<div class="text-center"><img  style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"></div>
 				<h3 class="text-center"><%=utilisateurConnecte.getPseudo() %></h3><br>
 			</div>
 			<form class="row ">
@@ -71,8 +71,8 @@
 			    <div class="col-md-3 col-xs-5"><h3><%=utilisateurConnecte.getCredit()%></h3></div>
 			  </div>
 			  <div class="text-center">
-			  	<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge" >Retour</a>
-			  	<a href="/ProjetEncheres/MonProfil?modifierProfil=true" class="btn btn-primary marge">Modifier</a>
+			  	<a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge" >Retour</a>
+			  	<a href="<%=request.getContextPath()%>/MonProfil?modifierProfil=true" class="btn btn-primary marge">Modifier</a>
 			  </div>
 			</form>
 		</div>
