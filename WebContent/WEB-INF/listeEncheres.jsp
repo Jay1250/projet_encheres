@@ -21,6 +21,7 @@
 	Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 	String identifiant = utilisateurConnecte.getPseudo();
 %>
+<%java.text.DateFormat df = new java.text.SimpleDateFormat("HH:mm dd/MM/yyyy"); %>
 <body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -170,7 +171,7 @@
 						<%=v.getPrixInitial()%></h5>
 					<h6 class="card-subtitle mb-2 text-muted">
 						Fin de l'enchère:
-						<%=v.getDateFinEncheres()%></h6>
+						<%= df.format(v.getDateFinEncheres())%></h6>
 					<h6 class="card-subtitle mb-2 text-muted">
 						Retrait:
 						<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
@@ -255,9 +256,10 @@
 				<h5 class="card-text">
 					Prix :
 					<%=v.getPrixInitial()%></h5>
+			
 				<h6 class="card-subtitle mb-2 text-muted">
 					Fin de l'enchère:
-					<%=v.getDateFinEncheres()%></h6>
+					<%= df.format(v.getDateFinEncheres())%></h6>
 				<h6 class="card-subtitle mb-2 text-muted">
 					Retrait:
 					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
@@ -346,7 +348,7 @@
 				</h5>
 				<h6 class="card-subtitle mb-2 text-muted">
 					Fin de l'enchère:
-					<%=v.getDateFinEncheres()%></h6>
+					<%= df.format(v.getDateFinEncheres())%>
 				<h6 class="card-subtitle mb-2 text-muted">
 					Retrait:
 					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "
@@ -411,7 +413,7 @@
 					<%=v.getPrixInitial()%></h5>
 				<h6 class="card-subtitle mb-2 text-muted">
 					Fin de l'enchère:
-					<%=v.getDateFinEncheres()%></h6>
+					<%= df.format(v.getDateFinEncheres())%>></h6>
 				<h6 class="card-subtitle mb-2 text-muted">
 					Retrait:
 					<%=v.getRetrait().getRue() + " " + v.getRetrait().getCodePostal() + " "

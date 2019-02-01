@@ -12,7 +12,8 @@
         <script src="<%=request.getContextPath()%>/theme/js/jquery-3.3.1.js"></script>
         <script src="<%=request.getContextPath()%>/theme/bootstrap/js/bootstrap.min.js"></script>
     </head>
-    <%! Vente currentSale = null; %>
+    <%! Vente currentSale = null; %>*
+    <%java.text.DateFormat df = new java.text.SimpleDateFormat("HH:mm dd/MM/yyyy"); %>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -94,7 +95,7 @@
                     </div>
                     <div class="form-group col-md-12 col-xs-12 text-left">
                         <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Fin de l'enchère :</label></div>
-                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getDateFinEncheres()%></label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=df.format(currentSale.getDateFinEncheres())%></label></div>
                     </div>
                     <%Retrait withdrawal = currentSale.getRetrait();%>
                     <div class="form-group col-md-12 col-xs-12 text-left">
