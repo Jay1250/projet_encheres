@@ -321,6 +321,7 @@ public class ProjetEnchereManager {
                 Utilisateur loser = this.utilisateurDAO.selectById(idLoser);
                 loser.setCredit(loser.getCredit() + bid);
                 this.utilisateurDAO.update(loser);
+                this.enchereDAO.deleteAllFromIds(noVente, idLoser);
             }
         } catch (DALException e) {
             e.printStackTrace();

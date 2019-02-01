@@ -43,7 +43,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 
 		if (utilisateurConnecte != null) {
-            /*String choices = request.getParameter("choices");
+            String choices = request.getParameter("choices");
             if (choices != null) {
                 if (choices.contains("1"))
 					request.setAttribute("ventesEnCours", choices);
@@ -55,7 +55,7 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 					request.setAttribute("acquisitions", choices);
                 if (choices.contains("5"))
 					request.setAttribute("autresEncheres", choices);
-            }*/
+            }
 			if ((request.getParameter("ventesEnCours") != null)) {
 
 				ArrayList<Vente> ventesEnCoursVendeur = null;

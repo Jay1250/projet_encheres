@@ -226,6 +226,20 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
         }
     }
 
+    @Override
+    public void deleteAllFromIds(Integer noVente, Integer noUtilisateur) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            String sqlRequest = "DELETE FROM ENCHERES WHERE no_vente = ? AND no_utilisateur = ?";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noVente);
+            statement.setInt(2, noUtilisateur);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            throw new DALException("Auction - Delete", e);
+        }
+    }
+
     private Enchere createAuctionFromResultSet(ResultSet resultSet) throws SQLException {
         int noVente = resultSet.getInt("no_vente");
         int noUtilisateur = resultSet.getInt("no_utilisateur");
