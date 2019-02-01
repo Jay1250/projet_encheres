@@ -12,6 +12,7 @@
         <script src="<%=request.getContextPath()%>/theme/js/jquery-3.3.1.js"></script>
         <script src="<%=request.getContextPath()%>/theme/bootstrap/js/bootstrap.min.js"></script>
     </head>
+    <%! private Object requestchoices = null;%>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -33,7 +34,9 @@
                 <div class="text-center"><img  style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"></div>
                 <h3 class="text-center">Détail vente</h3><br>
             </div>
-            <% Object requestSale = request.getAttribute("vente");
+            <% requestchoices = request.getAttribute("choices");
+
+                Object requestSale = request.getAttribute("vente");
                 if (requestSale != null) {
                     Vente currentSale = (Vente) requestSale;
                     if (currentSale.getNoVente() != 0) {
@@ -73,10 +76,23 @@
                         <div class="col-md-3 col-xs-5 col-md-offset-1"><label><%=currentSale.getDescription()%></label></div>
                     </div>
                     <div class="form-group col-md-12 col-xs-12 text-left">
-                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1"><label>Meilleure offre :</label></div>
+                        <div class="col-md-3 col-xs-5 col-md-offset-3 col-xs-offset-1">
+                            <label>
+                                <% if (saleEnded && currentSale.getPrixVente() != 0) { %>
+                                    Prix de vente :
+                                <% } else { %>
+                                    Meilleure offre :
+                                <% } %>
+                            </label>
+                        </div>
                         <div class="col-md-3 col-xs-5 col-md-offset-1">
                             <% if (requestLastAuctionPrice != null && requestLastBidder != null) { %>
-                                <label><%=lastAuctionPrice%> points par
+                                <label><%=lastAuctionPrice%>
+                                    <% if (saleEnded && currentSale.getPrixVente() != 0) { %>
+                                        remporté par
+                                    <% } else { %>
+                                        point par
+                                    <% } %>
                                     <a href="./Profil?userId=<%=lastBidder.getNoUtilisateur()%>&fromSale=<%=currentSale.getNoVente()%>">
                                         <%=lastBidder.getPseudo()%>
                                     </a>
@@ -163,7 +179,7 @@
                                 <a href="<%=request.getContextPath()%>/Vente?saleId=<%=currentSale.getNoVente()%>&delete=true" class="btn btn-primary marge">Supprimer cette vente</a>
                             <% } %>
                         <% } %>
-                        <a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge">Retour</a>
+                        <a href="<%=request.getContextPath()%>/ListEncheres<%=(requestchoices != null && !requestchoices.equals("") ? "?choices=" + requestchoices : "")%>" class="btn btn-primary marge">Retour</a>
                     </div>
                 </form>
             <%} else {%>
@@ -171,14 +187,14 @@
                     <p>Aucune vente à afficher</p>
                 </div>
                 <div class="text-center">
-                    <a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge">Retour</a>
+                    <a href="<%=request.getContextPath()%>/ListEncheres<%=(requestchoices != null && !requestchoices.equals("") ? "?choices=" + requestchoices : "")%>" class="btn btn-primary marge">Retour</a>
                 </div>
             <%}} else {%>
             <div class="text-center">
                 <p>Aucune vente à afficher</p>
             </div>
             <div class="text-center">
-                <a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge">Retour</a>
+                <a href="<%=request.getContextPath()%>/ListEncheres<%=(requestchoices != null && !requestchoices.equals("") ? "?choices=" + requestchoices : "")%>" class="btn btn-primary marge">Retour</a>
             </div>
             <%}%>
             <!--  modal détails vente -->

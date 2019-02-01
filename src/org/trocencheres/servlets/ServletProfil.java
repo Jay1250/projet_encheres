@@ -38,9 +38,9 @@ public class ServletProfil extends HttpServlet implements Servlet {
                 if (fromSale != null)
                     request.setAttribute("fromSale", fromSale);
 
-                String fromChoices = request.getParameter("fromChoices");
-                if (fromChoices != null)
-                    request.setAttribute("fromChoices", fromChoices);
+                String choices = request.getParameter("choices");
+                if (choices != null)
+                    request.setAttribute("choices", choices);
 
                 String userParameter = request.getParameter("userId");
                 int userId = 0;
@@ -54,8 +54,8 @@ public class ServletProfil extends HttpServlet implements Servlet {
                     response.sendRedirect("/ProjetEncheres/MonProfil"
                             + (fromSale != null
                                 ? "?fromSale=" + fromSale
-                                : fromChoices != null
-                                    ? "?fromChoices=" + fromChoices
+                                : choices != null
+                                    ? "?choices=" + choices
                                     : ""));
                 else
                     request.getRequestDispatcher("/WEB-INF/profil.jsp").forward(request, response);
