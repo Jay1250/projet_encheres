@@ -21,7 +21,7 @@
 	Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 	String identifiant = utilisateurConnecte.getPseudo();
 %>
-<%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
+<%java.text.DateFormat df = new java.text.SimpleDateFormat("HH:mm dd/MM/yyyy"); %>
 <body>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
