@@ -101,6 +101,30 @@ public class IVenteDAOJdbcImpl implements IVenteDAO {
 	}
 
 	@Override
+	public ArrayList<Vente> selectAllNotCreatedNorBidByUser(int noUtilisateur) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            ArrayList<Vente> allOtherVentes = new ArrayList<>();
+            String sqlRequest = "SELECT * " +
+                    "FROM VENTES v " +
+                    "WHERE v.no_utilisateur != ? " +
+                    "AND NOT EXISTS (SELECT * " +
+                        "FROM ENCHERES e " +
+                        "WHERE e.no_utilisateur = ? " +
+                        "AND v.no_vente = e.no_vente)";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noUtilisateur);
+            statement.setInt(2, noUtilisateur);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                allOtherVentes.add(this.createSaleFromResultSet(resultSet));
+            }
+            return allOtherVentes;
+        } catch (SQLException e) {
+            throw new DALException("Sale - Select all not created nor bid", e);
+        }
+    }
+
+	@Override
     public void update(Vente vente) throws DALException {
         try (Connection connection = ConnectionProvider.getConnection()) {
             PreparedStatement statement = this.getStatementFromMode("update", connection, vente);

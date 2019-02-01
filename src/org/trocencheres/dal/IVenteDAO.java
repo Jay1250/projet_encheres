@@ -18,6 +18,8 @@ public interface IVenteDAO {
 
 	ArrayList<Vente> selectAllCurrentByUser(int noUtilisateur) throws DALException;
 
+	ArrayList<Vente> selectAllNotCreatedNorBidByUser(int noUtilisateur) throws DALException;
+
 	void update(Vente vente) throws DALException;
 
 	void insert(Vente vente) throws DALException;
