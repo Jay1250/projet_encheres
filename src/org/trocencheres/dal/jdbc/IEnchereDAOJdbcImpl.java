@@ -8,6 +8,7 @@ import org.trocencheres.dal.IEnchereDAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author Kévin Le Devéhat
@@ -164,6 +165,31 @@ public class IEnchereDAOJdbcImpl implements IEnchereDAO {
             return allEncheresByUser;
         } catch (SQLException e) {
             throw new DALException("Auction - Select all ended by user", e);
+        }
+    }
+
+    @Override
+    public HashMap<Integer, Integer> selectAllLosersMaxBid(int noVente, int winnerId) throws DALException {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            HashMap<Integer, Integer> allLosersMaxBid = new HashMap<>();
+            String sqlRequest = "SELECT en.no_utilisateur, max(en.montant_enchere) as montant_enchere " +
+                    "FROM ENCHERES en " +
+                    "INNER JOIN VENTES v ON en.no_vente = v.no_vente " +
+                    "WHERE en.no_vente = ? AND en.no_utilisateur != ? " +
+                    "GROUP BY en.no_utilisateur";
+            PreparedStatement statement = connection.prepareStatement(sqlRequest);
+            statement.setInt(1, noVente);
+            statement.setInt(2, winnerId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet != null && resultSet.next()) {
+                int noUtilisateur = resultSet.getInt("no_utilisateur");
+                int montantEnchere = resultSet.getInt("montant_enchere");
+                allLosersMaxBid.put(noUtilisateur, montantEnchere);
+            }
+            statement.close();
+            return allLosersMaxBid;
+        } catch (SQLException e) {
+            throw new DALException("Auction - Select all losers max bid", e);
         }
     }
 

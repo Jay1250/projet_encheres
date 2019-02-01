@@ -3,7 +3,7 @@ package org.trocencheres.dal;
 import org.trocencheres.beans.Enchere;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author Kévin Le Devéhat
@@ -22,6 +22,8 @@ public interface IEnchereDAO {
     ArrayList<Enchere> selectAllCurrentByUser(int noUtilisateur) throws DALException;
 
     ArrayList<Enchere> selectAllEndedByUser(int noUtilisateur) throws DALException;
+
+    HashMap<Integer, Integer> selectAllLosersMaxBid(int noVente, int winnerId) throws DALException;
 
     void insert(Enchere enchere) throws DALException;
 

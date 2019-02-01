@@ -3,10 +3,8 @@ package org.trocencheres.bll;
 import org.trocencheres.beans.*;
 import org.trocencheres.dal.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author Kévin Le Devéhat
@@ -173,16 +171,17 @@ public class ProjetEnchereManager {
     public Vente getSaleById(int noVente) throws BLLException {
         Vente vente = null;//this.ventesIndex.get(noVente);
         try {
-            if (vente == null) {
+            //if (vente == null) {
                 vente = this.venteDAO.selectById(noVente);
                 if (vente.getNoVente() != 0) {
                     Retrait retrait = this.retraitDAO.selectByIdVente(noVente);
                     this.validateWithdrawal(retrait);
                     vente.setRetrait(retrait);
                     this.validateSale(vente);
+                    return this.terminateSaleIfNeeded(vente);
                     //this.ventesIndex.put(vente.getNoUtilisateur(), vente);
                 }
-            }
+            //}
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -192,7 +191,10 @@ public class ProjetEnchereManager {
     public ArrayList<Vente> selectAllSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
-            ventesList = venteDAO.selectAllByUser(noUtilisateur);
+            ArrayList<Vente> tempVentesList = venteDAO.selectAllByUser(noUtilisateur);
+            for (Vente v: tempVentesList) {
+                ventesList.add(this.terminateSaleIfNeeded(v));
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -202,7 +204,10 @@ public class ProjetEnchereManager {
     public ArrayList<Vente> selectAllEndedSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
-            ventesList = venteDAO.selectAllEndedByUser(noUtilisateur);
+            ArrayList<Vente> tempVentesList = venteDAO.selectAllEndedByUser(noUtilisateur);
+            for (Vente v: tempVentesList) {
+                ventesList.add(this.terminateSaleIfNeeded(v));
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -222,7 +227,10 @@ public class ProjetEnchereManager {
     public ArrayList<Vente> selectAllOtherSalesByUser(int noUtilisateur) throws BLLException {
         ArrayList<Vente> ventesList = new ArrayList<>();
         try {
-            ventesList = venteDAO.selectAllNotCreatedNorBidByUser(noUtilisateur);
+            ArrayList<Vente> tempVentesList = venteDAO.selectAllNotCreatedNorBidByUser(noUtilisateur);
+            for (Vente v: tempVentesList) {
+                ventesList.add(this.terminateSaleIfNeeded(v));
+            }
         } catch (DALException e) {
             e.printStackTrace();
         }
@@ -274,6 +282,39 @@ public class ProjetEnchereManager {
                 || vente.getNoCategorie() == 0
                 || vente.getRetrait() == null) {
             throw new BLLException("Invalid sale");
+        }
+    }
+
+    private Vente terminateSaleIfNeeded(Vente vente) {
+        if (vente != null && vente.getDateFinEncheres() != null && vente.getPrixVente() == 0) {
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+            Date currentTime = new Date(currentTimestamp.getTime());
+            if (currentTime.after(vente.getDateFinEncheres())) {
+                try {
+                    Enchere lastAuction = this.enchereDAO.selectLastBySale(vente.getNoVente());
+                    vente.setPrixVente(lastAuction.getMontantEnchere());
+                    this.venteDAO.update(vente);
+                    this.refundSaleLosersBid(vente.getNoVente(), lastAuction.getNoUtilisateur());
+                } catch (DALException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return vente;
+    }
+
+    private void refundSaleLosersBid(int noVente, int winnerId) {
+        try {
+            HashMap<Integer, Integer> losersMaxBid = this.enchereDAO.selectAllLosersMaxBid(noVente, winnerId);
+            for(Map.Entry<Integer, Integer> entry : losersMaxBid.entrySet()) {
+                int idLoser = entry.getKey();
+                int bid = entry.getValue();
+                Utilisateur loser = this.utilisateurDAO.selectById(idLoser);
+                loser.setCredit(loser.getCredit() + bid);
+                this.utilisateurDAO.update(loser);
+            }
+        } catch (DALException e) {
+            e.printStackTrace();
         }
     }
 
