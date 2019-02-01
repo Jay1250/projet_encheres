@@ -12,6 +12,7 @@
         <script src="<%=request.getContextPath()%>/theme/js/jquery-3.3.1.js"></script>
         <script src="<%=request.getContextPath()%>/theme/bootstrap/js/bootstrap.min.js"></script>
     </head>
+    <%! Vente currentSale = null; %>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -34,8 +35,9 @@
                 <h3 class="text-center">Détail vente</h3><br>
             </div>
             <% Object requestSale = request.getAttribute("vente");
+            	currentSale = null;
                 if (requestSale != null) {
-                    Vente currentSale = (Vente) requestSale;
+                    currentSale = (Vente) requestSale;
                     if (currentSale.getNoVente() != 0) {
 
                         Object requestLastAuctionPrice = request.getAttribute("montantDerniereEnchere");
@@ -144,7 +146,7 @@
                         </div>
                     <% } %>
                     <div class="form-group col-md-12 col-xs-12 text-center">
-                        <a  class="visible-xs" href="ModalInfosVente.html" data-toggle="modal" data-target="#infosVente">Détails</a>
+                        <a  class="visible-xs" data-toggle="modal" data-target="#infosVente">Détails</a>
                     </div>
                     <% if (saleEnded) {%>
                     <div class="text-center">
@@ -183,8 +185,19 @@
             <%}%>
             <!--  modal détails vente -->
             <div id="infosVente" class="modal fade text-center">
-                <div class="modal-dialog"><div class="modal-content"></div></div>
+                <div class="modal-dialog">
+                	<div class="modal-content">
+                		<div class="modal-header">
+        					<h5 class="modal-title">Description</h5>
+    					</div>
+	    				<div class="modal-body">
+	    					<p><%=currentSale.getDescription()%></p>
+	    				</div>
+	    				<div class="modal-footer">
+	    					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+                	</div>
+                </div>
             </div>
-        </div>
     </body>
 </html>
