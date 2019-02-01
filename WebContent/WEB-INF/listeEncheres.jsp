@@ -140,9 +140,9 @@
                             Aucune offre
                         <% } else {
                             ArrayList<Enchere> encheresVentesEnCoursVendeur = (ArrayList<Enchere>) session.getAttribute("encheresVentesEnCoursVendeur");
-                            Enchere e = encheresVentesEnCoursVendeur.get(encheresVentesEnCoursVendeur.indexOf(v));
+                            Enchere e = encheresVentesEnCoursVendeur.get(ventesEnCoursVendeur.indexOf(v));
                             ArrayList<Utilisateur> utilisateursEncheresVentesEnCoursVendeur = (ArrayList<Utilisateur>) request.getSession().getAttribute("utilisateursEncheresVentesEnCoursVendeur");
-                            Utilisateur u = utilisateursEncheresVentesEnCoursVendeur.get(utilisateursEncheresVentesEnCoursVendeur.indexOf(e));
+                            Utilisateur u = utilisateursEncheresVentesEnCoursVendeur.get(encheresVentesEnCoursVendeur.indexOf(e));
                         %>
                         <% if(e.getNoUtilisateur() != 0) { %>
                         <%=e.getMontantEnchere()%> par :
