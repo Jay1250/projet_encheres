@@ -133,7 +133,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 					);
 				try {
 					pem.addSale(vente, retrait);
-					response.sendRedirect("/ProjetEncheres/ListEncheres");
+					response.sendRedirect("<%=request.getContextPath()%>/ListEncheres");
 				} catch (BLLException e) {
 					e.printStackTrace();
 					request.setAttribute("erreur", true);
@@ -183,7 +183,7 @@ public class ServletVendreUnArticle extends HttpServlet implements Servlet {
 		// si la session a expiré:
 		if (request.getSession().getAttribute("utilisateurConnecte") == null) {
             request.getSession().invalidate();
-			response.sendRedirect("/ProjetEncheres/Connexion");
+			response.sendRedirect("<%=request.getContextPath()%>/Connexion");
 		// si la session utilisateur est toujours active
         }else
 			 stillConnected = true;

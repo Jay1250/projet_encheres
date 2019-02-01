@@ -37,7 +37,7 @@ public class ServletDeconnexion extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().setAttribute("utilisateurConnecte", null);
 		request.getSession().invalidate();
-		response.sendRedirect("/ProjetEncheres/Connexion");
+		response.sendRedirect("<%=request.getContextPath()%>/Connexion");
 	}
 
 }
