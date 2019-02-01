@@ -195,7 +195,7 @@
 
 						<%=e.getMontantEnchere()%>
 						points par : <a
-							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+							href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>"
 							class="card-link"> <%=u.getPseudo()%></a>
 						<%
 							}
@@ -203,7 +203,7 @@
 					</h5>
 					<h5 class="card-title text-right">
 						<a
-							href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+							href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&choices=<%=choix%>">détails</a>
 
 					</h5>
 				</div>
@@ -283,7 +283,7 @@
 
 					<%=e.getMontantEnchere()%>
 					points par : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>"
 						class="card-link"> <%=u.getPseudo()%></a>
 					<%
 						}
@@ -291,7 +291,7 @@
 				</h5>
 				<h5 class="card-title text-right">
 					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&choices=<%=choix%>">détails</a>
 
 				</h5>
 			</div>
@@ -355,13 +355,13 @@
 								+ v.getRetrait().getVille()%></h6>
 				<p>
 					Vendeur : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>"
 						class="card-link"><%=u.getPseudo()%></a>
 				</p>
 				<h5 class="card-title text-left">Classement : 1</h5>
 				<h5 class="card-title text-right">
 					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&choices=<%=choix%>">détails</a>
 				</h5>
 			</div>
 		</div>
@@ -420,7 +420,7 @@
 								+ v.getRetrait().getVille()%></h6>
 				<p>
 					Vendeur : <a
-						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&fromChoices=<%=choix%>"
+						href="/ProjetEncheres/Profil?userId=<%=u.getNoUtilisateur()%>&choices=<%=choix%>"
 						class="card-link"><%=u.getPseudo()%></a>
 				</p>
 				<h5 class="card-title text-left">
@@ -428,7 +428,7 @@
 					<%=v.getPrixVente()%></h5>
 				<h5 class="card-title text-right">
 					<a
-						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&fromChoices=<%=choix%>">détails</a>
+						href="/ProjetEncheres/Vente?saleId=<%=v.getNoVente()%>&choices=<%=choix%>">détails</a>
 
 				</h5>
 			</div>

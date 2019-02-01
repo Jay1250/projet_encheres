@@ -38,7 +38,7 @@ public class IUtilisateurDAOJdbcImpl implements IUtilisateurDAO {
 	public Utilisateur selectByLogin(String pseudoOrEmail, String password) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			Utilisateur utilisateur = new Utilisateur();
-			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
+			String sqlRequest = "SELECT * FROM UTILISATEURS WHERE (pseudo COLLATE Latin1_General_CS_AS = ? OR email = ?) AND mot_de_passe COLLATE Latin1_General_CS_AS = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
 			statement.setString(1, pseudoOrEmail);
 			statement.setString(2, pseudoOrEmail);
@@ -131,7 +131,7 @@ public class IUtilisateurDAOJdbcImpl implements IUtilisateurDAO {
 
 	private boolean paramExists(String paramName, Object param) throws DALException {
 		try (Connection connection = ConnectionProvider.getConnection()) {
-			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE " + paramName +" = ?";
+			String sqlRequest = "SELECT COUNT(*) AS existing FROM UTILISATEURS WHERE " + paramName + " COLLATE Latin1_General_CS_AS = ?";
 			PreparedStatement statement = connection.prepareStatement(sqlRequest);
 			statement.setString(1, (String) param);
 			ResultSet resultSet = statement.executeQuery();
