@@ -1,33 +1,33 @@
 <%--Author Kévin Le Devéhat + JI--%>
 <%@ page import="org.trocencheres.beans.Utilisateur" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
     <head>
         <title>Troc Encheres</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/style.css">
     </head>
     <body>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/ProjetEncheres/Connexion">TrocEncheres.org</a>
+                    <a class="navbar-brand" href="<%=request.getContextPath()%>/Connexion">TrocEncheres.org</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-                    <li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-                    <li><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
+                    <li class="active"><a href="<%=request.getContextPath()%>/MonProfil">Mon profil</a></li>
+                    <li><a href="<%=request.getContextPath()%>/ListEncheres">Les enchères</a></li>
+                    <li><a href="<%=request.getContextPath()%>/VendreUnArticle">Vendre un article</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a>
+                    <li><a href="<%=request.getContextPath()%>/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="container">
             <div class="row top-buffer">
-                <div class="text-center"><img style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
+                <div class="text-center"><img style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"></div>
                 <h3 class="text-center">Profil utilisateur</h3><br>
             </div>
             <form class="row ">
@@ -86,17 +86,17 @@
                         Object requestFromChoices = request.getAttribute("fromChoices");
                         if (requestFromSale != null) {
                     %>
-                        <a href="/ProjetEncheres/Vente?saleId=<%=(String)requestFromSale%>"
+                        <a href="<%=request.getContextPath()%>/Vente?saleId=<%=(String)requestFromSale%>"
                            class="btn btn-primary marge">
                             Retour
                         </a>
                     <% } else if (requestFromChoices != null) { %>
-                        <a href="/ProjetEncheres/ListEncheres?choices=<%=(String)requestFromChoices%>"
+                        <a href="<%=request.getContextPath()%>/ListEncheres?choices=<%=(String)requestFromChoices%>"
                            class="btn btn-primary marge">
                             Retour
                         </a>
                     <% } else { %>
-                        <a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge">Retour</a>
+                        <a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge">Retour</a>
                     <%}%>
                 </div>
             </form>

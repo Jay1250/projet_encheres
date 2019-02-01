@@ -1,5 +1,5 @@
 <!-- author JY + JI -->
-<%@ page language="java" contentType="text/html; UTF-8"
+<%@ page contentType="text/html; UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -7,31 +7,31 @@
     <title>Connexion</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
-    <script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/style.css">
+    <script src="<%=request.getContextPath()%>/theme/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+            <a class="navbar-brand" href="<%=request.getContextPath()%>">TrocEncheres.org</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/ProjetEncheres/Connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a>
+            <li><a href="<%=request.getContextPath()%>/Connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a>
             </li>
-            <li><a href="/ProjetEncheres/CreerCompte"><span class="glyphicon glyphicon glyphicon-pencil"></span>
+            <li><a href="<%=request.getContextPath()%>/CreerCompte"><span class="glyphicon glyphicon glyphicon-pencil"></span>
                 Créer un compte</a></li>
         </ul>
     </div>
 </nav>
 <div class="container">
     <div class="row top-buffer">
-        <div class="text-center"><img style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"
+        <div class="text-center"><img style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"
                                       alt="Logo Troc Enchères - Les objets sont nos amis"></div>
         <h2 class="text-center">Connexion</h2><br>
     </div>
-    <form action="/ProjetEncheres/Connexion" method="post">
+    <form action="<%=request.getContextPath()%>/Connexion" method="post">
         <div class="col-md-4 col-md-offset-4">
             <% if (request.getAttribute("identifiantOuMdpIncorrects") != null && request.getAttribute("identifiantOuMdpIncorrects").equals(true)) {%>
                 <p class="text-danger">Identifiant ou mot de passe incorrect</p>

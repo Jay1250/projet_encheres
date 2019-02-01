@@ -1,18 +1,14 @@
-<%@page import="
-				java.util.Map,
-				org.trocencheres.beans.Categorie
-				"
-%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="org.trocencheres.beans.Categorie" %>
+<%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
 	  <title>Troc Encheres</title>
 	  <meta charset="UTF-8">
-	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
-	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
-	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/clockpicker.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/style.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/clockpicker.css">
 	</head>
 	<% 
 	 Categorie categories = (Categorie)request.getSession().getAttribute("categorie");
@@ -27,24 +23,24 @@
 		<nav class="navbar navbar-inverse">
 	  		<div class="container-fluid">
 			    <div class="navbar-header">
-			      <a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+			      <a class="navbar-brand" href="<%=request.getContextPath()%>">TrocEncheres.org</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li><a href="/ProjetEncheres/MonProfil">Mon profil</a></li>
-			      <li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-			      <li class="active"><a href="/ProjetEncheres/VendreUnArticle">Vendre un article</a></li>
+			      <li><a href="<%=request.getContextPath()%>/MonProfil">Mon profil</a></li>
+			      <li><a href="<%=request.getContextPath()%>/ListEncheres">Les enchères</a></li>
+			      <li class="active"><a href="<%=request.getContextPath()%>/VendreUnArticle">Vendre un article</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="/ProjetEncheres/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+			      <li><a href="<%=request.getContextPath()%>/Deconnexion"><span class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
 			    </ul>
 	  		</div>
 		</nav>
 		<div class="container">
 			<div class="row top-buffer">
-				<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
+				<div class="text-center"><img  style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"></div>
 				<h3 class="text-center">Nouvelle vente</h3><br>
 			</div>
-			<form class="row" action = "/ProjetEncheres/VendreUnArticle" method="POST">
+			<form class="row" action = "<%=request.getContextPath()%>/VendreUnArticle" method="POST">
 			 	<div class="form-group col-md-12 col-xs-12 text-left">
 			 		<% if ((request.getAttribute("articleNonRenseigne") != null && request.getAttribute("articleNonRenseigne").equals(true))
 			 				|| (request.getAttribute("descriptionNonRenseigne") != null && request.getAttribute("descriptionNonRenseigne").equals(true))
@@ -126,13 +122,13 @@
 			  	</div>
 			  	<div class="text-center">
 			  		<button type="submit" class="btn btn-primary marge ">Publier</button>
-			  		<a href="/ProjetEncheres/ListEncheres" class="btn btn-primary marge ">Annuler</a>
+			  		<a href="<%=request.getContextPath()%>/ListEncheres" class="btn btn-primary marge ">Annuler</a>
 			  	</div>
 			</form>
 		</div>
-		<script src="/ProjetEncheres/theme/js/jquery-3.3.1.js"></script>
-		<script src="/ProjetEncheres/theme/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/ProjetEncheres/theme/js/clockpicker.js"></script>
+		<script src="<%=request.getContextPath()%>/theme/js/jquery-3.3.1.js"></script>
+		<script src="<%=request.getContextPath()%>/theme/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/theme/js/clockpicker.js"></script>
 		<script type="text/javascript">
 		   $('.timepicker').clockpicker({
 			    placement: 'top',

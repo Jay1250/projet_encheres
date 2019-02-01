@@ -1,12 +1,12 @@
 <!-- author JY + JI -->
 <%@page import="org.trocencheres.beans.Utilisateur"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
 	  <title>Troc Encheres</title>
-	  <meta charset="ISO-8859-1">
+	  <meta charset="UTF-8">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
 	</head>

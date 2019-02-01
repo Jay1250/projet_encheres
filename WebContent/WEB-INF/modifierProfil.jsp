@@ -1,7 +1,7 @@
 <!-- author JY + JI -->
 <%@page import="org.trocencheres.beans.Utilisateur"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="/ProjetEncheres/theme/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/ProjetEncheres/theme/css/style.css">
+	href="<%=request.getContextPath()%>/theme/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/theme/css/style.css">
 </head>
 <%
 	Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
@@ -19,18 +19,18 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/ProjetEncheres">TrocEncheres.org</a>
+				<a class="navbar-brand" href="<%=request.getContextPath()%>">TrocEncheres.org</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/ProjetEncheres/MonProfil">Mon
+				<li class="active"><a href="<%=request.getContextPath()%>/MonProfil">Mon
 					profil</a></li>
-				<li><a href="/ProjetEncheres/ListEncheres">Les enchères</a></li>
-				<li><a href="/ProjetEncheres/VendreUnArticle">Vendre
+				<li><a href="<%=request.getContextPath()%>/ListEncheres">Les enchÃ¨res</a></li>
+				<li><a href="<%=request.getContextPath()%>/VendreUnArticle">Vendre
 					un article</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/ProjetEncheres/Deconnexion"><span
-						class="glyphicon glyphicon-user"></span> Déconnexion</a></li>
+				<li><a href="<%=request.getContextPath()%>/Deconnexion"><span
+						class="glyphicon glyphicon-user"></span> DÃ©connexion</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -41,17 +41,17 @@
 						&& request.getAttribute("champsNonRemplis").equals(true)) {
 			%>
 
-			<p class="text-danger">Tous les champs (excepté le téléphone)
-				doivent être remplis</p>
+			<p class="text-danger">Tous les champs (exceptÃ© le tÃ©lÃ©phone)
+				doivent Ãªtre remplis</p>
 			<%
 				}
 			%>
-			<div class="text-center"><img  style="max-width:300px;" src="/ProjetEncheres/logoProjet.png"></div>
+			<div class="text-center"><img  style="max-width:300px;" src="<%=request.getContextPath()%>/logoProjet.png"></div>
 			<h2 class="text-center">Mon profil</h2>
 			<br>
 		</div>
 		<form class="row" method="post"
-			action="/ProjetEncheres/ModifierProfil">
+			action="<%=request.getContextPath()%>/ModifierProfil">
 			<div class="form-group col-md-6 col-xs-12">
 				<div class="col-md-4 col-xs-4">
 					<label for="pseudo">Pseudo :</label>
@@ -76,7 +76,7 @@
 						if (request.getAttribute("pseudoExists") != null && request.getAttribute("pseudoExists").equals(true)) {
 					%>
 
-					<p class="text-danger">Ce pseudo existe déjà. Veuillez saisir
+					<p class="text-danger">Ce pseudo existe dÃ©jÃ . Veuillez saisir
 						un nouveau pseudo</p>
 					<%
 						}
@@ -107,7 +107,7 @@
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
 				<div class="col-md-4 col-xs-4">
-					<label for="Prenom">Prénom :</label>
+					<label for="Prenom">PrÃ©nom :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="prenom" name="prenom"
@@ -150,7 +150,7 @@
 					<%
 						if (request.getAttribute("emailExists") != null && request.getAttribute("emailExists").equals(true)) {
 					%>
-					<p class="text-danger">Cet email existe déjà. Veuillez saisir
+					<p class="text-danger">Cet email existe dÃ©jÃ . Veuillez saisir
 						un nouvel email</p>
 					<%
 						}
@@ -159,7 +159,7 @@
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
 				<div class="col-md-4 col-xs-4">
-					<label for="telephone">Téléphone :</label>
+					<label for="telephone">TÃ©lÃ©phone :</label>
 				</div>
 				<div class="col-md-8 col-xs-8">
 					<input type="text" class="form-control" id="telephone"
@@ -182,8 +182,8 @@
 						if (request.getAttribute("telephoneExists") != null
 								&& request.getAttribute("telephoneExists").equals(true)) {
 					%>
-					<p class="text-danger">Ce numéro de téléphone existe déjà.
-						Veuillez en saisir un nouveau téléphone</p>
+					<p class="text-danger">Ce numÃ©ro de tÃ©lÃ©phone existe dÃ©jÃ .
+						Veuillez en saisir un nouveau tÃ©lÃ©phone</p>
 					<%
 						}
 					%>
@@ -302,7 +302,7 @@
 				<button type="submit" class="btn btn-primary marge ">Enregistrer</button>
 <!-- 				<button type="button" class="btn btn-primary marge ">Supprimer -->
 <!-- 					mon compte</button> -->
-				<a href="/ProjetEncheres/MonProfil" class="btn btn-primary marge" >Retour</a>
+				<a href="<%=request.getContextPath()%>/MonProfil" class="btn btn-primary marge" >Retour</a>
 			</div>
 		</form>
 	</div>
