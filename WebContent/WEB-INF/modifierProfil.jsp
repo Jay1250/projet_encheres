@@ -272,10 +272,7 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="motdepasse"
 						name="motdepasse" maxlength="30"
-						<%if (request.getParameter("motdepasse") != null) {%>
-						value="<%=request.getParameter("motdepasse")%>
-						"
-						<%}%>>
+						>
 				</div>
 			</div>
 			<div class="form-group col-md-6 col-xs-12">
@@ -285,8 +282,7 @@
 				<div class="col-md-8 col-xs-8">
 					<input type="password" class="form-control" id="confirmation"
 						name="confirmation" maxlength="30"
-						<%if (request.getParameter("confirmation") != null) {%>
-						value="<%=request.getParameter("confirmation")%>" <%}%>>
+						>
 
 				</div>
 			</div>
