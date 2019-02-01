@@ -43,6 +43,19 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 		Utilisateur utilisateurConnecte = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 
 		if (utilisateurConnecte != null) {
+            /*String choices = request.getParameter("choices");
+            if (choices != null) {
+                if (choices.contains("1"))
+					request.setAttribute("ventesEnCours", choices);
+                if (choices.contains("2"))
+					request.setAttribute("ventesTerminees", choices);
+                if (choices.contains("3"))
+					request.setAttribute("encheresEnCours", choices);
+                if (choices.contains("4"))
+					request.setAttribute("acquisitions", choices);
+                if (choices.contains("5"))
+					request.setAttribute("autresEncheres", choices);
+            }*/
 			if ((request.getParameter("ventesEnCours") != null)) {
 
 				ArrayList<Vente> ventesEnCoursVendeur = null;
@@ -59,10 +72,15 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
 						if (enchere != null && enchere.getNoUtilisateur() != 0)
 							encheresVentesEnCoursVendeur.add(enchere);
+						else
+							encheresVentesEnCoursVendeur.add(new Enchere());
 
 					}
 					for (Enchere e : encheresVentesEnCoursVendeur) {
-						utilisateursEncheresVentesEnCoursVendeur.add(pem.getUserById(e.getNoUtilisateur()));
+						if (e.getNoUtilisateur() != 0)
+							utilisateursEncheresVentesEnCoursVendeur.add(pem.getUserById(e.getNoUtilisateur()));
+						else
+							utilisateursEncheresVentesEnCoursVendeur.add(new Utilisateur());
 					}
 
 					if (!ventesEnCoursVendeur.isEmpty())
@@ -95,10 +113,15 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 						Enchere enchere = pem.getLastAuctionBySale(v.getNoVente());
 						if (enchere != null && enchere.getNoUtilisateur() != 0)
 							encheresVentesTermineesVendeur.add(enchere);
+						else
+							encheresVentesTermineesVendeur.add(new Enchere());
 
 					}
 					for (Enchere e : encheresVentesTermineesVendeur) {
-						utilisateursEncehresVentesTermineesVendeur.add(pem.getUserById(e.getNoUtilisateur()));
+						if (e.getNoUtilisateur() != 0)
+							utilisateursEncehresVentesTermineesVendeur.add(pem.getUserById(e.getNoUtilisateur()));
+						else
+							utilisateursEncehresVentesTermineesVendeur.add(new Utilisateur());
 					}
 
 					if (!ventesTermineesVendeur.isEmpty())
@@ -193,7 +216,6 @@ public class ServletListEncheres extends HttpServlet implements Servlet {
 					this.getServletContext().getRequestDispatcher("/WEB-INF/erreur.jsp").forward(request, response);
 				}
 			}
-
 			if (request.getParameter("autresEncheres") != null) {
 				ArrayList<Vente> autresVentes = null;
 				ArrayList<Enchere> encheresAutresVentes = null;
